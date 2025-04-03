@@ -190,5 +190,7 @@ dependencies {
 
     implementation (libs.materialratingbar)
     implementation (libs.razorpay)
+
+    implementation ("com.github.gcacace:signature-pad:1.3.1")
 }
 

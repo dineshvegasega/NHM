@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nhm.distribution.databinding.CreateDistributionBinding
 import com.nhm.distribution.screens.interfaces.CallBackListener
@@ -60,26 +63,29 @@ class CreateDistribution : Fragment() {
             adapter.addFragment(Form1())
             adapter.addFragment(Form2())
             adapter.addFragment(Form3())
-            adapter.addFragment(Form4())
-            adapter.addFragment(Form5())
-            adapter.addFragment(Form6())
-            adapter.addFragment(Form7())
+//            adapter.addFragment(Form4())
+//            adapter.addFragment(Form5())
+//            adapter.addFragment(Form6())
+//            adapter.addFragment(Form7())
             Handler(Looper.getMainLooper()).postDelayed({
                 introViewPager.adapter=adapter
                 val array = listOf<String>(
-                    getString(R.string.form1),
-                    getString(R.string.form2),
-                    getString(R.string.form3),
-                    getString(R.string.form4),
-                    getString(R.string.form5),
-                    getString(R.string.form6),
-                    getString(R.string.form7)
+                    getString(R.string.beneficiary_card),
+                    getString(R.string.checkup),
+                    getString(R.string.food_items),
+//                    getString(R.string.form4),
+//                    getString(R.string.form5),
+//                    getString(R.string.form6),
+//                    getString(R.string.form7)
                 )
                 TabLayoutMediator(tabLayout, introViewPager) { tab, position ->
                     tab.text = array[position]
-                    //setTabStyle(tabLayout, array[position])
+                    tab.view.isEnabled = true
                 }.attach()
             }, 100)
+
+
+            binding.tabLayout.touchables.forEach { it.isClickable = false }
 
             introViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
@@ -104,4 +110,7 @@ class CreateDistribution : Fragment() {
         }
 
     }
+
+
+
 }

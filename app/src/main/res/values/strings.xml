@@ -813,4 +813,57 @@
     <string name="form5">Form5</string>
     <string name="form6">Form6</string>
     <string name="form7">Form7</string>
+    <string name="father_name_husband_nameStar">Father Name / Husband Name*</string>
+    <string name="father">Father</string>
+    <string name="husband">Husband</string>
+    <string name="mother_nameStar">Mother Name*</string>
+    <string name="ageStar">Age*</string>
+    <string name="height">Height</string>
+    <string name="heightStar">Height*</string>
+    <string name="weightStar">Weight*</string>
+    <string name="number_of_membersStar">Number Of Members*</string>
+    <string name="number_of_childrensStar">Number Of Childrens(Age 0 - 6)*</string>
+    <string name="DMCNameStar">DMC Name*</string>
+    <string name="district_StateStar">District / State*</string>
+    <string name="card">Card*</string>
+    <string name="apl">APL</string>
+    <string name="bpl">BPL</string>
+    <string name="blockStar">Block*</string>
+
+    <string name="type_of_patientStar">Type of Patient*</string>
+    <string name="pulmonary">Pulmonary</string>
+    <string name="extra_Pulmonary">Extra Pulmonary</string>
+    <string name="other">Other</string>
+    <string name="treatment_Date">Checkup Date</string>
+
+    <string name="hemoglobin_level">Hemoglobin Level</string>
+
+    <string name="muktiID">Mukti ID</string>
+    <string name="nakshayID">Nakshay ID</string>
+
+    <string name="business">Business</string>
+
+    <string name="Bank_Account">Bank Account</string>
+    <string name="Bank_IFSC">Bank IFSC</string>
+    <string name="TreatmentDetails">Treatment Details</string>
+    <string name="Treatment_Supporter_Name">Treatment Supporter Name</string>
+    <string name="Treatment_Supporter_Post">Treatment Supporter Post</string>
+    <string name="Treatment_Supporter_Mobile_Number">Treatment Supporter Mobile Number</string>
+
+    <string name="TreatmentEndDate">Treatment End Date</string>
+    <string name="TreatmentResult">Treatment Result</string>
+
+    <string name="description_of_food_items">Description Of Food Items</string>
+    <string name="signature">Signature</string>
+    <string name="dateSingle">Date</string>
+    <string name="HomeVisitFollowUp">Home Visit Follow Up</string>
+
+    <string name="beneficiary_card">Beneficiary Card</string>
+    <string name="checkup">Checkup</string>
+    <string name="food_items">Food Items</string>
+    <string name="clear">Clear</string>
+    <string name="complete">Complete</string>
+    <string name="tryAgain">Try Again</string>
+
+    <string name="food_item_image">Food Item Image*</string>
 </resources>
