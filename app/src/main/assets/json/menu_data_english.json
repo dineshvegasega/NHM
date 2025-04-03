@@ -1,0 +1,33 @@
+{
+  "menu": [
+    {
+      "name": "Dashboard",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Profile",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Distribution",
+      "headlines": [
+        {
+          "title": "Create Distribution"
+        },
+        {
+          "title": "All Distribution"
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "headlines": [
+
+      ]
+    }
+  ]
+}
