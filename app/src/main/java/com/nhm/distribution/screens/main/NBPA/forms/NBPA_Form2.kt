@@ -48,6 +48,10 @@ class NBPA_Form2 : Fragment() {
                 }
             })
 
+            ivMenu.singleClick {
+                NBPA.callBackListener!!.onCallBack(1000)
+            }
+
             editTextPatientCheckupDate.singleClick {
                 requireActivity().showDropDownDialog(type = 20){
                     editTextPatientCheckupDate.setText(title)

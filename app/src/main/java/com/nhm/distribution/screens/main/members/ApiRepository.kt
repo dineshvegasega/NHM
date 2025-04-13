@@ -12,4 +12,5 @@ class ApiRepository @Inject constructor(
 //    @Query("page") page: Int, @Query("api_key") api_key: String
 
     suspend fun getPopularMoviesList( @Body requestBody: RequestBody) = apiServices.getPopularMoviesList(requestBody)
+    suspend fun getPopularMoviesListMember( @Body requestBody: RequestBody) = apiServices.getPopularMoviesListMember(requestBody)
 }

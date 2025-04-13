@@ -1391,6 +1391,9 @@ fun Activity.showDropDownDialog(
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
+//            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000)
+//            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis())
+
             datePickerDialog.show()
         }
 
@@ -1942,6 +1945,17 @@ fun RecyclerView.isLastItemDisplaying(): Boolean {
     return false
 }
 
+
+fun getAbbreviatedFromDateTime(dateTime: Calendar, field: String): String? {
+    val output = SimpleDateFormat(field)
+    try {
+        return output.format(dateTime.time)    // format output
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+
+    return null
+}
 
 //@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 //suspend fun Context.getCityStateName(location : Location?) : String? =

@@ -6,18 +6,34 @@
     app:startDestination="@id/splash"
     >
 
-<!--    <fragment-->
-<!--            android:name="com.nhm.distribution.screens.main.NBPA.MoviesFragment"-->
-<!--            android:label="MoviesFragment"-->
-<!--            android:id="@+id/hilt_retrofit_paging_youtube"-->
-<!--            tools:layout="@layout/splash">-->
-<!--        <action-->
-<!--                android:id="@+id/action_nbpaList_to_nbpaDetail"-->
-<!--                app:destination="@id/nbpaDetail"-->
-<!--                app:launchSingleTop="true"-->
-<!--                />-->
 
-<!--    </fragment>-->
+    <fragment
+            android:name="com.nhm.distribution.screens.main.products.Products"
+            android:label="Products"
+            android:id="@+id/products"
+            tools:layout="@layout/fragment_movies">
+        <action
+                android:id="@+id/action_products_to_nbpaDetail"
+                app:destination="@id/nbpaDetail"
+                app:launchSingleTop="true"
+                />
+    </fragment>
+
+    <fragment
+            android:name="com.nhm.distribution.screens.main.members.MemberFragment"
+            android:label="MemberFragment"
+            android:id="@+id/memberFragment"
+            tools:layout="@layout/fragment_movies">
+        <action
+                android:id="@+id/action_members_to_nbpaDetail"
+                app:destination="@id/nbpaDetail"
+                app:launchSingleTop="true"
+                />
+
+    </fragment>
+
+
+
 
     <fragment
         android:name="com.nhm.distribution.screens.onboarding.splash.Splash"
@@ -398,18 +414,8 @@
             app:launchSingleTop="true"
             />
         <action
-            android:id="@+id/action_dashboard_to_allDistribution"
-            app:destination="@id/allDistribution"
-            app:launchSingleTop="true"
-            />
-        <action
-            android:id="@+id/action_dashboard_to_liveSchemes"
-            app:destination="@id/allDistribution"
-            app:launchSingleTop="true"
-            />
-        <action
-            android:id="@+id/action_dashboard_to_nbpaList"
-            app:destination="@id/nbpaList"
+            android:id="@+id/action_dashboard_to_products"
+            app:destination="@id/products"
             app:launchSingleTop="true"
             />
         <action
@@ -601,25 +607,14 @@
         android:id="@+id/nbpa"
         tools:layout="@layout/create_distribution">
         <action
-            android:id="@+id/action_nbpa_to_nbpaList"
-            app:destination="@id/nbpaList"
+            android:id="@+id/action_nbpa_to_products"
+            app:destination="@id/products"
             app:launchSingleTop="true"
             app:popUpTo="@id/nbpa"
             app:popUpToInclusive="true"
             />
     </fragment>
 
-    <fragment
-        android:name="com.nhm.distribution.screens.main.NBPA.MoviesFragment"
-        android:label="NBPAList"
-        android:id="@+id/nbpaList"
-        tools:layout="@layout/nbpa_list">
-        <action
-                android:id="@+id/action_nbpaList_to_nbpaDetail"
-                app:destination="@id/nbpaDetail"
-                app:launchSingleTop="true"
-                />
-    </fragment>
 
     <fragment
             android:name="com.nhm.distribution.screens.main.NBPA.NBPADetail"
@@ -636,12 +631,6 @@
         tools:layout="@layout/form3">
     </fragment>
 
-    <fragment
-        android:name="com.nhm.distribution.screens.main.distribution.AllDistribution"
-        android:label="AllDistribution"
-        android:id="@+id/allDistribution"
-        tools:layout="@layout/all_distribution">
-    </fragment>
 
     <fragment
         android:name="com.nhm.distribution.screens.main.schemes.liveSchemes.LiveSchemes"

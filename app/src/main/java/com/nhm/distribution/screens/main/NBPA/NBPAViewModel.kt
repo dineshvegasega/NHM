@@ -26,7 +26,7 @@ import com.nhm.distribution.networking.ApiInterface
 import com.nhm.distribution.networking.CallHandler
 import com.nhm.distribution.networking.Repository
 import com.nhm.distribution.networking.getJsonRequestBody
-import com.nhm.distribution.screens.main.NBPA.NBPADetail.Companion.change
+//import com.nhm.distribution.screens.main.NBPA.NBPADetail.Companion.change
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.utils.glideImagePortrait
 import com.nhm.distribution.utils.mainThread
@@ -99,7 +99,7 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
                     if (response.isSuccessful) {
                         showSnackBar(response.body()?.message.orEmpty())
                         view.findNavController()
-                            .navigate(R.id.action_nbpa_to_nbpaList)
+                            .navigate(R.id.action_nbpa_to_products)
                     } else {
                         showSnackBar(response.body()?.message.orEmpty())
                     }
@@ -201,7 +201,7 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
                 binding.apply {
                     root.singleClick {
                         root.findNavController()
-                            .navigate(R.id.action_nbpaList_to_nbpaDetail, Bundle().apply {
+                            .navigate(R.id.action_members_to_nbpaDetail, Bundle().apply {
                                 putParcelable("key", dataClass)
                             })
                     }

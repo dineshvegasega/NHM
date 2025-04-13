@@ -70,6 +70,7 @@ import com.nhm.distribution.networking.user_type
 import com.nhm.distribution.screens.main.NBPA.forms.NBPA
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.locale
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.userIdForGlobal
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.userType
 import com.nhm.distribution.screens.mainActivity.menu.JsonHelper
 import com.nhm.distribution.utils.LocaleHelper
 import com.nhm.distribution.utils.autoScroll
@@ -88,6 +89,7 @@ import kotlinx.coroutines.delay
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import java.lang.ref.WeakReference
+import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -240,6 +242,24 @@ class MainActivity : AppCompatActivity() {
 //        addStampToImage(bm)
 
 
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//        val startTime = "2025-04-12 00:00:00"
+//        val startTimeInMillis = dateFormat.parse(startTime).time.toString()
+//
+//        val endTime = "2025-04-11 00:00:00"
+//        val endTimeInMillis = dateFormat.parse(endTime).time.toString()
+//
+//        Log.e("TAG", "startTimeInMillis "+startTimeInMillis)
+//        Log.e("TAG", "endTimeInMillis "+endTimeInMillis)
+//
+//        if(startTimeInMillis >= endTimeInMillis){
+//            Log.e("TAG", "AAAAAA "+startTimeInMillis)
+//        } else {
+//            Log.e("TAG", "BBBBBB "+startTimeInMillis)
+//        }
+
+//        var aaaStart = "2025-04-11"
+//        var bbbEnd = "2025-04-11"
 
 
 
@@ -270,6 +290,7 @@ class MainActivity : AppCompatActivity() {
             if (loginUser != null) {
                 var user = Gson().fromJson(loginUser, Login::class.java)
                 userIdForGlobal = ""+user.id
+                userType = ""+user.user_role
             }
         }
 
@@ -461,7 +482,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             topLayout.ivMenu.singleClick {
-
                  if (backPressValue == 1) {
                      drawerLayout.open()
                  } else {
@@ -476,6 +496,7 @@ class MainActivity : AppCompatActivity() {
                     if (loginUser != null) {
                         val data = Gson().fromJson(loginUser, Login::class.java)
                         userIdForGlobal = ""+data.id
+                        userType = ""+data.user_role
                         viewModel.itemMain =
                             JsonHelper(MainActivity.context.get()!!).getMenuData(locale, data.user_role)
                     }
@@ -517,7 +538,6 @@ class MainActivity : AppCompatActivity() {
                                 )
                             }
                         } else {
-
                             val fragmentInFrame =
                                 navHostFragment!!.getChildFragmentManager().getFragments().get(0)
                             Log.e("TAG", "fragmentInFrame "+fragmentInFrame)

@@ -29,9 +29,12 @@ import com.nhm.distribution.genericAdapter.GenericAdapter
 import com.nhm.distribution.models.BaseResponseDC
 import com.nhm.distribution.models.Login
 import com.nhm.distribution.models.ItemAds
-import com.nhm.distribution.screens.main.NBPA.NBPAList
+import com.nhm.distribution.networking.USER_TYPE
+import com.nhm.distribution.networking.USER_TYPE_ADMIN
 import com.nhm.distribution.screens.main.NBPA.forms.NBPA
 import com.nhm.distribution.screens.main.dashboard.Dashboard
+import com.nhm.distribution.screens.main.members.MemberFragment
+import com.nhm.distribution.screens.main.products.Products
 import com.nhm.distribution.screens.main.profiles.Profiles
 import com.nhm.distribution.screens.main.schemes.allSchemes.AllSchemes
 import com.nhm.distribution.screens.main.schemes.liveSchemes.LiveSchemes
@@ -66,6 +69,11 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
         var locale: Locale = Locale.getDefault()
 
         var userIdForGlobal = ""
+        var userType = ""
+
+            var isProductLoad = false
+            var isFilterLoad = false
+
     }
 
     var itemMain: List<ItemMenuModel>? = ArrayList()
@@ -165,210 +173,149 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                         readData(LOGIN_DATA) { loginUser ->
                             if (loginUser != null) {
                                 val data = Gson().fromJson(loginUser, Login::class.java)
-//                                data.apply {
-//                                    status = "approved"
-//                                    subscription_status = "expired"
-//                                }
-//                                Log.e("TAG", "dataSS " + data.subscription_status)
 
-//                                when (data.status) {
-//                                    "approved" -> {
-                                        when (position) {
-                                            0 -> {
-                                                if (fragmentInFrame !is Dashboard) {
-                                                    navHostFragment?.navController?.navigate(
-                                                        R.id.dashboard
-                                                    )
-                                                }
+                                if(data.user_role == USER_TYPE){
+                                    when (position) {
+                                        0 -> {
+                                            if (fragmentInFrame !is Dashboard) {
+                                                navHostFragment?.navController?.navigate(
+                                                    R.id.dashboard
+                                                )
                                             }
+                                        }
 
-                                            1 -> {
-                                                if (fragmentInFrame !is Profiles) {
-                                                    navHostFragment?.navController?.navigate(
-                                                        R.id.profiles
-                                                    )
-                                                }
+                                        1 -> {
+                                            if (fragmentInFrame !is Profiles) {
+                                                navHostFragment?.navController?.navigate(
+                                                    R.id.profiles
+                                                )
                                             }
+                                        }
 
-                                            2 -> {
-                                                when (data.status) {
-                                                    "approved" -> {
-                                                        if (fragmentInFrame !is NBPAList) {
-                                                            navHostFragment?.navController?.navigate(R.id.nbpaList)
-                                                        }
-                                                    }
-                                                    "unverified" -> {
-                                                        showSnackBar(root.resources.getString(R.string.registration_processed))
-                                                    }
-                                                    "pending" -> {
-                                                        showSnackBar(root.resources.getString(R.string.registration_processed))
-                                                    }
-                                                    "rejected" -> {
-                                                        showSnackBar(root.resources.getString(R.string.registration_processed))
+                                        2 -> {
+                                            when (data.status) {
+                                                "approved" -> {
+                                                    if (fragmentInFrame !is Products) {
+                                                        navHostFragment?.navController?.navigate(R.id.products)
                                                     }
                                                 }
-                                            }
-
-//                                            2 -> {
-//                                                if ((data?.notification ?: "") == "Yes") {
-//                                                    if (fragmentInFrame !is Notifications) {
-////                                                        navHostFragment?.navController?.navigate(R.id.notifications)
-//                                                        NotificationsVM.isNotificationNext = false
-//                                                        when(data.subscription_status) {
-//                                                            null -> navHostFragment?.navController?.navigate(R.id.notifications)
-//                                                            "trial" -> navHostFragment?.navController?.navigate(R.id.notifications)
-//                                                            "active" -> navHostFragment?.navController?.navigate(R.id.notifications)
-//                                                            "expired" -> showSnackBar(root.resources.getString(R.string.expired_account_message), type = 2, navHostFragment?.navController)
-//                                                        }
-//                                                    }
-//                                                } else {
-//                                                    showSnackBar(
-//                                                        root.resources.getString(
-//                                                            R.string.notification_not_enabled
-//                                                        )
-//                                                    )
-//                                                }
-//                                            }
-
-//                                            3 -> {
-//                                                val densityDpi =
-//                                                    root.context.getDensityName()
-//                                                when (densityDpi) {
-//                                                    "xxhdpi" -> {
-//                                                        if (fragmentInFrame !is MembershipDetailsXX) {
-//                                                            when(data.subscription_status) {
-//                                                                null -> navHostFragment?.navController?.navigate(R.id.membershipDetailsXX)
-//                                                                "trial" -> navHostFragment?.navController?.navigate(R.id.membershipDetailsXX)
-//                                                                "active" -> navHostFragment?.navController?.navigate(R.id.membershipDetailsXX)
-//                                                                "expired" -> showSnackBar(root.resources.getString(R.string.expired_account_message), type = 2, navHostFragment?.navController)
-//                                                            }
-//                                                        }
-//                                                    }
-//
-//                                                    else -> {
-//                                                        if (fragmentInFrame !is MembershipDetails) {
-//                                                            when(data.subscription_status) {
-//                                                                null -> navHostFragment?.navController?.navigate(R.id.membershipDetails)
-//                                                                "trial" -> navHostFragment?.navController?.navigate(R.id.membershipDetails)
-//                                                                "active" -> navHostFragment?.navController?.navigate(R.id.membershipDetails)
-//                                                                "expired" -> showSnackBar(root.resources.getString(R.string.expired_account_message), type = 2, navHostFragment?.navController)
-//                                                            }
-//                                                        }
-//                                                    }
-//                                                }
-//                                            }
-
-//                                            8 -> {
-//                                                if (fragmentInFrame !is InformationCenter) {
-//                                                    when(data.subscription_status) {
-//                                                        null -> navHostFragment?.navController?.navigate(R.id.informationCenter)
-//                                                        "trial" -> navHostFragment?.navController?.navigate(R.id.informationCenter)
-//                                                        "active" -> navHostFragment?.navController?.navigate(R.id.informationCenter)
-//                                                        "expired" -> showSnackBar(root.resources.getString(R.string.expired_account_message), type = 2, navHostFragment?.navController)
-//                                                    }
-//                                                }
-//                                            }
-
-//                                            9 -> {
-//                                                if (fragmentInFrame !is Subscription) {
-//                                                    when(data.subscription_status) {
-//                                                            null -> {
-//                                                                navHostFragment?.navController?.navigate(R.id.subscription)
-//                                                            }
-//                                                            "trial" -> {
-//                                                                navHostFragment?.navController?.navigate(R.id.subscription)
-//                                                            }
-//                                                            "active" -> {
-//                                                                navHostFragment?.navController?.navigate(R.id.subscription)
-//                                                            }
-//                                                            "expired" -> {
-//                                                               // showSnackBar(root.resources.getString(R.string.expired_account_message), type = 2, navHostFragment?.navController)
-//                                                                navHostFragment?.navController?.navigate(R.id.subscription)
-//                                                            }
-//                                                    }
-//                                                }
-//                                            }
-
-                                            3 -> {
-                                                when (data.status) {
-                                                    "approved" -> {
-                                                        if (fragmentInFrame !is Settings) {
-                                                            navHostFragment?.navController?.navigate(
-                                                                R.id.settings
-                                                            )
-                                                        }
-                                                    }
-                                                    "unverified" -> {
-                                                        showSnackBar(root.resources.getString(R.string.registration_processed))
-                                                    }
-                                                    "pending" -> {
-                                                        showSnackBar(root.resources.getString(R.string.registration_processed))
-                                                    }
-                                                    "rejected" -> {
-                                                        showSnackBar(root.resources.getString(R.string.registration_processed))
-                                                    }
+                                                "unverified" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "pending" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "rejected" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
                                                 }
                                             }
                                         }
-//                                    }
 
-//                                    "unverified" -> {
-//                                        when (position) {
-//                                            0 -> {
-//                                                if (fragmentInFrame !is Dashboard) {
-//                                                    navHostFragment?.navController?.navigate(R.id.dashboard)
-//                                                }
-//                                            }
-//
-//                                            1 -> {
-//                                                if (fragmentInFrame !is Profiles) {
-//                                                    navHostFragment?.navController?.navigate(R.id.profiles)
-//                                                }
-//                                            }
-//                                            else -> {
-//                                                showSnackBar(root.resources.getString(R.string.registration_processed))
-//                                            }
-//                                        }
-//                                    }
-//
-//                                    "pending" -> {
-//                                        when (position) {
-//                                            0 -> {
-//                                                if (fragmentInFrame !is Dashboard) {
-//                                                    navHostFragment?.navController?.navigate(R.id.dashboard)
-//                                                }
-//                                            }
-//
-//                                            1 -> {
-//                                                if (fragmentInFrame !is Profiles) {
-//                                                    navHostFragment?.navController?.navigate(R.id.profiles)
-//                                                }
-//                                            }
-//                                            else -> {
-//                                                showSnackBar(root.resources.getString(R.string.registration_processed))
-//                                            }
-//                                        }
-//                                    }
-//
-//                                    "rejected" -> {
-//                                        when (position) {
-//                                            0 -> {
-//                                                if (fragmentInFrame !is Dashboard) {
-//                                                    navHostFragment?.navController?.navigate(R.id.dashboard)
-//                                                }
-//                                            }
-//
-//                                            1 -> {
-//                                                if (fragmentInFrame !is Profiles) {
-//                                                    navHostFragment?.navController?.navigate(R.id.profiles)
-//                                                }
-//                                            }
-//                                            else -> {
-//                                                showSnackBar(root.resources.getString(R.string.registration_processed))
-//                                            }
-//                                        }
-//                                    }
-//                                }
+                                        3 -> {
+                                            when (data.status) {
+                                                "approved" -> {
+                                                    if (fragmentInFrame !is Settings) {
+                                                        navHostFragment?.navController?.navigate(
+                                                            R.id.settings
+                                                        )
+                                                    }
+                                                }
+                                                "unverified" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "pending" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "rejected" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                                if(data.user_role == USER_TYPE_ADMIN){
+                                    when (position) {
+                                        0 -> {
+                                            if (fragmentInFrame !is Dashboard) {
+                                                navHostFragment?.navController?.navigate(
+                                                    R.id.dashboard
+                                                )
+                                            }
+                                        }
+
+                                        1 -> {
+                                            if (fragmentInFrame !is Profiles) {
+                                                navHostFragment?.navController?.navigate(
+                                                    R.id.profiles
+                                                )
+                                            }
+                                        }
+
+                                        2 -> {
+                                            when (data.status) {
+                                                "approved" -> {
+                                                    if (fragmentInFrame !is Products) {
+                                                        navHostFragment?.navController?.navigate(R.id.products)
+                                                    }
+                                                }
+                                                "unverified" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "pending" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "rejected" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                            }
+                                        }
+
+                                        3 -> {
+                                            when (data.status) {
+                                                "approved" -> {
+                                                    if (fragmentInFrame !is MemberFragment) {
+                                                        navHostFragment?.navController?.navigate(
+                                                            R.id.memberFragment
+                                                        )
+                                                    }
+                                                }
+                                                "unverified" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "pending" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "rejected" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                            }
+                                        }
+
+                                       4 -> {
+                                            when (data.status) {
+                                                "approved" -> {
+                                                    if (fragmentInFrame !is Settings) {
+                                                        navHostFragment?.navController?.navigate(
+                                                            R.id.settings
+                                                        )
+                                                    }
+                                                }
+                                                "unverified" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "pending" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                                "rejected" -> {
+                                                    showSnackBar(root.resources.getString(R.string.registration_processed))
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
                         MainActivity.binding.drawerLayout.close()
@@ -452,8 +399,8 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                         1 -> {
                                             when (data.status) {
                                                 "approved" -> {
-                                                    if (fragmentInFrame !is NBPAList) {
-                                                        navHostFragment?.navController?.navigate(R.id.nbpaList)
+                                                    if (fragmentInFrame !is Products) {
+                                                        navHostFragment?.navController?.navigate(R.id.products)
                                                     }
                                                 }
                                                 "unverified" -> {

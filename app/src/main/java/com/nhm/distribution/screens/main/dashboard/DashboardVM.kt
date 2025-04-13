@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -145,7 +146,7 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
                                     when (data.status) {
                                         "approved" -> {
                                             root.findNavController()
-                                                .navigate(R.id.action_dashboard_to_nbpaList)
+                                                .navigate(R.id.action_dashboard_to_products)
                                         }
                                         "unverified" -> {
                                             showSnackBar(root.resources.getString(R.string.registration_processed))
@@ -333,6 +334,162 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
 //            var tvTitle: AppCompatTextView = itemView.findViewById(R.id.titleChild)
         }
     }
+
+
+
+
+    private var itemLiveSchemesCountResult = MutableLiveData<BaseResponseDC<JsonElement>>()
+    val itemLiveSchemesCount : LiveData<BaseResponseDC<JsonElement>> get() = itemLiveSchemesCountResult
+
+    fun liveSchemeCount(jsonObject: JSONObject) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.getPopularMoviesListCount(requestBody = jsonObject.getJsonRequestBody())
+
+                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
+                    if (response.isSuccessful) {
+                        itemLiveSchemesCountResult.value = response.body()
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
+
+
+    private var itemLiveSchemesMembersCountResult = MutableLiveData<BaseResponseDC<JsonElement>>()
+    val itemLiveSchemesMembersCount : LiveData<BaseResponseDC<JsonElement>> get() = itemLiveSchemesMembersCountResult
+    fun liveSchemeMembersCount(jsonObject: JSONObject) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.getPopularMoviesListMembersCount(requestBody = jsonObject.getJsonRequestBody())
+
+                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
+                    if (response.isSuccessful) {
+                        itemLiveSchemesMembersCountResult.value = response.body()
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
+
+
+
+    private var itemLiveSchemesResult = MutableLiveData<List<ItemLiveScheme>>()
+    val itemLiveSchemes : LiveData<List<ItemLiveScheme>> get() = itemLiveSchemesResult
+
+    fun liveScheme(jsonObject: JSONObject) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.schemeHistoryList(requestBody = jsonObject.getJsonRequestBody())
+
+                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
+                    if (response.isSuccessful) {
+                        val typeToken = object : TypeToken<List<ItemLiveScheme>>() {}.type
+                        val changeValue =
+                            Gson().fromJson<List<ItemLiveScheme>>(
+                                Gson().toJson(response.body()!!.data),
+                                typeToken
+                            )
+                        itemLiveSchemesResult.value = changeValue
+
+//                        mainThread {
+//                            if (itemsCustomerOrders.size == 0) {
+//                                changeValue.forEach { mapData ->
+//                                    Log.e("TAG", "schemeDataInnerFalseA: " + mapData.id)
+//                                    itemsCustomerOrders.add(mapData)
+//                                }
+//                            } else {
+//
+//
+//
+//                                changeValue.forEach { mapData ->
+//                                    var aaa = getData(mapData)
+//                                    Log.e( "TAG",  "aaa: " + mapData.id + " :::: "+ aaa)
+//                                    if (aaa == true) {
+//                                        itemsCustomerOrders.add(mapData)
+//                                    }
+//
+////                                    getData
+//
+////                                    itemsCustomerOrders.forEach { schemeDataInner ->
+////                                        if (schemeDataInner.id != mapData.id) {
+////                                            Log.e( "TAG",  "schemeDataInnerFalseB: " + mapData.id + " :::: "+ schemeDataInner.id)
+////                                            itemsCustomerOrders.add(mapData)
+////                                        }
+////                                    }
+//
+////                                    itemsCustomerOrders.forEach { schemeDataInner ->
+////                                        if (schemeDataInner.id != mapData.id) {
+////                                            Log.e(
+////                                                "TAG",
+////                                                "schemeDataInnerFalse: " + schemeDataInner.id
+////                                            )
+////                                            itemsCustomerOrders.add(schemeDataInner)
+////                                        }
+////
+////                                        if (schemeDataInner.id == mapData.id) {
+////                                            Log.e(
+////                                                "TAG",
+////                                                "schemeDataInnerTrue: " + schemeDataInner.id
+////                                            )
+////                                        }
+////                                    }
+//                                }
+//                            }
+////                                itemsCustomerOrders.map { mapData ->
+////                                    changeValue.map { schemeDataInner ->
+////                                        if (schemeDataInner.id != mapData.id) {
+////                                            Log.e("TAG", "schemeDataInner: " + schemeDataInner.id)
+////                                            itemsCustomerOrders.add(schemeDataInner)
+////                                        }
+////                                    }
+////                                }
+//////                            }
+//
+//                            Log.e("TAG", "onViewCreatedXXX: " + itemsCustomerOrders.size)
+//                            itemLiveSchemesResult.value = true
+//                        }
+
+
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+//                    showSnackBar(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
+
+
+
 
 
     var isScheme = MutableLiveData<Boolean>(false)

@@ -1,27 +1,53 @@
-package com.nhm.distribution.screens.main.NBPA
+package com.nhm.distribution.screens.main.products
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Nullable
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.nhm.distribution.BR
 import com.nhm.distribution.R
 import com.nhm.distribution.databinding.ItemAllSchemesBinding
+//import com.nhm.distribution.databinding.ItemProductBinding
+//import com.nhm.distribution.datastore.db.CartModel
+//import com.nhm.distribution.models.products.ItemProduct
+//import com.nhm.distribution.networking.IMAGE_URL
+//import com.nhm.distribution.ui.mainActivity.MainActivity.Companion.db
+//import com.nhm.distribution.ui.mainActivity.MainActivityVM.Companion.cartItemLiveData
+//import com.nhm.distribution.utils.getPatternFormat
+import com.nhm.distribution.utils.glideImage
+import com.nhm.distribution.utils.mainThread
 import com.nhm.distribution.databinding.ItemLoadingBinding
-import com.nhm.distribution.models.ItemLiveScheme
-import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
-import com.nhm.distribution.utils.callNetworkDialog
+import com.nhm.distribution.models.aaa.ItemProduct
 import com.nhm.distribution.utils.changeDateFormat
 import com.nhm.distribution.utils.glideImagePortrait
-import com.nhm.distribution.utils.singleClick
+import com.squareup.picasso.Picasso
 
-class NBPAListAdapter(liveSchemesVM: NBPAViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var viewModel = liveSchemesVM
+
+class ProductsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    var counter = 0
+
+    var itemModels: MutableList<ItemProduct> = ArrayList()
+
+
+    lateinit var itemRowBinding2: ItemAllSchemesBinding
+
+
     private val item: Int = 0
     private val loading: Int = 1
 
@@ -30,27 +56,25 @@ class NBPAListAdapter(liveSchemesVM: NBPAViewModel) : RecyclerView.Adapter<Recyc
 
     private var errorMsg: String? = ""
 
-    private var itemModels: MutableList<ItemLiveScheme> = ArrayList()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return  if(viewType == item){
             val binding: ItemAllSchemesBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_all_schemes, parent, false)
+            itemRowBinding2 = binding
             TopMoviesVH(binding)
         }else{
             val binding: ItemLoadingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_loading, parent, false)
             LoadingVH(binding)
         }
-
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = itemModels[position]
         if(getItemViewType(position) == item){
+
             val myOrderVH: TopMoviesVH = holder as TopMoviesVH
 //            myOrderVH.itemRowBinding.movieProgress.visibility = View.VISIBLE
-            myOrderVH.bind(model, viewModel, position)
+            myOrderVH.bind(model, position)
         }else{
             val loadingVH: LoadingVH = holder as LoadingVH
             if (retryPageLoad) {
@@ -78,50 +102,34 @@ class NBPAListAdapter(liveSchemesVM: NBPAViewModel) : RecyclerView.Adapter<Recyc
     }
 
 
-
-    class TopMoviesVH(binding: ItemAllSchemesBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TopMoviesVH(binding: ItemAllSchemesBinding) : RecyclerView.ViewHolder(binding.root) {
         var itemRowBinding: ItemAllSchemesBinding = binding
-        fun bind(obj: Any?, viewModel: NBPAViewModel, position: Int) {
-            itemRowBinding.setVariable(BR.model, obj)
+
+        @SuppressLint("NotifyDataSetChanged", "SetTextI18n", "ClickableViewAccessibility")
+        fun bind(obj: Any?, position: Int) {
+            itemRowBinding.setVariable(BR._all, obj)
             itemRowBinding.executePendingBindings()
-            val dataClass = obj as ItemLiveScheme
+            val model = obj as ItemProduct
+
             itemRowBinding.apply {
-                dataClass.foodIdentityImage?.url?.glideImagePortrait(itemRowBinding.root.context, ivIcon)
-                textTitle.setText(""+"${position} "+dataClass.name)
-                textDesc.setText(dataClass.address)
+                model.foodIdentityImage?.url?.glideImagePortrait(root.context, ivIcon)
+                textTitle.setText(model.name)
+                textDesc.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.address_)+"</b> "+model.address.replace("\n"," "), HtmlCompat.FROM_HTML_MODE_LEGACY))
+                textMobile.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.mobile_no_per)+"</b> "+model.mobileNumber, HtmlCompat.FROM_HTML_MODE_LEGACY))
+                model.created_at?.let {
+                    textValidDateValue.text = "${model.created_at.changeDateFormat("yyyy-MM-dd", "dd MMM, yyyy")}"
+                }
 
-//                textHeaderTxt4.setText(if (dataClass.status == "Active") root.context.resources.getString(R.string.active) else root.context.resources.getString(R.string.expired))
-//                textHeaderTxt4.backgroundTintList = if (dataClass.status == "Active") ContextCompat.getColorStateList(root.context,R.color._138808) else ContextCompat.getColorStateList(root.context,R.color._F02A2A)
-//
-//
-//                textStatusValueTxt.setText(if (dataClass.user_scheme_status == "applied") root.context.resources.getString(R.string.applied) else root.context.resources.getString(R.string.not_applied))
-//                textStatusValueTxt.setTextColor(if(dataClass.user_scheme_status == "applied") ContextCompat.getColorStateList(root.context,R.color._138808) else ContextCompat.getColorStateList(root.context,R.color._F02A2A))
-//
-//                dataClass.end_at?.let {
-//                    textValidDateValue.text = "${dataClass.end_at.changeDateFormat("yyyy-MM-dd", "dd MMM, yyyy")}"
-//                }
-
-                root.singleClick {
-                    root.findNavController().navigate(R.id.action_nbpaList_to_nbpaDetail, Bundle().apply {
-                        putParcelable("key", dataClass)
+                itemRowBinding.root.setOnClickListener {
+                    itemRowBinding.root.findNavController().navigate(R.id.action_products_to_nbpaDetail, Bundle().apply {
+                        putParcelable("key", model)
                     })
-//                    if(networkFailed) {
-//                        if (dataClass.user_scheme_status == "applied"){
-//                            viewModel.viewDetail(dataClass, position = position, root, 1)
-//                        }else{
-//                            viewModel.viewDetail(dataClass, position = position, root, 2)
-//                        }
-//                    } else {
-//                        root.context.callNetworkDialog()
-//                    }
                 }
             }
         }
-
-
     }
 
-    class LoadingVH(binding: ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class LoadingVH(binding: ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root) {
         var itemRowBinding: ItemLoadingBinding = binding
     }
 
@@ -132,7 +140,7 @@ class NBPAListAdapter(liveSchemesVM: NBPAViewModel) : RecyclerView.Adapter<Recyc
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addAllSearch(movies: MutableList<ItemLiveScheme>) {
+    fun addAllSearch(movies: MutableList<ItemProduct>) {
         itemModels.clear()
         itemModels.addAll(movies)
 //        for(movie in movies){
@@ -141,13 +149,13 @@ class NBPAListAdapter(liveSchemesVM: NBPAViewModel) : RecyclerView.Adapter<Recyc
         notifyDataSetChanged()
     }
 
-    fun addAll(movies: MutableList<ItemLiveScheme>) {
+    fun addAll(movies: MutableList<ItemProduct>) {
         for(movie in movies){
             add(movie)
         }
     }
 
-    fun add(moive: ItemLiveScheme) {
+    fun add(moive: ItemProduct) {
         itemModels.add(moive)
         notifyItemInserted(itemModels.size - 1)
     }
@@ -168,5 +176,30 @@ class NBPAListAdapter(liveSchemesVM: NBPAViewModel) : RecyclerView.Adapter<Recyc
 //            notifyItemRemoved(position)
 //        }
     }
+
+
+    fun submitData(itemMainArray: ArrayList<ItemProduct>) {
+        itemModels = itemMainArray
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updatePosition(position: Int) {
+        counter = position
+        Log.e("TAG", "updatePosition " + position)
+//        itemRowBinding2.apply {
+//            if (isHide) {
+//                baseButtons.visibility = View.GONE
+//                group.visibility = View.VISIBLE
+//            } else {
+//                baseButtons.visibility = View.VISIBLE
+//                group.visibility = View.GONE
+//            }
+//        }
+//        notifyItemChanged(position)
+
+    }
+
+
 
 }

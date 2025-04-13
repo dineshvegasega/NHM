@@ -13,6 +13,8 @@ import com.nhm.distribution.models.ItemPanchayat
 import com.nhm.distribution.models.ItemPincode
 import com.nhm.distribution.models.ItemState
 import com.nhm.distribution.models.ItemVending
+import com.nhm.distribution.models.aaa.ItemProductRoot
+import com.nhm.distribution.screens.main.members.MemberMoviesListResponse
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -336,9 +338,33 @@ interface ApiInterface {
         @Body requestBody: RequestBody
     ): Response<BaseResponseDC<JsonElement>>
 
+
     @POST(GLOBALSchemeHistoryList)
     suspend fun getPopularMoviesList(
         @Body requestBody: RequestBody
     ): Response<MoviesListResponse>
+
+
+    @POST(GLOBALSchemeHistoryList)
+    suspend fun getPopularMoviesListXX(
+        @Body requestBody: RequestBody
+    ): Response<ItemProductRoot>
+
+    @POST(membershipList)
+    suspend fun getPopularMoviesListMember(
+        @Body requestBody: RequestBody
+    ): Response<MemberMoviesListResponse>
+
+
+    @POST(GLOBALSchemeHistoryList)
+    suspend fun getPopularMoviesListCount(
+        @Body requestBody: RequestBody
+    ): Response<BaseResponseDC<JsonElement>>
+
+
+    @POST(GLOBALSchemeHistoryListMembers)
+    suspend fun getPopularMoviesListMembersCount(
+        @Body requestBody: RequestBody
+    ): Response<BaseResponseDC<JsonElement>>
 
 }

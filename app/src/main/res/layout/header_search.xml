@@ -58,6 +58,24 @@
         tools:ignore="HardcodedText"
         android:visibility="gone"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btFilter"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:srcCompat="@drawable/filter_icon"
+            app:iconTint="@color/white"
+            android:backgroundTint="@color/_ED2525"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cornerRadius="@dimen/_4sdp"
+            android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_minus5sdp"
+            android:layout_marginEnd="@dimen/_minus5sdp"
+            />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btClose"
         style="@style/PrimaryButtonYellow"

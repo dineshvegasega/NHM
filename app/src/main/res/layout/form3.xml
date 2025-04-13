@@ -122,8 +122,20 @@
             android:layout_height="wrap_content"
             android:elevation="@dimen/_10sdp"
             android:orientation="vertical"
-            android:paddingVertical="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_5sdp"
             >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/arrow_back_icon"
+                    android:padding="@dimen/_7sdp"
+                    android:layout_marginHorizontal="0dp"
+                    android:tint="@color/black"
+                    />
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -133,13 +145,13 @@
                 android:textColor="@color/_2C2C2C"
                 android:textSize="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivMenu"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints"
                 app:fontFamily="@font/roboto_medium"
                 android:text="@string/description_of_food_items"
                 android:visibility="visible"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 />
 
 

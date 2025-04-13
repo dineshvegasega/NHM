@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA
+package com.nhm.distribution.screens.main.members
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -6,7 +6,7 @@ import com.nhm.distribution.models.Meta
 import kotlinx.parcelize.Parcelize
 
 
-data class MoviesListResponse(
+data class MemberMoviesListResponse(
     @SerializedName("data")
     val data: List<Result>,
     @SerializedName("message")
@@ -25,6 +25,11 @@ data class MoviesListResponse(
 
     @Parcelize
     data class Result(
+        val mobile_no: String,
+        val applied_for: String,
+        val date: String,
+        val updated_date: String,
+        val aadhar_card: String,
         val aadhaarNumber: String,
         var address: String,
         val age: String,
@@ -62,7 +67,9 @@ data class MoviesListResponse(
         val treatmentSupporterPost: String,
         val treatmentSupporterResult: String,
         val typeOfPatient: String,
-        val weight: String
+        val weight: String,
+        val created_at: String,
+        val updated_at: String
     ): Parcelable {
         @Parcelize
         data class FoodIdentityImage(

@@ -2,13 +2,16 @@ package com.nhm.distribution.screens.main.dashboard
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.google.gson.Gson
+import com.nhm.distribution.R
 import com.nhm.distribution.databinding.DashboardBinding
 import com.nhm.distribution.datastore.DataStoreKeys.LOGIN_DATA
 import com.nhm.distribution.datastore.DataStoreUtil.readData
@@ -16,9 +19,15 @@ import com.nhm.distribution.models.Login
 import com.nhm.distribution.networking.*
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
 import com.nhm.distribution.utils.callNetworkDialog
+import com.nhm.distribution.utils.getAbbreviatedFromDateTime
+import com.nhm.distribution.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 @AndroidEntryPoint
 class Dashboard : Fragment() {
@@ -111,14 +120,24 @@ class Dashboard : Fragment() {
             viewModel.dashboardAdapter.notifyDataSetChanged()
             viewModel.dashboardAdapter.submitList(viewModel.itemMain)
 
+
+
+
             if(networkFailed) {
                 callApis()
             } else {
                 requireContext().callNetworkDialog()
             }
 
+           viewModel.itemLiveSchemesCount.observe(viewLifecycleOwner, Observer {
+               textNumberOfNBPA.text = ""+it.meta!!.total_items
+           })
 
-
+           viewModel.itemLiveSchemesMembersCount.observe(viewLifecycleOwner, Observer {
+               var jsonObject = JSONObject(it.data!!.toString())
+               textNumberOfDistributers.text = ""+jsonObject.getString("total_user")
+//               textNumberOfDistributers.text = ""+it.meta!!.total_items
+           })
 
 //            viewModel.adsList(view)
 //            val adapter = BannerViewPagerAdapter(requireContext())
@@ -139,13 +158,63 @@ class Dashboard : Fragment() {
     private fun callApis() {
         readData(LOGIN_DATA) { loginUser ->
             if (loginUser != null) {
-                val _id = Gson().fromJson(loginUser, Login::class.java).id
-                val obj: JSONObject = JSONObject().apply {
-                    put(page, "1")
-                    put(status, "Active")
-                    put(user_id, _id)
+                val user = Gson().fromJson(loginUser, Login::class.java)
+                when (user.status) {
+                    "approved" -> {
+                        if (user.user_role == USER_TYPE) {
+                            binding.linearMember.visibility = View.GONE
+                            binding.linearNBPA.visibility = View.VISIBLE
+
+                            val calendarStart = Calendar.getInstance()
+                            val dateStart = getAbbreviatedFromDateTime(calendarStart, "yyyy-MM-dd")
+                            val calendarEnd = Calendar.getInstance()
+                            calendarEnd.add(Calendar.DATE, -7)
+                            val dateEnd = getAbbreviatedFromDateTime(calendarEnd, "yyyy-MM-dd")
+                            val obj: JSONObject = JSONObject().apply {
+                                put(page, "1")
+                                put(user_id, user.id)
+                                put(filterByStartDate, dateEnd+" 00:00:00")
+                                put(filterByEndDate, dateStart+" 23:59:59")
+                            }
+                            viewModel.liveSchemeCount(obj)
+                        } else if (user.user_role == USER_TYPE_ADMIN) {
+                            binding.linearMember.visibility = View.VISIBLE
+                            binding.linearNBPA.visibility = View.VISIBLE
+
+                            val calendarStart = Calendar.getInstance()
+                            val dateStart = getAbbreviatedFromDateTime(calendarStart, "yyyy-MM-dd")
+                            val calendarEnd = Calendar.getInstance()
+                            calendarEnd.add(Calendar.DATE, -7)
+                            val dateEnd = getAbbreviatedFromDateTime(calendarEnd, "yyyy-MM-dd")
+                            val obj: JSONObject = JSONObject().apply {
+                                put(page, "1")
+                                put(filterByStartDate, dateEnd+" 00:00:00")
+                                put(filterByEndDate, dateStart+" 23:59:59")
+                            }
+                            viewModel.liveSchemeCount(obj)
+
+                            val objMember: JSONObject = JSONObject().apply {
+                                put(page, "1")
+                                put(from_date, dateEnd)
+                                put(to_date, dateStart)
+                            }
+                            viewModel.liveSchemeMembersCount(objMember)
+                        }
+                    }
+                    "unverified" -> {
+
+                    }
+                    "pending" -> {
+
+                    }
+                    "rejected" -> {
+
+                    }
                 }
-//                viewModel.liveScheme(view = requireView(), obj)
+
+
+
+
 //                viewModel.liveTraining(view = requireView(), obj)
 //                viewModel.liveNotice(view = requireView(), obj)
 //                val obj2: JSONObject = JSONObject().apply {
@@ -159,21 +228,21 @@ class Dashboard : Fragment() {
     }
 
 
+
+
     override fun onStop() {
         super.onStop()
-        binding.apply {
-//            banner.autoScrollStop()
-        }
+        isProductLoad = true
     }
 
-
-    override fun onStart() {
-        super.onStart()
-//        LiveSchemes.isReadLiveSchemes = false
-    }
     override fun onDestroyView() {
         _binding = null
-//        LiveSchemes.isReadLiveSchemes = false
         super.onDestroyView()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        isProductLoad = false
+    }
+
 }

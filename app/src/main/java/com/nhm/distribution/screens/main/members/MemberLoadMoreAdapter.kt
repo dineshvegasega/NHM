@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA
+package com.nhm.distribution.screens.main.members
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nhm.distribution.databinding.LoadMoreTintBinding
 
-class LoadMoreAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadMoreAdapter.ViewHolder>() {
+class MemberLoadMoreAdapter(private val retry: () -> Unit) : LoadStateAdapter<MemberLoadMoreAdapter.ViewHolder>() {
 
     private lateinit var binding: LoadMoreTintBinding
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.nhm.distribution.databinding.NbpaDetailBinding
+import com.nhm.distribution.models.aaa.ItemProduct
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.utils.glideImagePortraitForImage
 import com.nhm.distribution.utils.parcelable
@@ -21,7 +22,7 @@ class NBPADetail : Fragment() {
     private val binding get() = _binding!!
 
 companion object{
-    var change : Boolean = true
+//    var change : Boolean = true
 }
 
     override fun onCreateView(
@@ -37,9 +38,9 @@ companion object{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         MainActivity.mainActivity.get()?.callFragment(3)
-        change = false
+//        change = false
         binding.apply {
-            val model = arguments?.parcelable<MoviesListResponse.Result>("key")
+            val model = arguments?.parcelable<ItemProduct>("key")
             Log.e("TAG", "modelmodel "+model.toString())
 
             model?.let {
@@ -144,8 +145,6 @@ companion object{
                 editTextHeight2.isEnabled = false
             }
 
-
-
         }
 
     }
@@ -154,7 +153,7 @@ companion object{
     override fun onDestroyView() {
         super.onDestroyView()
         MainActivity.mainActivity.get()?.callFragment(4)
-        change = false
+//        change = false
     }
 
 

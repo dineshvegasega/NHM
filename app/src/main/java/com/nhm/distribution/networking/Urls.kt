@@ -32,7 +32,9 @@ const val Vending = "vending-list?page=1"
 const val Marketplace = "marketplace-list?page=1"
 const val SchemeHistoryList = "scheme-history-list"
 
+const val membershipList = "membership-list"
 const val GLOBALSchemeHistoryList = "global-scheme-history-list"
+const val GLOBALSchemeHistoryListMembers = "member-dashboard-details"
 
 const val LiveScheme = "live-scheme"
 const val NoticeLiveList = "notice-live-list"
@@ -172,7 +174,7 @@ const val foodItemImage = "foodItemImage"
 const val foodIdentityImage = "foodIdentityImage"
 
 const val USER_TYPE = "member"
-const val USER_TYPE_ADMIN = "admin"
+const val USER_TYPE_ADMIN = "controller"
 const val PING = "8.8.8.8"
 
 
@@ -218,9 +220,14 @@ var foodDate = "foodDate"
 var foodHeight = "foodHeight"
 //Forms ------------------------------------------------------------------------------------------
 
+var filterByName = "name"
+var filterByMobile= "mobileNumber"
+var filterByAadhaar = "aadhaarNumber"
+var filterByStartDate = "created_at_from"
+var filterByEndDate = "created_at_to"
 
-
-
+var from_date = "from_date"
+var to_date = "to_date"
 
 
 //const val TRANSLATE_URL = "https://translation.googleapis.com/language/"

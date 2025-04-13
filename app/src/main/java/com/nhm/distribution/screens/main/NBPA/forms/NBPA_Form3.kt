@@ -95,6 +95,10 @@ class NBPA_Form3 : Fragment() {
 
         binding.apply {
 
+            ivMenu.singleClick {
+                NBPA.callBackListener!!.onCallBack(1001)
+            }
+
             signaturePad.setOnSignedListener(object : SignaturePad.OnSignedListener {
                 override fun onStartSigning() {
                     //Event triggered when the pad is touched
@@ -201,7 +205,7 @@ class NBPA_Form3 : Fragment() {
                             val dataId = Gson().fromJson(loginUser, Login::class.java).id
                             val requestBody: MultipartBody.Builder = MultipartBody.Builder()
                                 .setType(MultipartBody.FORM)
-                                .addFormDataPart(userId, ""+dataId)
+                                .addFormDataPart(user_id, ""+dataId)
 
                             if (viewModel.name != null) {
                                 requestBody.addFormDataPart(formName, ""+viewModel.name)
