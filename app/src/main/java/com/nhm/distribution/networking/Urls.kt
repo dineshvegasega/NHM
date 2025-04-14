@@ -10,6 +10,10 @@ const val BASE_URL = "http://167.71.235.192:8081/"
 
 const val URL = BASE_URL+"api/"
 
+const val AADHAAR_URL = "http://167.71.235.192/uploads/doc/"
+const val IMAGE_URL = "http://167.71.235.192/uploads/"
+
+
 
 const val MOBILE_TOKEN = "update-mobile-token"
 const val LOGIN = "login"

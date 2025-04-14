@@ -731,4 +731,6 @@
 
     <string name="aadhaar_no">आधार नंबर: </string>
     <string name="all_distributors">सभी वितरक</string>
+
+    <string name="forms_added_successfully">फ़ॉर्म सफलतापूर्वक जोड़ा गया</string>
 </resources>

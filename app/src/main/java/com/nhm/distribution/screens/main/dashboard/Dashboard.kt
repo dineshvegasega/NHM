@@ -20,6 +20,7 @@ import com.nhm.distribution.networking.*
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.utils.callNetworkDialog
 import com.nhm.distribution.utils.getAbbreviatedFromDateTime
 import com.nhm.distribution.utils.showSnackBar
@@ -197,6 +198,7 @@ class Dashboard : Fragment() {
                                 put(page, "1")
                                 put(from_date, dateEnd)
                                 put(to_date, dateStart)
+                                put(user_role, USER_TYPE_ADMIN)
                             }
                             viewModel.liveSchemeMembersCount(objMember)
                         }
@@ -233,6 +235,7 @@ class Dashboard : Fragment() {
     override fun onStop() {
         super.onStop()
         isProductLoad = true
+        isProductLoadMember = true
     }
 
     override fun onDestroyView() {
@@ -243,6 +246,7 @@ class Dashboard : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         isProductLoad = false
+        isProductLoadMember = false
     }
 
 }

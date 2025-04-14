@@ -13,7 +13,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nhm.distribution.networking.ApiInterface
@@ -33,26 +32,17 @@ import com.nhm.distribution.networking.USER_TYPE
 import com.nhm.distribution.networking.USER_TYPE_ADMIN
 import com.nhm.distribution.screens.main.NBPA.forms.NBPA
 import com.nhm.distribution.screens.main.dashboard.Dashboard
-import com.nhm.distribution.screens.main.members.MemberFragment
-import com.nhm.distribution.screens.main.products.Products
+import com.nhm.distribution.screens.main.members.MemberList
+import com.nhm.distribution.screens.main.NBPA.NBPAList
 import com.nhm.distribution.screens.main.profiles.Profiles
-import com.nhm.distribution.screens.main.schemes.allSchemes.AllSchemes
-import com.nhm.distribution.screens.main.schemes.liveSchemes.LiveSchemes
 import com.nhm.distribution.screens.main.settings.Settings
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.navHostFragment
 import com.nhm.distribution.screens.mainActivity.menu.ItemChildMenuModel
 import com.nhm.distribution.screens.mainActivity.menu.ItemMenuModel
-import com.nhm.distribution.screens.mainActivity.menu.JsonHelper
-import com.nhm.distribution.utils.mainThread
 import com.nhm.distribution.utils.showSnackBar
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import okhttp3.RequestBody
 import retrofit2.Response
 import java.util.Locale
@@ -73,6 +63,9 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
 
             var isProductLoad = false
             var isFilterLoad = false
+
+        var isProductLoadMember = false
+        var isFilterLoadMember = false
 
     }
 
@@ -195,7 +188,8 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                         2 -> {
                                             when (data.status) {
                                                 "approved" -> {
-                                                    if (fragmentInFrame !is Products) {
+                                                    if (fragmentInFrame !is NBPAList) {
+                                                        isProductLoad = true
                                                         navHostFragment?.navController?.navigate(R.id.products)
                                                     }
                                                 }
@@ -256,7 +250,8 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                         2 -> {
                                             when (data.status) {
                                                 "approved" -> {
-                                                    if (fragmentInFrame !is Products) {
+                                                    if (fragmentInFrame !is NBPAList) {
+                                                        isProductLoad = true
                                                         navHostFragment?.navController?.navigate(R.id.products)
                                                     }
                                                 }
@@ -275,9 +270,10 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                         3 -> {
                                             when (data.status) {
                                                 "approved" -> {
-                                                    if (fragmentInFrame !is MemberFragment) {
+                                                    if (fragmentInFrame !is MemberList) {
+                                                        isProductLoadMember = true
                                                         navHostFragment?.navController?.navigate(
-                                                            R.id.memberFragment
+                                                            R.id.memberList
                                                         )
                                                     }
                                                 }
@@ -399,7 +395,8 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                         1 -> {
                                             when (data.status) {
                                                 "approved" -> {
-                                                    if (fragmentInFrame !is Products) {
+                                                    if (fragmentInFrame !is NBPAList) {
+                                                        isProductLoad = true
                                                         navHostFragment?.navController?.navigate(R.id.products)
                                                     }
                                                 }

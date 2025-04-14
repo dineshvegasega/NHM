@@ -1,0 +1,92 @@
+package com.nhm.distribution.screens.main.members
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.nhm.distribution.databinding.MemberDetailBinding
+import com.nhm.distribution.models.ItemMember
+import com.nhm.distribution.networking.AADHAAR_URL
+import com.nhm.distribution.networking.IMAGE_URL
+import com.nhm.distribution.screens.mainActivity.MainActivity
+import com.nhm.distribution.utils.imageZoom
+import com.nhm.distribution.utils.loadImage
+import com.nhm.distribution.utils.parcelable
+import com.nhm.distribution.utils.singleClick
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.getValue
+
+@AndroidEntryPoint
+class MemberDetail : Fragment() {
+    private val viewModel: MemberVM by viewModels()
+    private var _binding: MemberDetailBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = MemberDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        MainActivity.mainActivity.get()?.callFragment(3)
+//        change = false
+        binding.apply {
+            val model = arguments?.parcelable<ItemMember>("key")
+            Log.e("TAG", "modelmodel " + model.toString())
+
+            model?.let {
+                editTextFN.setText("" + model.name)
+                editTextLN.setText("" + model.last_name)
+
+                model.profile_image_name?.let {
+                    ivProfileImage.loadImage(type = 1, url = { IMAGE_URL+model.profile_image_name })
+                }
+                editMobile.setText(model.mobile_no)
+//                editTextGender.setText(model.gender)
+                editTextAadhaarNumber.setText(model.aadhar_card)
+                editTextAddress.setText(model.address)
+                model.aadhar_card_doc?.let {
+                    ivImageAadhaarImage.loadImage(type = 1, url = { AADHAAR_URL+model.aadhar_card_doc })
+                }
+
+//                ivProfileImage.singleClick {
+//                    IMAGE_URL+model.profile_image_name?.let {
+//                        arrayListOf(it).imageZoom(ivProfileImage, 2)
+//                    }
+//                }
+//                ivImageAadhaarImage.singleClick {
+//                    AADHAAR_URL+model.aadhar_card_doc?.let {
+//                        arrayListOf(it).imageZoom(ivImageAadhaarImage, 2)
+//                    }
+//                }
+
+
+                editTextFN.isEnabled = false
+                editTextLN.isEnabled = false
+                editMobile.isEnabled = false
+                editTextGender.isEnabled = false
+                editTextAadhaarNumber.isEnabled = false
+                editTextAddress.isEnabled = false
+            }
+
+        }
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        MainActivity.mainActivity.get()?.callFragment(4)
+//        change = false
+    }
+}

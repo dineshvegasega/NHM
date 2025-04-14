@@ -1,5 +1,6 @@
 package com.nhm.distribution.screens.main.NBPA
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -22,6 +23,8 @@ import com.nhm.distribution.databinding.LoaderBinding
 import com.nhm.distribution.genericAdapter.GenericAdapter
 import com.nhm.distribution.models.BaseResponseDC
 import com.nhm.distribution.models.ItemLiveScheme
+import com.nhm.distribution.models.ItemNBPAForm
+import com.nhm.distribution.models.ItemNBPAFormRoot
 import com.nhm.distribution.networking.ApiInterface
 import com.nhm.distribution.networking.CallHandler
 import com.nhm.distribution.networking.Repository
@@ -97,7 +100,7 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
                 override fun success(response: Response<BaseResponseDC<Any>>) {
                     if (response.isSuccessful) {
-                        showSnackBar(response.body()?.message.orEmpty())
+                        showSnackBar(view.resources.getString(R.string.forms_added_successfully))
                         view.findNavController()
                             .navigate(R.id.action_nbpa_to_products)
                     } else {
@@ -123,92 +126,92 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 //    val adapter by lazy { NBPAListAdapter(this) }
 
 
-    val customerOrders =
-        object : GenericAdapter<ItemAllSchemesBinding, ItemLiveScheme>() {
-            override fun onCreateView(
-                inflater: LayoutInflater,
-                parent: ViewGroup,
-                viewType: Int
-            ) = ItemAllSchemesBinding.inflate(inflater, parent, false)
-
-            override fun onBindHolder(
-                binding: ItemAllSchemesBinding,
-                dataClass: ItemLiveScheme,
-                position: Int
-            ) {
-                binding.apply {
-
-
-
-//                    val date =
-//                        dataClass.updatedtime.changeDateFormat("yyyy-MM-dd HH:mm:ss", "dd-MMM-yyyy")
-//                    btDate.text = date
+//    val customerOrders =
+//        object : GenericAdapter<ItemAllSchemesBinding, ItemLiveScheme>() {
+//            override fun onCreateView(
+//                inflater: LayoutInflater,
+//                parent: ViewGroup,
+//                viewType: Int
+//            ) = ItemAllSchemesBinding.inflate(inflater, parent, false)
 //
-                    textTitle.text = dataClass.name
-                    textDesc.text = dataClass.address
-                    dataClass.foodIdentityImage?.url?.glideImagePortrait(root.context, ivIcon)
-//                    textMobile.text = dataClass.customerMobile
-//                    when (dataClass.status) {
-//                        "pending" -> {
-//                            btStatus.text = "Pending"
-//                            btStatus.backgroundTintList =
-//                                ColorStateList.valueOf(
-//                                    ContextCompat.getColor(
-//                                        binding.root.context,
-//                                        R.color._E87103
-//                                    )
-//                                )
-//                            btStatus.visibility = View.VISIBLE
-//                        }
-//                        "inprogress" -> {
-//                            btStatus.text = "In Progress"
-//                            btStatus.backgroundTintList =
-//                                ColorStateList.valueOf(
-//                                    ContextCompat.getColor(
-//                                        binding.root.context,
-//                                        R.color._F7879A
-//                                    )
-//                                )
-//                            btStatus.visibility = View.VISIBLE
-//                        }
-//                        "dispatched" -> {
-//                            btStatus.text = "Dispatched"
-//                            btStatus.backgroundTintList =
-//                                ColorStateList.valueOf(
-//                                    ContextCompat.getColor(
-//                                        binding.root.context,
-//                                        R.color._2eb82e
-//                                    )
-//                                )
-//                            btStatus.visibility = View.VISIBLE
-//                        }
-//                        "complete" -> {
-//                            btStatus.text = "Complete"
-//                            btStatus.backgroundTintList =
-//                                ColorStateList.valueOf(
-//                                    ContextCompat.getColor(
-//                                        binding.root.context,
-//                                        R.color._2A3740
-//                                    )
-//                                )
-//                            btStatus.visibility = View.VISIBLE
-//                        }
-//                        else -> {
-//                            btStatus.visibility = View.GONE
-//                        }
-                }
-
-                binding.apply {
-                    root.singleClick {
-                        root.findNavController()
-                            .navigate(R.id.action_members_to_nbpaDetail, Bundle().apply {
-                                putParcelable("key", dataClass)
-                            })
-                    }
-                }
-
-            }
-        }
+//            override fun onBindHolder(
+//                binding: ItemAllSchemesBinding,
+//                dataClass: ItemLiveScheme,
+//                position: Int
+//            ) {
+//                binding.apply {
+//
+//
+//
+////                    val date =
+////                        dataClass.updatedtime.changeDateFormat("yyyy-MM-dd HH:mm:ss", "dd-MMM-yyyy")
+////                    btDate.text = date
+////
+//                    textTitle.text = dataClass.name
+//                    textDesc.text = dataClass.address
+//                    dataClass.foodIdentityImage?.url?.glideImagePortrait(root.context, ivIcon)
+////                    textMobile.text = dataClass.customerMobile
+////                    when (dataClass.status) {
+////                        "pending" -> {
+////                            btStatus.text = "Pending"
+////                            btStatus.backgroundTintList =
+////                                ColorStateList.valueOf(
+////                                    ContextCompat.getColor(
+////                                        binding.root.context,
+////                                        R.color._E87103
+////                                    )
+////                                )
+////                            btStatus.visibility = View.VISIBLE
+////                        }
+////                        "inprogress" -> {
+////                            btStatus.text = "In Progress"
+////                            btStatus.backgroundTintList =
+////                                ColorStateList.valueOf(
+////                                    ContextCompat.getColor(
+////                                        binding.root.context,
+////                                        R.color._F7879A
+////                                    )
+////                                )
+////                            btStatus.visibility = View.VISIBLE
+////                        }
+////                        "dispatched" -> {
+////                            btStatus.text = "Dispatched"
+////                            btStatus.backgroundTintList =
+////                                ColorStateList.valueOf(
+////                                    ContextCompat.getColor(
+////                                        binding.root.context,
+////                                        R.color._2eb82e
+////                                    )
+////                                )
+////                            btStatus.visibility = View.VISIBLE
+////                        }
+////                        "complete" -> {
+////                            btStatus.text = "Complete"
+////                            btStatus.backgroundTintList =
+////                                ColorStateList.valueOf(
+////                                    ContextCompat.getColor(
+////                                        binding.root.context,
+////                                        R.color._2A3740
+////                                    )
+////                                )
+////                            btStatus.visibility = View.VISIBLE
+////                        }
+////                        else -> {
+////                            btStatus.visibility = View.GONE
+////                        }
+//                }
+//
+//                binding.apply {
+//                    root.singleClick {
+//                        root.findNavController()
+//                            .navigate(R.id.action_members_to_nbpaDetail, Bundle().apply {
+//                                putParcelable("key", dataClass)
+//                            })
+//                    }
+//                }
+//
+//            }
+//        }
 
 
     var alertDialog: AlertDialog? = null
@@ -536,4 +539,107 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
     fun callApiTranslate(_lang: String, _words: String): String {
         return repository.callApiTranslate(_lang, _words)
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var filterNameBoolean = false
+    var filterMobileBoolean = false
+    var filterAadhaarBoolean = false
+    var filterStartDateBoolean = false
+    var filterEndDateBoolean = false
+
+    var filterName = ""
+    var filterMobile= ""
+    var filterAadhaar = ""
+    var filterStartDate = ""
+    var filterEndDate = ""
+
+
+    val itemsProduct: ArrayList<ItemNBPAForm> = ArrayList()
+
+
+    private var itemProducstResult = MutableLiveData<ItemNBPAFormRoot>()
+    val itemProducts: LiveData<ItemNBPAFormRoot> get() = itemProducstResult
+    fun getProducts(emptyMap: JSONObject, pageNumber: Int) =
+        viewModelScope.launch {
+            if (pageNumber == 0 || pageNumber == 1) {
+                repository.callApi(
+                    callHandler = object : CallHandler<Response<ItemNBPAFormRoot>> {
+                        override suspend fun sendRequest(apiInterface: ApiInterface) =
+                            apiInterface.getPopularMoviesListXX(emptyMap.getJsonRequestBody())
+
+                        @SuppressLint("SuspiciousIndentation")
+                        override fun success(response: Response<ItemNBPAFormRoot>) {
+                            if (response.isSuccessful) {
+                                mainThread {
+                                    try {
+                                        Log.e("TAG", "successAA: ${response.body().toString()}")
+                                        var mMineUserEntity = response.body()!!
+                                        itemProducstResult.value = mMineUserEntity
+                                    } catch (e: Exception) {
+                                    }
+                                }
+
+                            }
+                        }
+
+                        override fun error(message: String) {
+
+                        }
+
+                        override fun loading() {
+                            super.loading()
+                        }
+                    }
+                )
+            } else {
+                repository.callApiWithoutLoader (
+                    callHandler = object : CallHandler<Response<ItemNBPAFormRoot>> {
+                        override suspend fun sendRequest(apiInterface: ApiInterface) =
+                            apiInterface.getPopularMoviesListXX(emptyMap.getJsonRequestBody())
+
+                        @SuppressLint("SuspiciousIndentation")
+                        override fun success(response: Response<ItemNBPAFormRoot>) {
+                            if (response.isSuccessful) {
+                                mainThread {
+                                    try {
+                                        Log.e("TAG", "successAA: ${response.body().toString()}")
+                                        var mMineUserEntity = response.body()!!
+                                        itemProducstResult.value = mMineUserEntity
+                                    } catch (e: Exception) {
+                                    }
+                                }
+
+                            }
+                        }
+
+                        override fun error(message: String) {
+
+                        }
+
+                        override fun loading() {
+                            super.loading()
+                        }
+                    }
+                )
+            }
+        }
+
+
+
+
+
+
 }

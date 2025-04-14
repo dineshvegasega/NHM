@@ -69,7 +69,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/radioButtonName"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
@@ -78,14 +78,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/view"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:visibility="visible"
-                    android:text="@string/name_filter"/>
+                     android:checked="true"
+                    android:text="@string/first_name"/>
 
             <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editTextName"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
                     style="@style/PrimaryEditText"
-                    android:hint="@string/name_filter"
+                    android:hint="@string/first_name"
                     android:text=""
                     app:layout_constraintTop_toBottomOf="@+id/radioButtonName"
                     android:drawableTint="@color/_868686"
@@ -98,10 +99,11 @@
                     android:ellipsize="end"
                     android:layout_marginTop="0dp"
                     android:visibility="visible"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     />
 
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/radioButtonMobile"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
@@ -130,7 +132,7 @@
                     />
 
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/radioButtonAadhaar"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
@@ -163,7 +165,7 @@
 
 
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/radioButtonDate"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"

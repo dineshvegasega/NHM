@@ -1,6 +1,5 @@
 package com.nhm.distribution.networking
 
-import com.nhm.distribution.screens.main.NBPA.MoviesListResponse
 import com.google.gson.JsonElement
 import com.nhm.distribution.models.BaseResponseDC
 import com.nhm.distribution.models.ItemChat
@@ -13,8 +12,9 @@ import com.nhm.distribution.models.ItemPanchayat
 import com.nhm.distribution.models.ItemPincode
 import com.nhm.distribution.models.ItemState
 import com.nhm.distribution.models.ItemVending
-import com.nhm.distribution.models.aaa.ItemProductRoot
-import com.nhm.distribution.screens.main.members.MemberMoviesListResponse
+import com.nhm.distribution.models.ItemNBPAForm
+import com.nhm.distribution.models.ItemMemberRoot
+import com.nhm.distribution.models.ItemNBPAFormRoot
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -339,21 +339,13 @@ interface ApiInterface {
     ): Response<BaseResponseDC<JsonElement>>
 
 
-    @POST(GLOBALSchemeHistoryList)
-    suspend fun getPopularMoviesList(
-        @Body requestBody: RequestBody
-    ): Response<MoviesListResponse>
 
 
     @POST(GLOBALSchemeHistoryList)
     suspend fun getPopularMoviesListXX(
         @Body requestBody: RequestBody
-    ): Response<ItemProductRoot>
+    ): Response<ItemNBPAFormRoot>
 
-    @POST(membershipList)
-    suspend fun getPopularMoviesListMember(
-        @Body requestBody: RequestBody
-    ): Response<MemberMoviesListResponse>
 
 
     @POST(GLOBALSchemeHistoryList)
@@ -367,4 +359,15 @@ interface ApiInterface {
         @Body requestBody: RequestBody
     ): Response<BaseResponseDC<JsonElement>>
 
+
+//    @POST(GLOBALSchemeHistoryListMembers)
+//    suspend fun getPopularMoviesListMembers(
+//        @Body requestBody: RequestBody
+//    ): Response<ItemProductRoot>
+
+
+    @POST(membershipList)
+    suspend fun getPopularMoviesListMember(
+        @Body requestBody: RequestBody
+    ): Response<ItemMemberRoot>
 }

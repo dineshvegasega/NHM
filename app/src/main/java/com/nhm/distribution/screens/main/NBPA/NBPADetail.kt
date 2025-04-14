@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.nhm.distribution.databinding.NbpaDetailBinding
-import com.nhm.distribution.models.aaa.ItemProduct
+import com.nhm.distribution.models.ItemNBPAForm
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.utils.glideImagePortraitForImage
+import com.nhm.distribution.utils.imageZoom
 import com.nhm.distribution.utils.parcelable
+import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,9 +23,7 @@ class NBPADetail : Fragment() {
     private var _binding: NbpaDetailBinding? = null
     private val binding get() = _binding!!
 
-companion object{
-//    var change : Boolean = true
-}
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +40,7 @@ companion object{
         MainActivity.mainActivity.get()?.callFragment(3)
 //        change = false
         binding.apply {
-            val model = arguments?.parcelable<ItemProduct>("key")
+            val model = arguments?.parcelable<ItemNBPAForm>("key")
             Log.e("TAG", "modelmodel "+model.toString())
 
             model?.let {
@@ -106,10 +106,23 @@ companion object{
                 editTextDate.setText(""+model.foodDate)
                 editTextHeight2.setText(""+model.foodHeight)
                 model.foodSignatureImage?.url?.glideImagePortraitForImage(ivSignature.context, ivSignature)
-                model.foodItemImage?.url?.glideImagePortraitForImage(ivSignature.context, ivImagePassportsizeImage)
-                model.foodIdentityImage?.url?.glideImagePortraitForImage(ivSignature.context, ivImageIdentityImage)
-
-
+                model.foodItemImage?.url?.glideImagePortraitForImage(ivImagePassportsizeImage.context, ivImagePassportsizeImage)
+                model.foodIdentityImage?.url?.glideImagePortraitForImage(ivImageIdentityImage.context, ivImageIdentityImage)
+//                ivSignature.singleClick {
+//                    model.foodSignatureImage?.url?.let {
+//                        arrayListOf(it).imageZoom(ivSignature, 2)
+//                    }
+//                }
+//                ivImagePassportsizeImage.singleClick {
+//                    model.foodItemImage?.url?.let {
+//                        arrayListOf(it).imageZoom(ivImagePassportsizeImage, 2)
+//                    }
+//                }
+//                ivImageIdentityImage.singleClick {
+//                    model.foodIdentityImage?.url?.let {
+//                        arrayListOf(it).imageZoom(ivImageIdentityImage, 2)
+//                    }
+//                }
 
                 editTextName.isEnabled = false
                 editTextFatherHusband.isEnabled = false

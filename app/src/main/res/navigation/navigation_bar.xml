@@ -8,10 +8,10 @@
 
 
     <fragment
-            android:name="com.nhm.distribution.screens.main.products.Products"
+            android:name="com.nhm.distribution.screens.main.NBPA.NBPAList"
             android:label="Products"
             android:id="@+id/products"
-            tools:layout="@layout/fragment_movies">
+            tools:layout="@layout/nbpa_list">
         <action
                 android:id="@+id/action_products_to_nbpaDetail"
                 app:destination="@id/nbpaDetail"
@@ -20,19 +20,23 @@
     </fragment>
 
     <fragment
-            android:name="com.nhm.distribution.screens.main.members.MemberFragment"
-            android:label="MemberFragment"
-            android:id="@+id/memberFragment"
-            tools:layout="@layout/fragment_movies">
+            android:name="com.nhm.distribution.screens.main.members.MemberList"
+            android:label="MemberList"
+            android:id="@+id/memberList"
+            tools:layout="@layout/member_list">
         <action
-                android:id="@+id/action_members_to_nbpaDetail"
-                app:destination="@id/nbpaDetail"
+                android:id="@+id/action_memberList_to_memberDetail"
+                app:destination="@id/memberDetail"
                 app:launchSingleTop="true"
                 />
-
     </fragment>
 
-
+    <fragment
+            android:name="com.nhm.distribution.screens.main.members.MemberDetail"
+            android:label="MemberDetail"
+            android:id="@+id/memberDetail"
+            tools:layout="@layout/member_detail">
+    </fragment>
 
 
     <fragment

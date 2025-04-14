@@ -48,28 +48,28 @@ data class ItemLiveScheme(
 }
 
 
-@Parcelize
-data class FoodIdentityImage(
-    val name: String,
-    val url: String
-): Parcelable{
-
-}
-
-
-@Parcelize
-data class FoodItemImage(
-    val name: String,
-    val url: String
-): Parcelable{
-
-}
-
-
-@Parcelize
-data class FoodSignatureImage(
-    val name: String,
-    val url: String
-): Parcelable{
-
-}
+//@Parcelize
+//data class FoodIdentityImage(
+//    val name: String,
+//    val url: String
+//): Parcelable{
+//
+//}
+//
+//
+//@Parcelize
+//data class FoodItemImage(
+//    val name: String,
+//    val url: String
+//): Parcelable{
+//
+//}
+//
+//
+//@Parcelize
+//data class FoodSignatureImage(
+//    val name: String,
+//    val url: String
+//): Parcelable{
+//
+//}

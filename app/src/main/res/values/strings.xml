@@ -936,4 +936,6 @@
 
     <string name="aadhaar_no">Aadhaar No: </string>
     <string name="all_distributors">All Distributors</string>
+
+    <string name="forms_added_successfully">Form added successfully</string>
 </resources>

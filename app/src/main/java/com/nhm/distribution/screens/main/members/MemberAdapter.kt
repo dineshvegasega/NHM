@@ -2,80 +2,186 @@ package com.nhm.distribution.screens.main.members
 
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.nhm.distribution.BR
 import com.nhm.distribution.R
 import com.nhm.distribution.databinding.ItemAllSchemesBinding
+import com.nhm.distribution.databinding.ItemLoadingBinding
+import com.nhm.distribution.models.ItemMember
+import com.nhm.distribution.networking.IMAGE_URL
 import com.nhm.distribution.utils.changeDateFormat
 import com.nhm.distribution.utils.glideImagePortrait
-import javax.inject.Inject
 
-class MemberAdapter @Inject() constructor() :
-    PagingDataAdapter<MemberMoviesListResponse.Result, MemberAdapter.ViewHolder>(differCallback) {
+class MemberAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private lateinit var binding: ItemAllSchemesBinding
-    private lateinit var context: Context
+    var counter = 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        binding = ItemAllSchemesBinding.inflate(inflater, parent, false)
-        context = parent.context
-        return ViewHolder()
+    var itemModels: MutableList<ItemMember> = ArrayList()
+
+
+    lateinit var itemRowBinding2: ItemAllSchemesBinding
+
+
+    private val item: Int = 0
+    private val loading: Int = 1
+
+    private var isLoadingAdded: Boolean = false
+    private var retryPageLoad: Boolean = false
+
+    private var errorMsg: String? = ""
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return  if(viewType == item){
+            val binding: ItemAllSchemesBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_all_schemes, parent, false)
+            itemRowBinding2 = binding
+            TopMoviesVH(binding)
+        }else{
+            val binding: ItemLoadingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_loading, parent, false)
+            LoadingVH(binding)
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
-        holder.setIsRecyclable(false)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val model = itemModels[position]
+        if(getItemViewType(position) == item){
+
+            val myOrderVH: TopMoviesVH = holder as TopMoviesVH
+//            myOrderVH.itemRowBinding.movieProgress.visibility = View.VISIBLE
+            myOrderVH.bind(model, position)
+        }else{
+            val loadingVH: LoadingVH = holder as LoadingVH
+            if (retryPageLoad) {
+                loadingVH.itemRowBinding.loadmoreProgress.visibility = View.GONE
+            } else {
+                loadingVH.itemRowBinding.loadmoreProgress.visibility = View.VISIBLE
+            }
+        }
     }
 
-    inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
-        fun bind(item: MemberMoviesListResponse.Result) {
-            binding.apply {
-                ivIcon.visibility = View.GONE
-                item.foodIdentityImage?.url?.glideImagePortrait(root.context, ivIcon)
-                textTitle.setText(item.name)
-                textDesc.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.aadhaar_no)+"</b> "+item.aadhar_card, HtmlCompat.FROM_HTML_MODE_LEGACY))
-                textMobile.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.mobile_no_per)+"</b> "+item.mobile_no, HtmlCompat.FROM_HTML_MODE_LEGACY))
-                item.updated_date?.let {
-                    textValidDateValue.text = "${item.updated_date.changeDateFormat("yyyy-MM-dd", "dd MMM, yyyy")}"
+    override fun getItemCount(): Int {
+        return if (itemModels.size > 0) itemModels.size else 0
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if(position == 0){
+            item
+        }else {
+            if (position == itemModels.size - 1 && isLoadingAdded) {
+                loading
+            } else {
+                item
+            }
+        }
+    }
+
+
+    inner class TopMoviesVH(binding: ItemAllSchemesBinding) : RecyclerView.ViewHolder(binding.root) {
+        var itemRowBinding: ItemAllSchemesBinding = binding
+
+        @SuppressLint("NotifyDataSetChanged", "SetTextI18n", "ClickableViewAccessibility")
+        fun bind(obj: Any?, position: Int) {
+            itemRowBinding.setVariable(BR._all, obj)
+            itemRowBinding.executePendingBindings()
+            val model = obj as ItemMember
+
+            itemRowBinding.apply {
+                (IMAGE_URL+model.profile_image_name).glideImagePortrait(ivIcon.context, ivIcon)
+                textTitle.setText(model.name +" "+model.last_name)
+                textDesc.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.aadhaar_no)+"</b> "+model.aadhar_card, HtmlCompat.FROM_HTML_MODE_LEGACY))
+                textMobile.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.mobile_no_per)+"</b> "+model.mobile_no, HtmlCompat.FROM_HTML_MODE_LEGACY))
+                model.updated_date?.let {
+                    textValidDateValue.text = "${model.updated_date.changeDateFormat("yyyy-MM-dd", "dd MMM, yyyy")}"
                 }
-//                root.setOnClickListener {
-//                    root.findNavController().navigate(R.id.action_nbpaList_to_nbpaDetail, Bundle().apply {
-//                        putParcelable("key", item)
-//                    })
-////                    onItemClickListener?.let {
-////                        it(item)
-////                    }
-//                }
+
+                itemRowBinding.root.setOnClickListener {
+                    itemRowBinding.root.findNavController().navigate(R.id.action_memberList_to_memberDetail, Bundle().apply {
+                        putParcelable("key", model)
+                    })
+                }
             }
         }
     }
 
-    private var onItemClickListener: ((MemberMoviesListResponse.Result) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (MemberMoviesListResponse.Result) -> Unit) {
-        onItemClickListener = listener
+    inner class LoadingVH(binding: ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root) {
+        var itemRowBinding: ItemLoadingBinding = binding
     }
 
-    companion object {
-        val differCallback = object : DiffUtil.ItemCallback<MemberMoviesListResponse.Result>() {
-            override fun areItemsTheSame(oldItem: MemberMoviesListResponse.Result, newItem: MemberMoviesListResponse.Result): Boolean {
-                return oldItem.id == oldItem.id
-            }
+    fun showRetry(show: Boolean, errorMsg: String) {
+        retryPageLoad = show
+        notifyItemChanged(itemModels.size - 1)
+        this.errorMsg = errorMsg
+    }
 
-            override fun areContentsTheSame(oldItem: MemberMoviesListResponse.Result, newItem: MemberMoviesListResponse.Result): Boolean {
-                return oldItem == newItem
-            }
+    @SuppressLint("NotifyDataSetChanged")
+    fun addAllSearch(movies: MutableList<ItemMember>) {
+        itemModels.clear()
+        itemModels.addAll(movies)
+//        for(movie in movies){
+//            add(movie)
+//        }
+        notifyDataSetChanged()
+    }
+
+    fun addAll(movies: MutableList<ItemMember>) {
+        for(movie in movies){
+            add(movie)
         }
     }
+
+    fun add(moive: ItemMember) {
+        itemModels.add(moive)
+        notifyItemInserted(itemModels.size - 1)
+    }
+
+    fun addLoadingFooter() {
+        isLoadingAdded = true
+//        add(ItemLiveScheme())
+    }
+
+    fun removeLoadingFooter() {
+        isLoadingAdded = false
+
+//        val position: Int =itemModels.size -1
+//        val movie: ItemLiveScheme = itemModels[position]
+//
+//        if(movie != null){
+//            itemModels.removeAt(position)
+//            notifyItemRemoved(position)
+//        }
+    }
+
+
+    fun submitData(itemMainArray: ArrayList<ItemMember>) {
+        itemModels = itemMainArray
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updatePosition(position: Int) {
+        counter = position
+        Log.e("TAG", "updatePosition " + position)
+//        itemRowBinding2.apply {
+//            if (isHide) {
+//                baseButtons.visibility = View.GONE
+//                group.visibility = View.VISIBLE
+//            } else {
+//                baseButtons.visibility = View.VISIBLE
+//                group.visibility = View.GONE
+//            }
+//        }
+//        notifyItemChanged(position)
+
+    }
+
+
 
 }
