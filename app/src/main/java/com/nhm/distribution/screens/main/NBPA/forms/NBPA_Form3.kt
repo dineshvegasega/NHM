@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -41,6 +42,8 @@ import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.logoutAlert
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.screens.onboarding.register.Register.Companion.imagePath
 import com.nhm.distribution.screens.onboarding.register.Register.Companion.latLong
 import com.nhm.distribution.utils.callNetworkDialog
@@ -185,6 +188,10 @@ class NBPA_Form3 : Fragment() {
 
 
             btSignIn.singleClick {
+                isProductLoad = true
+                isProductLoadMember = true
+                view.findNavController()
+                    .navigate(R.id.action_nbpa_to_products)
                 if (editTextMonth.text.toString() == "") {
                     showSnackBar(getString(R.string.select_month))
                 } else if (editTextDate.text.toString() == "") {
@@ -475,13 +482,14 @@ class NBPA_Form3 : Fragment() {
                                 readData(LOGIN_DATA) { loginUser ->
                                     if (loginUser != null) {
                                         val data = Gson().fromJson(loginUser, Login::class.java)
-                                        binding.textClickByTxt.text = "Click By: ${data.vendor_first_name} ${data.vendor_last_name}"
-
                                         binding.ivIcon.setImageURI(Uri.fromFile(File(imagePath)))
-                                        binding.textAddressTxt.text = requireActivity().getAddress(latLong)
                                         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
                                         val currentDate = sdf.format(Date())
-                                        binding.textTimeTxt.text = currentDate
+
+                                        binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
+                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                        binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
+                                        binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                         mainThread {
                                             dispatchTakePictureIntent(binding.layoutMainCapture) {
                                                 viewModel.foodItemImage = this
@@ -509,13 +517,14 @@ class NBPA_Form3 : Fragment() {
                                 readData(LOGIN_DATA) { loginUser ->
                                     if (loginUser != null) {
                                         val data = Gson().fromJson(loginUser, Login::class.java)
-                                        binding.textClickByTxt.text = "Click By: ${data.vendor_first_name} ${data.vendor_last_name}"
-
                                         binding.ivIcon.setImageURI(Uri.fromFile(File(imagePath)))
-                                        binding.textAddressTxt.text = requireActivity().getAddress(latLong)
                                         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
                                         val currentDate = sdf.format(Date())
-                                        binding.textTimeTxt.text = currentDate
+
+                                        binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
+                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                        binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
+                                        binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                         mainThread {
                                             dispatchTakePictureIntent(binding.layoutMainCapture) {
                                                 viewModel.foodIdentityImage = this
@@ -555,13 +564,14 @@ class NBPA_Form3 : Fragment() {
                             readData(LOGIN_DATA) { loginUser ->
                                 if (loginUser != null) {
                                     val data = Gson().fromJson(loginUser, Login::class.java)
-                                    binding.textClickByTxt.text = "Click By: ${data.vendor_first_name} ${data.vendor_last_name}"
-
                                     binding.ivIcon.setImageURI(Uri.fromFile(File(imagePath)))
-                                    binding.textAddressTxt.text = requireActivity().getAddress(latLong)
                                     val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
                                     val currentDate = sdf.format(Date())
-                                    binding.textTimeTxt.text = currentDate
+
+                                    binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
+                                    binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                    binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
+                                    binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                     mainThread {
                                         dispatchTakePictureIntent(binding.layoutMainCapture) {
                                             viewModel.foodItemImage = this
@@ -588,13 +598,14 @@ class NBPA_Form3 : Fragment() {
                             readData(LOGIN_DATA) { loginUser ->
                                 if (loginUser != null) {
                                     val data = Gson().fromJson(loginUser, Login::class.java)
-                                    binding.textClickByTxt.text = "Click By: ${data.vendor_first_name} ${data.vendor_last_name}"
-
                                     binding.ivIcon.setImageURI(Uri.fromFile(File(imagePath)))
-                                    binding.textAddressTxt.text = requireActivity().getAddress(latLong)
                                     val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
                                     val currentDate = sdf.format(Date())
-                                    binding.textTimeTxt.text = currentDate
+
+                                    binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
+                                    binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                    binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
+                                    binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                     mainThread {
                                         dispatchTakePictureIntent(binding.layoutMainCapture) {
                                             viewModel.foodIdentityImage = this
@@ -700,5 +711,20 @@ class NBPA_Form3 : Fragment() {
         view.draw(canvas)
         return bitmap
     }
+
+
+
+
+    override fun onStop() {
+        super.onStop()
+        isProductLoad = true
+        isProductLoadMember = true
+    }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        isProductLoad = false
+//        isProductLoadMember = false
+//    }
 
 }

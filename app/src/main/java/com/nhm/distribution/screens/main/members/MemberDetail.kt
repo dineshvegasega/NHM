@@ -60,16 +60,16 @@ class MemberDetail : Fragment() {
                     ivImageAadhaarImage.loadImage(type = 1, url = { AADHAAR_URL+model.aadhar_card_doc })
                 }
 
-//                ivProfileImage.singleClick {
-//                    IMAGE_URL+model.profile_image_name?.let {
-//                        arrayListOf(it).imageZoom(ivProfileImage, 2)
-//                    }
-//                }
-//                ivImageAadhaarImage.singleClick {
-//                    AADHAAR_URL+model.aadhar_card_doc?.let {
-//                        arrayListOf(it).imageZoom(ivImageAadhaarImage, 2)
-//                    }
-//                }
+                ivProfileImage.singleClick {
+                    (IMAGE_URL+model.profile_image_name).let {
+                        arrayListOf(it).imageZoom(ivProfileImage, 2)
+                    }
+                }
+                ivImageAadhaarImage.singleClick {
+                    (AADHAAR_URL+model.aadhar_card_doc).let {
+                        arrayListOf(it).imageZoom(ivImageAadhaarImage, 2)
+                    }
+                }
 
 
                 editTextFN.isEnabled = false

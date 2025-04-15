@@ -30,6 +30,7 @@ import com.nhm.distribution.screens.mainActivity.MainActivity
 //import com.nhm.distribution.screens.main.products.ProductsVM.Companion.isProductLoad
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isFilterLoad
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.userIdForGlobal
 import com.nhm.distribution.utils.showDropDownDialog
 import com.nhm.distribution.utils.showSnackBar
@@ -358,13 +359,11 @@ class NBPAList : Fragment() {
         viewModel.getProducts(obj, page)
     }
 
-    override fun onStart() {
-        super.onStart()
-//        if (isFilterLoad){
-//            page = 1
-//            isProductLoad = true
-//            viewModel.itemsProduct.clear()
-//        }
+
+    override fun onStop() {
+        super.onStop()
+        isProductLoad = true
+        isProductLoadMember = true
     }
 
 }

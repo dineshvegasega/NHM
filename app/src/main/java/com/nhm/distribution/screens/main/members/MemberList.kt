@@ -21,6 +21,7 @@ import com.nhm.distribution.networking.user_id
 import com.nhm.distribution.networking.user_role
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isFilterLoadMember
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.userIdForGlobal
 import com.nhm.distribution.utils.showDropDownDialog
@@ -352,5 +353,21 @@ class MemberList : Fragment() {
 //            viewModel.itemsProduct.clear()
 //        }
     }
+
+
+
+
+    override fun onStop() {
+        super.onStop()
+        isProductLoad = true
+        isProductLoadMember = true
+    }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        isProductLoad = false
+//        isProductLoadMember = false
+//    }
+
 
 }

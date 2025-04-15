@@ -243,10 +243,10 @@ class Dashboard : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        isProductLoad = false
-        isProductLoadMember = false
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        isProductLoad = false
+//        isProductLoadMember = false
+//    }
 
 }

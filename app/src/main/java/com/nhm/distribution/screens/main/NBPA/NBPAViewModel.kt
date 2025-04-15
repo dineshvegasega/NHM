@@ -31,6 +31,8 @@ import com.nhm.distribution.networking.Repository
 import com.nhm.distribution.networking.getJsonRequestBody
 //import com.nhm.distribution.screens.main.NBPA.NBPADetail.Companion.change
 import com.nhm.distribution.screens.mainActivity.MainActivity
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.utils.glideImagePortrait
 import com.nhm.distribution.utils.mainThread
 import com.nhm.distribution.utils.showSnackBar
@@ -100,6 +102,8 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
                 override fun success(response: Response<BaseResponseDC<Any>>) {
                     if (response.isSuccessful) {
+                        isProductLoad = true
+                        isProductLoadMember = true
                         showSnackBar(view.resources.getString(R.string.forms_added_successfully))
                         view.findNavController()
                             .navigate(R.id.action_nbpa_to_products)

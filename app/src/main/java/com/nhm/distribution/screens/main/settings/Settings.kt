@@ -52,6 +52,8 @@ import com.nhm.distribution.models.Login
 import com.nhm.distribution.networking.*
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.utils.callNetworkDialog
 import com.nhm.distribution.utils.getBitmapFromVectorDrawable
 import com.nhm.distribution.utils.loadHtml
@@ -481,4 +483,19 @@ class Settings : Fragment() {
 //        appUpdateManager.unregisterListener(listener)
         super.onDestroyView()
     }
+
+
+
+    override fun onStop() {
+        super.onStop()
+        isProductLoad = true
+        isProductLoadMember = true
+    }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        isProductLoad = false
+//        isProductLoadMember = false
+//    }
+
 }

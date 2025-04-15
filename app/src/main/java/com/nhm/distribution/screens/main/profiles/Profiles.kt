@@ -22,6 +22,8 @@ import com.nhm.distribution.databinding.ProfilesBinding
 import com.nhm.distribution.datastore.DataStoreKeys.LOGIN_DATA
 import com.nhm.distribution.datastore.DataStoreUtil.readData
 import com.nhm.distribution.models.Login
+import com.nhm.distribution.networking.AADHAAR_URL
+import com.nhm.distribution.networking.IMAGE_URL
 import com.nhm.distribution.networking.USER_TYPE
 import com.nhm.distribution.networking.USER_TYPE_ADMIN
 import com.nhm.distribution.networking.aadhar_card
@@ -38,6 +40,8 @@ import com.nhm.distribution.networking.vendor_last_name
 import com.nhm.distribution.screens.interfaces.CallBackListener
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.utils.callNetworkDialog
 import com.nhm.distribution.utils.changeDateFormat
 import com.nhm.distribution.utils.imageZoom
@@ -128,6 +132,16 @@ class Profiles : Fragment() , CallBackListener {
                         ivImageAadhaarImage.loadImage(type = 1, url = { data.aadhar_card_doc.url })
                     }
 
+                    ivProfileImage.singleClick {
+                        data.profile_image_name.url.let {
+                            arrayListOf(it).imageZoom(ivProfileImage, 2)
+                        }
+                    }
+                    ivImageAadhaarImage.singleClick {
+                        data.aadhar_card_doc.url.let {
+                            arrayListOf(it).imageZoom(ivImageAadhaarImage, 2)
+                        }
+                    }
 
                     editTextFN.isEnabled = false
                     editTextLN.isEnabled = false
@@ -393,5 +407,19 @@ class Profiles : Fragment() , CallBackListener {
 //
 //        }
     }
+
+
+
+    override fun onStop() {
+        super.onStop()
+        isProductLoad = true
+        isProductLoadMember = true
+    }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        isProductLoad = false
+//        isProductLoadMember = false
+//    }
 
 }

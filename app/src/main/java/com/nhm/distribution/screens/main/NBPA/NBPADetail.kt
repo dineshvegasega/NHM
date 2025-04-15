@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import com.nhm.distribution.databinding.NbpaDetailBinding
 import com.nhm.distribution.models.ItemNBPAForm
 import com.nhm.distribution.screens.mainActivity.MainActivity
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.utils.glideImagePortraitForImage
 import com.nhm.distribution.utils.imageZoom
 import com.nhm.distribution.utils.parcelable
@@ -108,21 +110,21 @@ class NBPADetail : Fragment() {
                 model.foodSignatureImage?.url?.glideImagePortraitForImage(ivSignature.context, ivSignature)
                 model.foodItemImage?.url?.glideImagePortraitForImage(ivImagePassportsizeImage.context, ivImagePassportsizeImage)
                 model.foodIdentityImage?.url?.glideImagePortraitForImage(ivImageIdentityImage.context, ivImageIdentityImage)
-//                ivSignature.singleClick {
-//                    model.foodSignatureImage?.url?.let {
-//                        arrayListOf(it).imageZoom(ivSignature, 2)
-//                    }
-//                }
-//                ivImagePassportsizeImage.singleClick {
-//                    model.foodItemImage?.url?.let {
-//                        arrayListOf(it).imageZoom(ivImagePassportsizeImage, 2)
-//                    }
-//                }
-//                ivImageIdentityImage.singleClick {
-//                    model.foodIdentityImage?.url?.let {
-//                        arrayListOf(it).imageZoom(ivImageIdentityImage, 2)
-//                    }
-//                }
+                ivSignature.singleClick {
+                    model.foodSignatureImage?.url?.let {
+                        arrayListOf(it).imageZoom(ivSignature, 2)
+                    }
+                }
+                ivImagePassportsizeImage.singleClick {
+                    model.foodItemImage?.url?.let {
+                        arrayListOf(it).imageZoom(ivImagePassportsizeImage, 2)
+                    }
+                }
+                ivImageIdentityImage.singleClick {
+                    model.foodIdentityImage?.url?.let {
+                        arrayListOf(it).imageZoom(ivImageIdentityImage, 2)
+                    }
+                }
 
                 editTextName.isEnabled = false
                 editTextFatherHusband.isEnabled = false
@@ -130,6 +132,7 @@ class NBPADetail : Fragment() {
                 editTextGender.isEnabled = false
                 editTextAge.isEnabled = false
                 editTextHeight.isEnabled = false
+                editTextWeight.isEnabled = false
                 editTextNumberOfMembers.isEnabled = false
                 editTextNumberOfChildrens.isEnabled = false
                 editTextAddress.isEnabled = false
@@ -163,11 +166,20 @@ class NBPADetail : Fragment() {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
+        super.onStop()
         MainActivity.mainActivity.get()?.callFragment(4)
-//        change = false
+        isProductLoad = true
+        isProductLoadMember = true
     }
+
+
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        MainActivity.mainActivity.get()?.callFragment(4)
+//        isProductLoad = false
+//        isProductLoadMember = false
+//    }
 
 
 

@@ -938,4 +938,9 @@
     <string name="all_distributors">All Distributors</string>
 
     <string name="forms_added_successfully">Form added successfully</string>
+
+    <string name="geoClickby">Click By: </string>
+    <string name="geAddress">Address: </string>
+    <string name="geoLatLng">LatLong: </string>
+    <string name="geoDateTime">Date Time: </string>
 </resources>
