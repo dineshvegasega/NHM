@@ -189,7 +189,7 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                             when (data.status) {
                                                 "approved" -> {
                                                     if (fragmentInFrame !is NBPAList) {
-//                                                        isProductLoad = true
+                                                        isProductLoad = true
                                                         navHostFragment?.navController?.navigate(R.id.products)
                                                     }
                                                 }
@@ -251,7 +251,7 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                             when (data.status) {
                                                 "approved" -> {
                                                     if (fragmentInFrame !is NBPAList) {
-//                                                        isProductLoad = true
+                                                        isProductLoad = true
 //                                                        isProductLoadMember = true
                                                         navHostFragment?.navController?.navigate(R.id.products)
                                                     }
@@ -273,7 +273,7 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                                 "approved" -> {
                                                     if (fragmentInFrame !is MemberList) {
 //                                                        isProductLoad = true
-//                                                        isProductLoadMember = true
+                                                        isProductLoadMember = true
                                                         navHostFragment?.navController?.navigate(
                                                             R.id.memberList
                                                         )
@@ -398,7 +398,7 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                             when (data.status) {
                                                 "approved" -> {
                                                     if (fragmentInFrame !is NBPAList) {
-//                                                        isProductLoad = true
+                                                        isProductLoad = true
 //                                                        isProductLoadMember = true
                                                         navHostFragment?.navController?.navigate(R.id.products)
                                                     }

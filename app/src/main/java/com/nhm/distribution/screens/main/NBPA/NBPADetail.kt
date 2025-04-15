@@ -166,20 +166,20 @@ class NBPADetail : Fragment() {
     }
 
 
-    override fun onStop() {
-        super.onStop()
-        MainActivity.mainActivity.get()?.callFragment(4)
-        isProductLoad = true
-        isProductLoadMember = true
-    }
-
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
+//    override fun onStop() {
+//        super.onStop()
 //        MainActivity.mainActivity.get()?.callFragment(4)
-//        isProductLoad = false
-//        isProductLoadMember = false
+//        isProductLoad = true
+//        isProductLoadMember = true
 //    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        MainActivity.mainActivity.get()?.callFragment(4)
+        isProductLoad = false
+        isProductLoadMember = false
+    }
 
 
 

@@ -48,10 +48,10 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivMap"
-                    android:layout_width="@dimen/_55sdp"
+                    android:layout_width="@dimen/_45sdp"
                     android:layout_height="0dp"
-                    app:layout_constraintHeight_min="@dimen/_50sdp"
-                    app:layout_constraintWidth_min="@dimen/_50sdp"
+                    app:layout_constraintHeight_min="@dimen/_45sdp"
+                    app:layout_constraintWidth_min="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +106,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textAddressTxt"
                     android:layout_marginStart="@dimen/_4sdp"
                     tools:ignore="MissingConstraints"
+                    android:visibility="gone"
                     />
 
 

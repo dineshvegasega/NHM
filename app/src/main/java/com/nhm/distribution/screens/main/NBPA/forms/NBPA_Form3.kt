@@ -715,11 +715,11 @@ class NBPA_Form3 : Fragment() {
 
 
 
-    override fun onStop() {
-        super.onStop()
-        isProductLoad = true
-        isProductLoadMember = true
-    }
+//    override fun onStop() {
+//        super.onStop()
+//        isProductLoad = true
+//        isProductLoadMember = true
+//    }
 
 //    override fun onDestroy() {
 //        super.onDestroy()

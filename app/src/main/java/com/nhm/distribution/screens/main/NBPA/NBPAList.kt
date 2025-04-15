@@ -77,8 +77,8 @@ class NBPAList : Fragment() {
             inclideHeaderSearch.editTextSearch.visibility = View.GONE
 
             inclideHeaderSearch.btFilter.visibility = View.VISIBLE
-            inclideHeaderSearch.btFilter.singleClick {
 
+            inclideHeaderSearch.btFilter.singleClick {
                 val dialogBinding = DialogFilterBinding.inflate(
                     root.context.getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE
@@ -360,10 +360,10 @@ class NBPAList : Fragment() {
     }
 
 
-    override fun onStop() {
-        super.onStop()
-        isProductLoad = true
-        isProductLoadMember = true
-    }
+//    override fun onStop() {
+//        super.onStop()
+//        isProductLoad = true
+//        isProductLoadMember = true
+//    }
 
 }

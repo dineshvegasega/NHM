@@ -47,6 +47,7 @@ import com.nhm.distribution.screens.main.notices.liveNotices.LiveNotices
 import com.nhm.distribution.screens.main.schemes.liveSchemes.LiveSchemes
 import com.nhm.distribution.screens.main.training.liveTraining.LiveTraining
 import com.nhm.distribution.screens.mainActivity.MainActivity
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
 import com.nhm.distribution.utils.showSnackBar
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -145,6 +146,7 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
                                 1 -> {
                                     when (data.status) {
                                         "approved" -> {
+                                            isProductLoad = true
                                             root.findNavController()
                                                 .navigate(R.id.action_dashboard_to_products)
                                         }
