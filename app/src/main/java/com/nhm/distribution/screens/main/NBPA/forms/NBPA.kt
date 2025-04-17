@@ -54,7 +54,7 @@ class NBPA : Fragment() , CallBackListener {
         binding.apply {
             adapter = CreateDistributionAdapter(requireActivity())
             adapter.notifyDataSetChanged()
-//            introViewPager.isUserInputEnabled = false
+            introViewPager.isUserInputEnabled = false
             adapter.addFragment(NBPA_Form1())
             adapter.addFragment(NBPA_Form2())
             adapter.addFragment(NBPA_Form3())
@@ -68,12 +68,12 @@ class NBPA : Fragment() , CallBackListener {
                 )
                 TabLayoutMediator(tabLayout, introViewPager) { tab, position ->
                     tab.text = array[position]
-//                    tab.view.isEnabled = false
+                    tab.view.isEnabled = false
                 }.attach()
             }, 100)
 
 
-//            binding.tabLayout.touchables.forEach { it.isClickable = false }
+            binding.tabLayout.touchables.forEach { it.isClickable = false }
 
             introViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(

@@ -189,9 +189,9 @@ class NBPA_Form3 : Fragment() {
 
             btSignIn.singleClick {
                 isProductLoad = true
-                isProductLoadMember = true
-                view.findNavController()
-                    .navigate(R.id.action_nbpa_to_products)
+//                isProductLoadMember = true
+//                view.findNavController()
+//                    .navigate(R.id.action_nbpa_to_products)
                 if (editTextMonth.text.toString() == "") {
                     showSnackBar(getString(R.string.select_month))
                 } else if (editTextDate.text.toString() == "") {

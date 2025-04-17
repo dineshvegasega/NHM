@@ -148,7 +148,7 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
                                         "approved" -> {
                                             isProductLoad = true
                                             root.findNavController()
-                                                .navigate(R.id.action_dashboard_to_products)
+                                                .navigate(R.id.action_dashboard_to_nbpaList)
                                         }
                                         "unverified" -> {
                                             showSnackBar(root.resources.getString(R.string.registration_processed))

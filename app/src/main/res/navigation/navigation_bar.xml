@@ -9,11 +9,11 @@
 
     <fragment
             android:name="com.nhm.distribution.screens.main.NBPA.NBPAList"
-            android:label="Products"
-            android:id="@+id/products"
+            android:label="NBPAList"
+            android:id="@+id/nbpaList"
             tools:layout="@layout/nbpa_list">
         <action
-                android:id="@+id/action_products_to_nbpaDetail"
+                android:id="@+id/action_nbpaList_to_nbpaDetail"
                 app:destination="@id/nbpaDetail"
                 app:launchSingleTop="true"
                 />
@@ -418,8 +418,8 @@
             app:launchSingleTop="true"
             />
         <action
-            android:id="@+id/action_dashboard_to_products"
-            app:destination="@id/products"
+            android:id="@+id/action_dashboard_to_nbpaList"
+            app:destination="@id/nbpaList"
             app:launchSingleTop="true"
             />
         <action
@@ -611,8 +611,8 @@
         android:id="@+id/nbpa"
         tools:layout="@layout/create_distribution">
         <action
-            android:id="@+id/action_nbpa_to_products"
-            app:destination="@id/products"
+            android:id="@+id/action_nbpa_to_nbpaList"
+            app:destination="@id/nbpaList"
             app:launchSingleTop="true"
             app:popUpTo="@id/nbpa"
             app:popUpToInclusive="true"

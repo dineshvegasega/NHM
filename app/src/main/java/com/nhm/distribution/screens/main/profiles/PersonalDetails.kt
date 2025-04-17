@@ -737,9 +737,9 @@ class PersonalDetails : Fragment() , CallBackListener {
                     )
                 }
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    Profiles.callBackListener!!.onCallBack(2)
-                }, 100)
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    Profiles.callBackListener!!.onCallBack(2)
+//                }, 100)
             }
         }
     }

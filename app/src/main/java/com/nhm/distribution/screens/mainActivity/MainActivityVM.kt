@@ -190,7 +190,7 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                                 "approved" -> {
                                                     if (fragmentInFrame !is NBPAList) {
                                                         isProductLoad = true
-                                                        navHostFragment?.navController?.navigate(R.id.products)
+                                                        navHostFragment?.navController?.navigate(R.id.nbpaList)
                                                     }
                                                 }
                                                 "unverified" -> {
@@ -253,7 +253,7 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                                     if (fragmentInFrame !is NBPAList) {
                                                         isProductLoad = true
 //                                                        isProductLoadMember = true
-                                                        navHostFragment?.navController?.navigate(R.id.products)
+                                                        navHostFragment?.navController?.navigate(R.id.nbpaList)
                                                     }
                                                 }
                                                 "unverified" -> {
@@ -400,7 +400,7 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                                     if (fragmentInFrame !is NBPAList) {
                                                         isProductLoad = true
 //                                                        isProductLoadMember = true
-                                                        navHostFragment?.navController?.navigate(R.id.products)
+                                                        navHostFragment?.navController?.navigate(R.id.nbpaList)
                                                     }
                                                 }
                                                 "unverified" -> {

@@ -137,9 +137,9 @@ class QuickRegistration : Fragment(), CallBackListener {
                 requireActivity().showDropDownDialog(type = 1) {
                     binding.editTextGender.setText(name)
                     when (position) {
-                        0 -> viewModel.data.gender = "Male"
-                        1 -> viewModel.data.gender = "Female"
-                        2 -> viewModel.data.gender = "Other"
+                        0 -> viewModel.data.gender = getString(R.string.maleGender)
+                        1 -> viewModel.data.gender = getString(R.string.femaleGender)
+                        2 -> viewModel.data.gender = getString(R.string.otherGender)
                     }
                 }
             }

@@ -95,6 +95,9 @@ class NBPAList : Fragment() {
                 dialog.show()
 
                 dialogBinding.apply {
+                    radioButtonName.text = getString(R.string.enterName)
+                    editTextName.setHint(getString(R.string.enterName))
+
                     radioButtonName.singleClick {
                         radioButtonName.isChecked = true
                         radioButtonMobile.isChecked = false

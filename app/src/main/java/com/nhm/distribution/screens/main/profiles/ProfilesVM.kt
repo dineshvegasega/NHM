@@ -662,9 +662,9 @@ class ProfilesVM @Inject constructor(private val repository: Repository): ViewMo
                                 DataStoreKeys.LOGIN_DATA,
                                 Gson().fromJson(response.body()!!.data, Login::class.java)
                             )
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                Profiles.callBackListener!!.onCallBack(4)
-                            }, 100)
+//                            Handler(Looper.getMainLooper()).postDelayed({
+//                                Profiles.callBackListener!!.onCallBack(4)
+//                            }, 100)
                         }
                     }
                 }
@@ -747,7 +747,13 @@ class ProfilesVM @Inject constructor(private val repository: Repository): ViewMo
 
         var mobile_no : String ?= null,
         var otp : String ?= null,
-        var password : String ?= null
+        var password : String ?= null,
+
+
+        var aadhar_card : String ?= null,
+        var aadhar_card_doc : String ?= null,
+        var address : String ?= null,
+        var profile_image_name : String ?= null,
     )
 
 

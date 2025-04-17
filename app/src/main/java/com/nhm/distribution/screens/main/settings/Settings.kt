@@ -270,7 +270,6 @@ class Settings : Fragment() {
                         }
                     }
                 })
-
             }
 
 

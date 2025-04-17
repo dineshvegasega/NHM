@@ -106,7 +106,7 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
                         isProductLoadMember = true
                         showSnackBar(view.resources.getString(R.string.forms_added_successfully))
                         view.findNavController()
-                            .navigate(R.id.action_nbpa_to_products)
+                            .navigate(R.id.action_nbpa_to_nbpaList)
                     } else {
                         showSnackBar(response.body()?.message.orEmpty())
                     }
