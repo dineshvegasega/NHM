@@ -531,7 +531,7 @@
 
     <string name='select_month_year'>महीना/वर्ष चुनें</string>
     <string name='choose_number'>अवधि चुनें</string>
-    <string name='month'>महीना</string>
+    <string name='month'>महीना*</string>
     <string name='year'>वर्ष</string>
     <string name='calculate_price'>कीमत की गणना करें</string>
     <string name='price_breakup'>कीमत ब्रेकअप</string>
@@ -641,9 +641,9 @@
     <string name="hemoglobin_level">हीमोग्लोबिन स्तर</string>
 
     <string name="muktiID">मुक्ति आईडी</string>
-    <string name="nakshayID">निक्षय आईडी</string>
+    <string name="nakshayID">निक्षय आईडी*</string>
 
-    <string name="business">व्यवसाय</string>
+    <string name="business">व्यवसाय*</string>
 
     <string name="Bank_Account">बैंक खाता</string>
     <string name="Bank_IFSC">बैंक IFSC</string>
@@ -656,8 +656,8 @@
     <string name="TreatmentResult">उपचार परिणाम</string>
 
     <string name="description_of_food_items">खाद्य पदार्थों का विवरण</string>
-    <string name="signature">हस्ताक्षर</string>
-    <string name="dateSingle">तारीख</string>
+    <string name="signature">हस्ताक्षर*</string>
+    <string name="dateSingle">तारीख*</string>
     <string name="HomeVisitFollowUp">होम फ़ॉलो अप </string>
 
     <string name="beneficiary_card">लाभार्थी कार्ड</string>

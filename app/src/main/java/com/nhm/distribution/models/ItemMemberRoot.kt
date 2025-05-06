@@ -141,7 +141,8 @@ data class ItemMember(
         if (created_at != other.created_at) return false
         if (updated_at != other.updated_at) return false
         if (updated_date != other.updated_date) return false
-
+        if (profile_image_name != other.profile_image_name) return false
+        if (aadhar_card_doc != other.aadhar_card_doc) return false
         return true
     }
 }

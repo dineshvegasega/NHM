@@ -47,8 +47,10 @@ import javax.inject.Inject
 @HiltViewModel
 class NBPAViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    var results: MutableList<ItemLiveScheme> = ArrayList()
 
+    var editData : ItemNBPAForm ?= null
+
+    var results: MutableList<ItemLiveScheme> = ArrayList()
 
     var name = ""
     var fatherHusbandType = 1 // 1 = Father, 2 = Husband

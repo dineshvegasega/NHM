@@ -22,8 +22,10 @@ import com.nhm.distribution.databinding.ItemAllSchemesBinding
 //import com.nhm.distribution.utils.getPatternFormat
 import com.nhm.distribution.databinding.ItemLoadingBinding
 import com.nhm.distribution.models.ItemNBPAForm
+import com.nhm.distribution.networking.IMAGE_URL
 import com.nhm.distribution.utils.changeDateFormat
 import com.nhm.distribution.utils.glideImagePortrait
+import com.nhm.distribution.utils.loadImage
 
 
 class NBPAAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -100,7 +102,8 @@ class NBPAAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val model = obj as ItemNBPAForm
 
             itemRowBinding.apply {
-                model.foodIdentityImage?.url?.glideImagePortrait(root.context, ivIcon)
+//                model.foodIdentityImage?.url?.glideImagePortrait(root.context, ivIcon)
+                ivIcon.loadImage(type = 1, url = { model.foodIdentityImage.url })
                 textTitle.setText(model.name)
                 textDesc.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.address_)+"</b> "+model.address.replace("\n"," "), HtmlCompat.FROM_HTML_MODE_LEGACY))
                 textMobile.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.mobile_no_per)+"</b> "+model.mobileNumber, HtmlCompat.FROM_HTML_MODE_LEGACY))
@@ -110,6 +113,13 @@ class NBPAAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
                 itemRowBinding.root.setOnClickListener {
                     itemRowBinding.root.findNavController().navigate(R.id.action_nbpaList_to_nbpaDetail, Bundle().apply {
+                        putParcelable("key", model)
+                    })
+                }
+
+
+                btEdit.setOnClickListener {
+                    itemRowBinding.root.findNavController().navigate(R.id.action_nbpaList_to_nbpaEdit, Bundle().apply {
                         putParcelable("key", model)
                     })
                 }

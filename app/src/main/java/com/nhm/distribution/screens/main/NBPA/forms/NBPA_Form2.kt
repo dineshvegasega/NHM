@@ -75,32 +75,32 @@ class NBPA_Form2 : Fragment() {
 
                 if (editTextPatientCheckupDate.text.toString() == "") {
                     showSnackBar(getString(R.string.selectCheckupDate))
-                } else if (editTextHemoglobinLevelAge.text.toString() == "") {
-                    showSnackBar(getString(R.string.hemoglobin_level))
-                } else if (editTextHemoglobinCheckupDate.text.toString() == "") {
-                    showSnackBar(getString(R.string.selectCheckupDate))
-                } else if (editTextMuktiID.text.toString() == "") {
-                    showSnackBar(getString(R.string.enterMuktiID))
+//                } else if (editTextHemoglobinLevelAge.text.toString() == "") {
+//                    showSnackBar(getString(R.string.hemoglobin_level))
+//                } else if (editTextHemoglobinCheckupDate.text.toString() == "") {
+//                    showSnackBar(getString(R.string.selectCheckupDate))
+//                } else if (editTextMuktiID.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enterMuktiID))
                 } else if (editTextNakshayID.text.toString() == "") {
                     showSnackBar(getString(R.string.enterNakshayID))
-                } else if (editTextAadhaarNumber.text.toString() == "") {
-                    showSnackBar(getString(R.string.enterAadhaarNumber))
+//                } else if (editTextAadhaarNumber.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enterAadhaarNumber))
                 } else if (editTextBusiness.text.toString() == "") {
                     showSnackBar(getString(R.string.enterBusiness))
-                } else if (editTextBankAccount.text.toString() == "") {
-                    showSnackBar(getString(R.string.enterBankAccount))
-                } else if (editTextBankIFSC.text.toString() == "") {
-                    showSnackBar(getString(R.string.enterBankIFSC))
-                } else if (editTextTreatmentSupporterName.text.toString() == "") {
-                    showSnackBar(getString(R.string.enter_Treatment_Supporter_Name))
-                } else if (editTextTreatmentSupporterPost.text.toString() == "") {
-                    showSnackBar(getString(R.string.enter_Treatment_Supporter_Post))
-                } else if (editTextTreatmentSupporterMobileNumber.text.toString() == "") {
-                    showSnackBar(getString(R.string.enter_Treatment_Supporter_Mobile_Number))
-                }  else if (editTextTreatmentEndDate.text.toString() == "") {
-                    showSnackBar(getString(R.string.enter_TreatmentEndDate))
-                }  else if (editTextTreatmentResult.text.toString() == "") {
-                    showSnackBar(getString(R.string.enter_TreatmentResult))
+//                } else if (editTextBankAccount.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enterBankAccount))
+//                } else if (editTextBankIFSC.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enterBankIFSC))
+//                } else if (editTextTreatmentSupporterName.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enter_Treatment_Supporter_Name))
+//                } else if (editTextTreatmentSupporterPost.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enter_Treatment_Supporter_Post))
+//                } else if (editTextTreatmentSupporterMobileNumber.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enter_Treatment_Supporter_Mobile_Number))
+//                }  else if (editTextTreatmentEndDate.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enter_TreatmentEndDate))
+//                }  else if (editTextTreatmentResult.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enter_TreatmentResult))
                 } else {
                     viewModel.hemoglobinLevelAge = editTextHemoglobinLevelAge.text.toString()
                     viewModel.muktiID = editTextMuktiID.text.toString()

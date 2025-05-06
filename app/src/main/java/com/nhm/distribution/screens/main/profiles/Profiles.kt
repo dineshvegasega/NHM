@@ -154,7 +154,7 @@ class Profiles : Fragment() {
                     editMobile.setText(data!!.mobile_no)
                     editTextGender.setText(data!!.gender)
                     val listGender = resources.getStringArray(R.array.gender_array)
-                    data!!.gender.let{
+                    data?.gender.let{
                         when(it){
                             "Male" -> {
                                 editTextGender.setText(listGender[0])

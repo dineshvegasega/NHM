@@ -63,9 +63,9 @@ class NBPA_Form1 : Fragment() {
                 requireActivity().showDropDownDialog(type = 1) {
                     editTextGender.setText(name)
                     when (position) {
-                        0 -> viewModel.gender = "Male"
-                        1 -> viewModel.gender = "Female"
-                        2 -> viewModel.gender = "Other"
+                        0 -> viewModel.gender = getString(R.string.maleGender)
+                        1 -> viewModel.gender = getString(R.string.femaleGender)
+                        2 -> viewModel.gender = getString(R.string.otherGender)
                     }
                 }
             }
@@ -81,8 +81,8 @@ class NBPA_Form1 : Fragment() {
                         } else {
                             getString(R.string.enterHusbandName)
                         })
-                } else if (editTextMother.text.toString() == "") {
-                    showSnackBar(getString(R.string.enterMotherName))
+//                } else if (editTextMother.text.toString() == "") {
+//                    showSnackBar(getString(R.string.enterMotherName))
                 } else if (editTextGender.text.toString() == "") {
                     showSnackBar(getString(R.string.selectGender))
                 } else if (editTextAge.text.toString() == "") {

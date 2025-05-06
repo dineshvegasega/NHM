@@ -17,8 +17,20 @@
                 app:destination="@id/nbpaDetail"
                 app:launchSingleTop="true"
                 />
+        <action
+                android:id="@+id/action_nbpaList_to_nbpaEdit"
+                app:destination="@id/nbpaEdit"
+                app:launchSingleTop="true"
+                />
     </fragment>
 
+    <fragment
+            android:name="com.nhm.distribution.screens.main.NBPA.editForms.NBPAEdit"
+            android:label="NBPAEdit"
+            android:id="@+id/nbpaEdit"
+            tools:layout="@layout/nbpa">
+
+    </fragment>
     <fragment
             android:name="com.nhm.distribution.screens.main.members.MemberList"
             android:label="MemberList"

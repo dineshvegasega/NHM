@@ -19,6 +19,7 @@ import com.nhm.distribution.models.ItemMember
 import com.nhm.distribution.networking.IMAGE_URL
 import com.nhm.distribution.utils.changeDateFormat
 import com.nhm.distribution.utils.glideImagePortrait
+import com.nhm.distribution.utils.loadImage
 
 class MemberAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -94,7 +95,10 @@ class MemberAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val model = obj as ItemMember
 
             itemRowBinding.apply {
-                (IMAGE_URL+model.profile_image_name).glideImagePortrait(ivIcon.context, ivIcon)
+//                var imageUrl = IMAGE_URL+model.profile_image_name
+//                Log.e("TAG", "bindsss: "+imageUrl)
+//                "http://167.71.235.192/uploads/1744699864NBPA_121900.jpg".glideImagePortrait(ivIcon.context, ivIcon)
+                ivIcon.loadImage(type = 1, url = { IMAGE_URL+model.profile_image_name })
                 textTitle.setText(model.name +" "+model.last_name)
                 textDesc.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.aadhaar_no)+"</b> "+model.aadhar_card, HtmlCompat.FROM_HTML_MODE_LEGACY))
                 textMobile.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.mobile_no_per)+"</b> "+model.mobile_no, HtmlCompat.FROM_HTML_MODE_LEGACY))

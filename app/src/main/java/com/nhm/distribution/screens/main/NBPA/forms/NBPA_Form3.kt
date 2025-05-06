@@ -197,7 +197,7 @@ class NBPA_Form3 : Fragment() {
                 } else if (editTextDate.text.toString() == "") {
                     showSnackBar(getString(R.string.select_date))
                 } else if (editTextHeight.text.toString() == "") {
-                    showSnackBar(getString(R.string.enterHeight))
+                    showSnackBar(getString(R.string.enterWeight))
                 } else if (viewModel.foodSignatureImage == "") {
                     showSnackBar(getString(R.string.add_signature))
                 } else if (viewModel.foodItemImage == "") {

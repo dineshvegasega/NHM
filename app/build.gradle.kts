@@ -184,7 +184,7 @@ dependencies {
     implementation (libs.media3.ui)
 //    implementation (libs.media3ExoplayerHls)
 
-    implementation ("androidx.media3:media3-exoplayer-hls:1.5.0")
+    implementation ("androidx.media3:media3-exoplayer-hls:1.6.1")
 
     implementation (libs.photoViews)
     implementation (libs.ratingBar)

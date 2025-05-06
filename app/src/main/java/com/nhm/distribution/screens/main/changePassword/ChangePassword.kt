@@ -45,7 +45,7 @@ class ChangePassword : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainActivity.mainActivity.get()?.callFragment(1)
+        MainActivity.mainActivity.get()?.callFragment(3)
 
         binding.apply {
             btSignIn.setEnabled(false)
@@ -209,6 +209,7 @@ class ChangePassword : Fragment() {
 
 
     override fun onDestroyView() {
+        MainActivity.mainActivity.get()?.callFragment(4)
         viewModel.isAgree.value = false
         _binding = null
         super.onDestroyView()

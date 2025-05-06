@@ -178,7 +178,22 @@
                     android:autoSizePresetSizes="@array/autosize_4_5_10"
                     android:autoSizeStepGranularity="@dimen/_1sdp"/>
 
-
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btEdit"
+                        style="@style/PrimaryButtonYellow"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@string/edit"
+                        android:backgroundTint="@color/_B3261E"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        app:cornerRadius="@dimen/_4sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="gone"
+                        />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
