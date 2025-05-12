@@ -28,6 +28,7 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -39,6 +40,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -172,6 +174,10 @@ class MainActivity : AppCompatActivity() {
             .build()
         StrictMode.setThreadPolicy(policy)
 
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+
 //        val old = StrictMode.getThreadPolicy()
 //        StrictMode.setThreadPolicy(
 //            ThreadPolicy.Builder(old)
@@ -231,6 +237,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 isOpen = WeakReference(false)
             }
+//            WindowCompat.getInsetsController(window, window.decorView)
+//            window.decorView.setSystemUiVisibility(View.VISIBLE)
         }
 
 //        var ff = writeOnDrawable(R.drawable.image_port, "SASDSFG")

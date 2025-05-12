@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -63,6 +64,8 @@ import com.nhm.distribution.utils.showDropDownDialog
 import com.nhm.distribution.utils.showOptions
 import com.nhm.distribution.utils.showSnackBar
 import com.nhm.distribution.utils.singleClick
+import com.squareup.picasso.Picasso
+import com.stfalcon.imageviewer.StfalconImageViewer
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
@@ -231,6 +234,7 @@ class Profiles : Fragment() {
                         callMediaPermissions()
                     }
                 }
+                lateinit var viewer: StfalconImageViewer<String>
 
                 if (it == false){
                     data!!.profile_image_name?.let {
@@ -242,14 +246,38 @@ class Profiles : Fragment() {
                     btnProfileImage.visibility = View.GONE
                     btnImageAadhaarImage.visibility = View.GONE
                     ivProfileImage.singleClick {
-                        data!!.profile_image_name.url.let {
-                            arrayListOf(it).imageZoom(ivProfileImage, 2)
+//                        data!!.profile_image_name.url.let {
+//                            arrayListOf(it).imageZoom(ivProfileImage, 2)
+//                        }
+                        viewer = StfalconImageViewer.Builder<String>(requireActivity(), arrayListOf(data!!.profile_image_name.url)) { view, image ->
+                            Picasso.get().load(image).into(view)
+                        }.withImageChangeListener {
+                            viewer.updateTransitionImage(ivProfileImage)
                         }
+                            .withBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireActivity(),
+                                    R.color._D9000000
+                                )
+                            )
+                            .show()
                     }
                     ivImageAadhaarImage.singleClick {
-                        data!!.aadhar_card_doc.url.let {
-                            arrayListOf(it).imageZoom(ivImageAadhaarImage, 2)
+//                        data!!.aadhar_card_doc.url.let {
+//                            arrayListOf(it).imageZoom(ivImageAadhaarImage, 2)
+//                        }
+                        viewer = StfalconImageViewer.Builder<String>(requireActivity(), arrayListOf(data!!.aadhar_card_doc.url)) { view, image ->
+                            Picasso.get().load(image).into(view)
+                        }.withImageChangeListener {
+                            viewer.updateTransitionImage(ivImageAadhaarImage)
                         }
+                            .withBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireActivity(),
+                                    R.color._D9000000
+                                )
+                            )
+                            .show()
                     }
                 }
             })

@@ -41,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:clickable="false"
-            app:tabMode="fixed"
+            app:tabMode="auto"
             app:tabGravity="fill"
             app:tabPaddingStart="0dp"
             app:tabPaddingEnd="0dp"

@@ -52,6 +52,13 @@
 
 
     <fragment
+            android:name="com.nhm.distribution.screens.main.NBPA.forms.NBPA_Form4"
+            android:label="NBPA_Form4"
+            android:id="@+id/nBPA_Form4"
+            tools:layout="@layout/form4">
+    </fragment>
+
+    <fragment
         android:name="com.nhm.distribution.screens.onboarding.splash.Splash"
         android:label="Splash"
         android:id="@+id/splash"
@@ -629,6 +636,21 @@
             app:popUpTo="@id/nbpa"
             app:popUpToInclusive="true"
             />
+    </fragment>
+
+    <fragment
+            android:name="com.nhm.distribution.screens.main.NBPA.forms.CheckDetails"
+            android:label="CheckDetails"
+            android:id="@+id/checkDetails"
+            tools:layout="@layout/check_details">
+
+        <action
+                android:id="@+id/action_checkDetails_to_nbpa"
+                app:destination="@id/nbpa"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/checkDetails"
+                app:popUpToInclusive="true"
+                />
     </fragment>
 
 

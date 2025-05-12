@@ -140,10 +140,12 @@ class NBPA_Form3 : Fragment() {
                 btTryAgain.visibility = View.GONE
                 btComplete.visibility = View.VISIBLE
                 btClear.visibility = View.VISIBLE
+                viewModel.foodSignatureImage = ""
             }
 
             btClear.singleClick {
                 signaturePad.clear()
+                viewModel.foodSignatureImage = ""
             }
 
             editTextMonth.singleClick {
@@ -206,164 +208,164 @@ class NBPA_Form3 : Fragment() {
                     showSnackBar(getString(R.string.identity_imageStar))
                 } else {
                     viewModel.foodHeight = editTextHeight.text.toString()
-
-                    readData(LOGIN_DATA) { loginUser ->
-                        if (loginUser != null) {
-                            val dataId = Gson().fromJson(loginUser, Login::class.java).id
-                            val requestBody: MultipartBody.Builder = MultipartBody.Builder()
-                                .setType(MultipartBody.FORM)
-                                .addFormDataPart(user_id, ""+dataId)
-
-                            if (viewModel.name != null) {
-                                requestBody.addFormDataPart(formName, ""+viewModel.name)
-                            }
-                            if (viewModel.fatherHusbandType != null) {
-                                requestBody.addFormDataPart(fatherHusbandType, ""+viewModel.fatherHusbandType)
-                            }
-                            if (viewModel.fatherHusband != null) {
-                                requestBody.addFormDataPart(fatherHusband, ""+viewModel.fatherHusband)
-                            }
-                            if (viewModel.mother != null) {
-                                requestBody.addFormDataPart(mother, viewModel.mother)
-                            }
-                            if (viewModel.gender != null) {
-                                requestBody.addFormDataPart(formGender, viewModel.gender)
-                            }
-                            if (viewModel.age != null) {
-                                requestBody.addFormDataPart(age, viewModel.age)
-                            }
-                            if (viewModel.height != null) {
-                                requestBody.addFormDataPart(height, viewModel.height)
-                            }
-                            if (viewModel.weight != null) {
-                                requestBody.addFormDataPart(weight, viewModel.weight)
-                            }
-                            if (viewModel.numberOfMembers != null) {
-                                requestBody.addFormDataPart(numberOfMembers, viewModel.numberOfMembers)
-                            }
-                            if (viewModel.numberOfChildren != null) {
-                                requestBody.addFormDataPart(numberOfChildren, viewModel.numberOfChildren)
-                            }
-                            if (viewModel.address != null) {
-                                requestBody.addFormDataPart(address, viewModel.address)
-                            }
-                            if (viewModel.dmcName != null) {
-                                requestBody.addFormDataPart(dmcName, viewModel.dmcName)
-                            }
-                            if (viewModel.block != null) {
-                                requestBody.addFormDataPart(block, viewModel.block)
-                            }
-                            if (viewModel.mobileNumber != null) {
-                                requestBody.addFormDataPart(mobileNumber, viewModel.mobileNumber)
-                            }
-                            if (viewModel.districtState != null) {
-                                requestBody.addFormDataPart(districtState, viewModel.districtState)
-                            }
-                            if (viewModel.cardTypeAPLBPL != null) {
-                                requestBody.addFormDataPart(cardTypeAPLBPL, ""+viewModel.cardTypeAPLBPL)
-                            }
-
-                            if (viewModel.typeOfPatient != null) {
-                                requestBody.addFormDataPart(typeOfPatient, ""+viewModel.typeOfPatient)
-                            }
-                            if (viewModel.patientCheckupDate != null) {
-                                requestBody.addFormDataPart(patientCheckupDate, viewModel.patientCheckupDate)
-                            }
-                            if (viewModel.hemoglobinLevelAge != null) {
-                                requestBody.addFormDataPart(hemoglobinLevelAge, viewModel.hemoglobinLevelAge)
-                            }
-                            if (viewModel.hemoglobinCheckupDate != null) {
-                                requestBody.addFormDataPart(hemoglobinCheckupDate, viewModel.hemoglobinCheckupDate)
-                            }
-                            if (viewModel.muktiID != null) {
-                                requestBody.addFormDataPart(muktiID, viewModel.muktiID)
-                            }
-                            if (viewModel.nakshayID != null) {
-                                requestBody.addFormDataPart(nakshayID, viewModel.nakshayID)
-                            }
-                            if (viewModel.aadhaarNumber != null) {
-                                requestBody.addFormDataPart(aadhaarNumber, viewModel.aadhaarNumber)
-                            }
-                            if (viewModel.business != null) {
-                                requestBody.addFormDataPart(business, viewModel.business)
-                            }
-                            if (viewModel.bankAccount != null) {
-                                requestBody.addFormDataPart(bankAccount, viewModel.bankAccount)
-                            }
-                            if (viewModel.bankIFSC != null) {
-                                requestBody.addFormDataPart(bankIFSC, viewModel.bankIFSC)
-                            }
-                            if (viewModel.treatmentSupporterName != null) {
-                                requestBody.addFormDataPart(treatmentSupporterName, viewModel.treatmentSupporterName)
-                            }
-                            if (viewModel.treatmentSupporterPost != null) {
-                                requestBody.addFormDataPart(treatmentSupporterPost, viewModel.treatmentSupporterPost)
-                            }
-                            if (viewModel.treatmentSupporterMobileNumber != null) {
-                                requestBody.addFormDataPart(treatmentSupporterMobileNumber, viewModel.treatmentSupporterMobileNumber)
-                            }
-                            if (viewModel.treatmentSupporterEndDate != null) {
-                                requestBody.addFormDataPart(treatmentSupporterEndDate, viewModel.treatmentSupporterEndDate)
-                            }
-                            if (viewModel.treatmentSupporterResult != null) {
-                                requestBody.addFormDataPart(treatmentSupporterResult, viewModel.treatmentSupporterResult)
-                            }
-
-                            if (viewModel.foodMonth != null) {
-                                requestBody.addFormDataPart(foodMonth, viewModel.foodMonth)
-                            }
-                            if (viewModel.foodDate != null) {
-                                requestBody.addFormDataPart(foodDate, viewModel.foodDate)
-                            }
-                            if (viewModel.foodHeight != null) {
-                                requestBody.addFormDataPart(foodHeight, viewModel.foodHeight)
-                            }
-
-                            if (viewModel.foodSignatureImage != null) {
-                                requestBody.addFormDataPart(
-                                    foodSignatureImage,
-                                    File(viewModel.foodSignatureImage).name,
-                                    File(viewModel.foodSignatureImage).asRequestBody("image/*".toMediaTypeOrNull())
-                                )
-                            }
-                            if (viewModel.foodItemImage != null) {
-                                requestBody.addFormDataPart(
-                                    foodItemImage,
-                                    File(viewModel.foodItemImage).name,
-                                    File(viewModel.foodItemImage).asRequestBody("image/*".toMediaTypeOrNull())
-                                )
-                            }
-                            if (viewModel.foodIdentityImage != null) {
-                                requestBody.addFormDataPart(
-                                    foodIdentityImage,
-                                    File(viewModel.foodIdentityImage).name,
-                                    File(viewModel.foodIdentityImage).asRequestBody("image/*".toMediaTypeOrNull())
-                                )
-                            }
-
-                            MaterialAlertDialogBuilder(requireActivity(), R.style.LogoutDialogTheme)
-                                .setTitle(resources.getString(R.string.app_name))
-                                .setMessage(resources.getString(R.string.are_your_sure_want_to_submit))
-                                .setPositiveButton(resources.getString(R.string.submit)) { dialog, _ ->
-                                    dialog.dismiss()
-                                    if(networkFailed) {
-                                        viewModel.registerWithFiles(
-                                            view = requireView(),
-                                            requestBody.build()
-                                        )
-                                    } else {
-                                        requireContext().callNetworkDialog()
-                                    }
-                                }
-                                .setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
-                                    dialog.dismiss()
-                                    NBPA.callBackListener!!.onCallBack(1000)
-                                }
-                                .setCancelable(false)
-                                .show()
-
-                        }
-                    }
+                    NBPA.callBackListener!!.onCallBack(1003)
+//                    readData(LOGIN_DATA) { loginUser ->
+//                        if (loginUser != null) {
+//                            val dataId = Gson().fromJson(loginUser, Login::class.java).id
+//                            val requestBody: MultipartBody.Builder = MultipartBody.Builder()
+//                                .setType(MultipartBody.FORM)
+//                                .addFormDataPart(user_id, ""+dataId)
+//
+//                            if (viewModel.name != null) {
+//                                requestBody.addFormDataPart(formName, ""+viewModel.name)
+//                            }
+//                            if (viewModel.fatherHusbandType != null) {
+//                                requestBody.addFormDataPart(fatherHusbandType, ""+viewModel.fatherHusbandType)
+//                            }
+//                            if (viewModel.fatherHusband != null) {
+//                                requestBody.addFormDataPart(fatherHusband, ""+viewModel.fatherHusband)
+//                            }
+//                            if (viewModel.mother != null) {
+//                                requestBody.addFormDataPart(mother, viewModel.mother)
+//                            }
+//                            if (viewModel.gender != null) {
+//                                requestBody.addFormDataPart(formGender, viewModel.gender)
+//                            }
+//                            if (viewModel.age != null) {
+//                                requestBody.addFormDataPart(age, viewModel.age)
+//                            }
+//                            if (viewModel.height != null) {
+//                                requestBody.addFormDataPart(height, viewModel.height)
+//                            }
+//                            if (viewModel.weight != null) {
+//                                requestBody.addFormDataPart(weight, viewModel.weight)
+//                            }
+//                            if (viewModel.numberOfMembers != null) {
+//                                requestBody.addFormDataPart(numberOfMembers, viewModel.numberOfMembers)
+//                            }
+//                            if (viewModel.numberOfChildren != null) {
+//                                requestBody.addFormDataPart(numberOfChildren, viewModel.numberOfChildren)
+//                            }
+//                            if (viewModel.address != null) {
+//                                requestBody.addFormDataPart(address, viewModel.address)
+//                            }
+//                            if (viewModel.dmcName != null) {
+//                                requestBody.addFormDataPart(dmcName, viewModel.dmcName)
+//                            }
+//                            if (viewModel.block != null) {
+//                                requestBody.addFormDataPart(block, viewModel.block)
+//                            }
+//                            if (viewModel.mobileNumber != null) {
+//                                requestBody.addFormDataPart(mobileNumber, viewModel.mobileNumber)
+//                            }
+//                            if (viewModel.districtState != null) {
+//                                requestBody.addFormDataPart(districtState, viewModel.districtState)
+//                            }
+//                            if (viewModel.cardTypeAPLBPL != null) {
+//                                requestBody.addFormDataPart(cardTypeAPLBPL, ""+viewModel.cardTypeAPLBPL)
+//                            }
+//
+//                            if (viewModel.typeOfPatient != null) {
+//                                requestBody.addFormDataPart(typeOfPatient, ""+viewModel.typeOfPatient)
+//                            }
+//                            if (viewModel.patientCheckupDate != null) {
+//                                requestBody.addFormDataPart(patientCheckupDate, viewModel.patientCheckupDate)
+//                            }
+//                            if (viewModel.hemoglobinLevelAge != null) {
+//                                requestBody.addFormDataPart(hemoglobinLevelAge, viewModel.hemoglobinLevelAge)
+//                            }
+//                            if (viewModel.hemoglobinCheckupDate != null) {
+//                                requestBody.addFormDataPart(hemoglobinCheckupDate, viewModel.hemoglobinCheckupDate)
+//                            }
+//                            if (viewModel.muktiID != null) {
+//                                requestBody.addFormDataPart(muktiID, viewModel.muktiID)
+//                            }
+//                            if (viewModel.nakshayID != null) {
+//                                requestBody.addFormDataPart(nakshayID, viewModel.nakshayID)
+//                            }
+//                            if (viewModel.aadhaarNumber != null) {
+//                                requestBody.addFormDataPart(aadhaarNumber, viewModel.aadhaarNumber)
+//                            }
+//                            if (viewModel.business != null) {
+//                                requestBody.addFormDataPart(business, viewModel.business)
+//                            }
+//                            if (viewModel.bankAccount != null) {
+//                                requestBody.addFormDataPart(bankAccount, viewModel.bankAccount)
+//                            }
+//                            if (viewModel.bankIFSC != null) {
+//                                requestBody.addFormDataPart(bankIFSC, viewModel.bankIFSC)
+//                            }
+//                            if (viewModel.treatmentSupporterName != null) {
+//                                requestBody.addFormDataPart(treatmentSupporterName, viewModel.treatmentSupporterName)
+//                            }
+//                            if (viewModel.treatmentSupporterPost != null) {
+//                                requestBody.addFormDataPart(treatmentSupporterPost, viewModel.treatmentSupporterPost)
+//                            }
+//                            if (viewModel.treatmentSupporterMobileNumber != null) {
+//                                requestBody.addFormDataPart(treatmentSupporterMobileNumber, viewModel.treatmentSupporterMobileNumber)
+//                            }
+//                            if (viewModel.treatmentSupporterEndDate != null) {
+//                                requestBody.addFormDataPart(treatmentSupporterEndDate, viewModel.treatmentSupporterEndDate)
+//                            }
+//                            if (viewModel.treatmentSupporterResult != null) {
+//                                requestBody.addFormDataPart(treatmentSupporterResult, viewModel.treatmentSupporterResult)
+//                            }
+//
+//                            if (viewModel.foodMonth != null) {
+//                                requestBody.addFormDataPart(foodMonth, viewModel.foodMonth)
+//                            }
+//                            if (viewModel.foodDate != null) {
+//                                requestBody.addFormDataPart(foodDate, viewModel.foodDate)
+//                            }
+//                            if (viewModel.foodHeight != null) {
+//                                requestBody.addFormDataPart(foodHeight, viewModel.foodHeight)
+//                            }
+//
+//                            if (viewModel.foodSignatureImage != null) {
+//                                requestBody.addFormDataPart(
+//                                    foodSignatureImage,
+//                                    File(viewModel.foodSignatureImage).name,
+//                                    File(viewModel.foodSignatureImage).asRequestBody("image/*".toMediaTypeOrNull())
+//                                )
+//                            }
+//                            if (viewModel.foodItemImage != null) {
+//                                requestBody.addFormDataPart(
+//                                    foodItemImage,
+//                                    File(viewModel.foodItemImage).name,
+//                                    File(viewModel.foodItemImage).asRequestBody("image/*".toMediaTypeOrNull())
+//                                )
+//                            }
+//                            if (viewModel.foodIdentityImage != null) {
+//                                requestBody.addFormDataPart(
+//                                    foodIdentityImage,
+//                                    File(viewModel.foodIdentityImage).name,
+//                                    File(viewModel.foodIdentityImage).asRequestBody("image/*".toMediaTypeOrNull())
+//                                )
+//                            }
+//
+//                            MaterialAlertDialogBuilder(requireActivity(), R.style.LogoutDialogTheme)
+//                                .setTitle(resources.getString(R.string.app_name))
+//                                .setMessage(resources.getString(R.string.are_your_sure_want_to_submit))
+//                                .setPositiveButton(resources.getString(R.string.submit)) { dialog, _ ->
+//                                    dialog.dismiss()
+//                                    if(networkFailed) {
+//                                        viewModel.registerWithFiles(
+//                                            view = requireView(),
+//                                            requestBody.build()
+//                                        )
+//                                    } else {
+//                                        requireContext().callNetworkDialog()
+//                                    }
+//                                }
+//                                .setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
+//                                    dialog.dismiss()
+//                                    NBPA.callBackListener!!.onCallBack(1000)
+//                                }
+//                                .setCancelable(false)
+//                                .show()
+//
+//                        }
+//                    }
                 }
 
 
@@ -470,7 +472,7 @@ class NBPA_Form3 : Fragment() {
                                 requireContext(),
                                 File(requireContext().getMediaFilePathFor(uri))
                             )
-                            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//                            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
                             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                                 Log.e("TAG", "addOnSuccessListenerRegisterAA " + location.toString())
                                 imagePath = compressedImageFile.path
@@ -499,7 +501,6 @@ class NBPA_Form3 : Fragment() {
                                         }
                                     }
                                 }
-
                             }
                         }
 
@@ -508,7 +509,7 @@ class NBPA_Form3 : Fragment() {
                                 requireContext(),
                                 File(requireContext().getMediaFilePathFor(uri))
                             )
-                            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//                            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
                             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                                 Log.e("TAG", "addOnSuccessListenerRegisterBB " + location.toString())
                                 imagePath = compressedImageFile.path
@@ -539,7 +540,6 @@ class NBPA_Form3 : Fragment() {
                     }
                 }
             }
-
         }
 
 
@@ -555,7 +555,7 @@ class NBPA_Form3 : Fragment() {
                             requireContext(),
                             File(requireContext().getMediaFilePathFor(uriReal!!))
                         )
-                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
                         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                             Log.e("TAG", "addOnSuccessListenerRegisterAA " + location.toString())
                             imagePath = compressedImageFile.path
@@ -589,7 +589,7 @@ class NBPA_Form3 : Fragment() {
                             requireContext(),
                             File(requireContext().getMediaFilePathFor(uriReal!!))
                         )
-                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
                         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                             Log.e("TAG", "addOnSuccessListenerRegisterBB " + location.toString())
                             imagePath = compressedImageFile.path

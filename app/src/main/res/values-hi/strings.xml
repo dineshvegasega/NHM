@@ -157,7 +157,7 @@
     </string-array>
 
     <string name="maleGender">पुरुष</string>
-    <string name="femaleGender">महिलाे</string>
+    <string name="femaleGender">महिला</string>
     <string name="otherGender">अन्य</string>
 
     <string-array name="years_array">
@@ -619,10 +619,11 @@
     <string name="father">पिता </string>
     <string name="husband">पति</string>
     <string name="mother_nameStar">माँ का नाम</string>
-    <string name="ageStar">आयु(Y)</string>
+    <string name="ageStar">आयु(Y)*</string>
     <string name="height">ऊंचाई(CM)</string>
-    <string name="heightStar">ऊंचाई(CM)</string>
-    <string name="weightStar">वज़न(KG)</string>
+    <string name="heightStar">ऊंचाई(CM)*</string>
+    <string name="weightStar">वज़न(KG)*</string>
+    <string name="weight">वज़न(KG)</string>
     <string name="number_of_membersStar">कुल परिवार के सदस्य</string>
     <string name="number_of_childrensStar">बच्चों की संख्या (0-6 वर्ष)</string>
     <string name="DMCNameStar">डीएमसी नाम</string>
@@ -663,6 +664,8 @@
     <string name="beneficiary_card">लाभार्थी कार्ड</string>
     <string name="checkup">चेकअप</string>
     <string name="food_items">खाद्य पदार्थ</string>
+    <string name="government_under_scheme">Government Scheme</string>
+    <string name="diet_chart">डाइट चार्ट</string>
     <string name="clear">साफ़ करें</string>
     <string name="complete">पूरा करें</string>
     <string name="tryAgain">पुनः प्रयास करें</string>
@@ -740,4 +743,26 @@
     <string name="geAddress">पता: </string>
     <string name="geoLatLng">लैटलॉन्ग: </string>
     <string name="geoDateTime">दिनांक समय: </string>
+
+    <string name="beneficiary_s_diet_chart_link">लाभार्थी का डाइट चार्ट मूल्यांकन</string>
+    <string name="date_form4">दिनांक</string>
+    <string name="diet_chart_mulyakan">डाइट चार्ट मूल्यांकन विवरण</string>
+    <string name="suggestion">सुझाव</string>
+    <string name="service_provider">सेवाप्रदाता</string>
+    <string name="home_visit_follow_up">होम पवजजट फॉलोअप</string>
+    <string name="signatureWithoutStar">हस्ताक्षर</string>
+    <string name="comment">टिप्पणी</string>
+    <string name="assistance_received_under_government_scheme">शासकीय योजनान्तर्गत प्राप्त सहायता</string>
+    <string name="name_of_help">Name of help</string>
+    <string name="dbt_amount_by_health_department">स्वास्थ्य विभाग द्वारा डीबीटी राशी</string>
+    <string name="total_amount_received">प्राप्त कुल राशि</string>
+    <string name="additional_ration_received_from_pds">पीडीएस से प्राप्त अतिरिक्त राशन</string>
+    <string name="appropriate_multi_vitamin_distribution">उपयोगी मल्टीविटामिन वितरण</string>
+    <string name="total_number_obtained">कुल प्राप्त संख्या</string>
+    <string name="other_received_help">अन्य प्राप्त सहायता</string>
+    <string name="project_coordinator_signature">परियोजना समन्वयक हस्ताक्षर</string>
+    <string name="project_manager_signature">परियोजना प्रबंधक हस्ताक्षर</string>
+    <string name="details">विवरण</string>
+    <string name="check_detail">विवरण जांचें</string>
+
 </resources>

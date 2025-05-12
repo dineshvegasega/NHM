@@ -93,6 +93,35 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
     var foodIdentityImage = ""
 
 
+    var dietChartDate = ""
+    var dietChartEvaluation = ""
+    var dietChartSuggestion = ""
+    var dietChartServiceProvider = ""
+    var homeVisitDate = ""
+    var homeVisitWeight = ""
+    var homeVisitSignature = ""
+    var homeVisitRemark = ""
+
+    var assistanceDBTDate = ""
+    var assistanceDBTTotalAmount = ""
+    var assistanceDBTDetails = ""
+    var assistanceDBTRemark = ""
+    var assistanceExtraGroceryPDS = ""
+    var assistanceExtraGroceryPDSDetails = ""
+    var assistanceExtraGroceryPDSRemark = ""
+    var assistanceMultiVitaminDate = ""
+    var assistanceMultiVitaminTotalNumber = ""
+    var assistanceMultiVitaminDetails = ""
+    var assistanceMultiVitaminRemark = ""
+    var assistanceOtherHelp = ""
+    var assistanceHelpDetails = ""
+    var assistanceHelpRemark = ""
+    var assistanceProjectCoordinatorSignature = ""
+    var assistanceProjectManagerSignature = ""
+
+
+
+
     fun registerWithFiles(
         view: View,
         hashMap: RequestBody

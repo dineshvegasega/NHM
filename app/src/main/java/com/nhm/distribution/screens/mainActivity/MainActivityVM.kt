@@ -34,6 +34,7 @@ import com.nhm.distribution.screens.main.NBPA.forms.NBPA
 import com.nhm.distribution.screens.main.dashboard.Dashboard
 import com.nhm.distribution.screens.main.members.MemberList
 import com.nhm.distribution.screens.main.NBPA.NBPAList
+import com.nhm.distribution.screens.main.NBPA.forms.CheckDetails
 import com.nhm.distribution.screens.main.profiles.Profiles
 import com.nhm.distribution.screens.main.settings.Settings
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.navHostFragment
@@ -378,8 +379,8 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                         0 -> {
                                             when (data.status) {
                                                 "approved" -> {
-                                                    if (fragmentInFrame !is NBPA) {
-                                                        navHostFragment?.navController?.navigate(R.id.nbpa)
+                                                    if (fragmentInFrame !is CheckDetails) {
+                                                        navHostFragment?.navController?.navigate(R.id.checkDetails)
                                                     }
                                                 }
                                                 "unverified" -> {

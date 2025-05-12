@@ -50,10 +50,12 @@ class NBPA : Fragment() , CallBackListener {
         binding.apply {
             adapter = NBPA_Adapter(requireActivity())
             adapter.notifyDataSetChanged()
-            introViewPager.isUserInputEnabled = false
+            introViewPager.isUserInputEnabled = true
             adapter.addFragment(NBPA_Form1())
             adapter.addFragment(NBPA_Form2())
             adapter.addFragment(NBPA_Form3())
+            adapter.addFragment(NBPA_Form4())
+            adapter.addFragment(NBPA_Form5())
 
             Handler(Looper.getMainLooper()).postDelayed({
                 introViewPager.adapter=adapter
@@ -61,14 +63,16 @@ class NBPA : Fragment() , CallBackListener {
                     getString(R.string.beneficiary_card),
                     getString(R.string.checkup),
                     getString(R.string.food_items),
+                    getString(R.string.diet_chart),
+                    getString(R.string.government_under_scheme),
                 )
                 TabLayoutMediator(tabLayout, introViewPager) { tab, position ->
                     tab.text = array[position]
-                    tab.view.isEnabled = false
+                    tab.view.isEnabled = true
                 }.attach()
             }, 100)
 
-            binding.tabLayout.touchables.forEach { it.isClickable = false }
+            binding.tabLayout.touchables.forEach { it.isClickable = true }
 
             introViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
@@ -99,7 +103,11 @@ class NBPA : Fragment() , CallBackListener {
             } else if (pos == 1001) {
                 introViewPager.setCurrentItem(1, false)
             } else if (pos == 1002) {
-                introViewPager.setCurrentItem(21, false)
+                introViewPager.setCurrentItem(2, false)
+            } else if (pos == 1003) {
+                introViewPager.setCurrentItem(3, false)
+            } else if (pos == 1004) {
+                introViewPager.setCurrentItem(4, false)
             }
         }
     }

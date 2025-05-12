@@ -9,6 +9,7 @@
         <item name="colorOnSecondary">@color/_000000</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
 
 

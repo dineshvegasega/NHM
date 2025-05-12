@@ -410,8 +410,6 @@
 
 
 
-
-
             <RelativeLayout
                 android:id="@+id/linearSingnature"
                 android:layout_width="match_parent"
@@ -696,7 +694,7 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/_8sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
-                android:text="@string/submit"
+                android:text="@string/continues"
                 android:backgroundTint="@color/_E79D46"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
