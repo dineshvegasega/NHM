@@ -112,7 +112,7 @@ class NBPAAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
 
                 itemRowBinding.root.setOnClickListener {
-                    itemRowBinding.root.findNavController().navigate(R.id.action_nbpaList_to_nbpaDetail, Bundle().apply {
+                    itemRowBinding.root.findNavController().navigate(R.id.action_nbpaList_to_nbpaView, Bundle().apply {
                         putParcelable("key", model)
                     })
                 }

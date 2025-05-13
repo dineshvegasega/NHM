@@ -30,11 +30,10 @@ import com.nhm.distribution.models.Login
 import com.nhm.distribution.models.ItemAds
 import com.nhm.distribution.networking.USER_TYPE
 import com.nhm.distribution.networking.USER_TYPE_ADMIN
-import com.nhm.distribution.screens.main.NBPA.forms.NBPA
 import com.nhm.distribution.screens.main.dashboard.Dashboard
 import com.nhm.distribution.screens.main.members.MemberList
 import com.nhm.distribution.screens.main.NBPA.NBPAList
-import com.nhm.distribution.screens.main.NBPA.forms.CheckDetails
+import com.nhm.distribution.screens.main.NBPA.CheckDetails
 import com.nhm.distribution.screens.main.profiles.Profiles
 import com.nhm.distribution.screens.main.settings.Settings
 import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.navHostFragment

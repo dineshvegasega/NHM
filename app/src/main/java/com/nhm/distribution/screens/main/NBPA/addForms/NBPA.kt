@@ -1,36 +1,27 @@
-package com.nhm.distribution.screens.main.NBPA.editForms
+package com.nhm.distribution.screens.main.NBPA.addForms
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nhm.distribution.R
 import com.nhm.distribution.databinding.NbpaBinding
-import com.nhm.distribution.models.ItemNBPAForm
 import com.nhm.distribution.screens.interfaces.CallBackListener
-import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
-import com.nhm.distribution.screens.main.NBPA.addForms.NBPA
 import com.nhm.distribution.screens.mainActivity.MainActivity
-import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
-import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
-import com.nhm.distribution.utils.parcelable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NBPAEdit : Fragment() , CallBackListener {
-    private lateinit var viewModel: NBPAViewModel
+class NBPA : Fragment() , CallBackListener {
     private var _binding: NbpaBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var adapter : NBPAEdit_Adapter
+    lateinit var adapter : NBPA_Adapter
 
     companion object{
         var callBackListener: CallBackListener? = null
@@ -52,20 +43,15 @@ class NBPAEdit : Fragment() , CallBackListener {
         super.onViewCreated(view, savedInstanceState)
         MainActivity.mainActivity.get()?.callFragment(3)
         callBackListener = this
-        viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
         binding.apply {
-            val model = arguments?.parcelable<ItemNBPAForm>("key")
-            Log.e("TAG", "modelmodel "+model.toString())
-            viewModel.editData = model
-
-            adapter = NBPAEdit_Adapter(requireActivity())
+            adapter = NBPA_Adapter(requireActivity())
             adapter.notifyDataSetChanged()
             introViewPager.isUserInputEnabled = true
-            adapter.addFragment(NBPAEdit_Form1())
-            adapter.addFragment(NBPAEdit_Form2())
-            adapter.addFragment(NBPAEdit_Form3())
-            adapter.addFragment(NBPAEdit_Form4())
-            adapter.addFragment(NBPAEdit_Form5())
+            adapter.addFragment(NBPA_Form1())
+            adapter.addFragment(NBPA_Form2())
+            adapter.addFragment(NBPA_Form3())
+            adapter.addFragment(NBPA_Form4())
+            adapter.addFragment(NBPA_Form5())
 
             Handler(Looper.getMainLooper()).postDelayed({
                 introViewPager.adapter=adapter
@@ -95,7 +81,7 @@ class NBPAEdit : Fragment() , CallBackListener {
 
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    NBPA.Companion.tabPosition = position
+                    tabPosition = position
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {
@@ -103,6 +89,7 @@ class NBPAEdit : Fragment() , CallBackListener {
                 }
             })
         }
+
     }
 
     override fun onCallBack(pos: Int) {
@@ -123,10 +110,18 @@ class NBPAEdit : Fragment() , CallBackListener {
 
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        MainActivity.mainActivity.get()?.callFragment(4)
-        isProductLoad = false
-        isProductLoadMember = false
-    }
+
+//    override fun onStop() {
+//        super.onStop()
+//        isProductLoad = true
+//        isProductLoadMember = true
+//    }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        isProductLoad = false
+//        isProductLoadMember = false
+//    }
+
+
 }

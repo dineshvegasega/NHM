@@ -50,7 +50,7 @@ class NBPADetail : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainActivity.mainActivity.get()?.callFragment(3)
+//        MainActivity.mainActivity.get()?.callFragment(3)
 //        change = false
         binding.apply {
             val model = arguments?.parcelable<ItemNBPAForm>("key")

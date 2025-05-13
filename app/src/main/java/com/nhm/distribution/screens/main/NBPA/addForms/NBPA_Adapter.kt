@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA.forms
+package com.nhm.distribution.screens.main.NBPA.addForms
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

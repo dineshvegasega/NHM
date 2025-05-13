@@ -14,11 +14,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.nhm.distribution.R
 import com.nhm.distribution.databinding.ItemAllSchemesBinding
+import com.nhm.distribution.databinding.ItemForm3Binding
+import com.nhm.distribution.databinding.ItemForm4Binding
+import com.nhm.distribution.databinding.ItemForm5Binding
+import com.nhm.distribution.databinding.ItemRecentActivitiesBinding
 import com.nhm.distribution.databinding.LoaderBinding
 import com.nhm.distribution.genericAdapter.GenericAdapter
 import com.nhm.distribution.models.BaseResponseDC
@@ -29,6 +35,8 @@ import com.nhm.distribution.networking.ApiInterface
 import com.nhm.distribution.networking.CallHandler
 import com.nhm.distribution.networking.Repository
 import com.nhm.distribution.networking.getJsonRequestBody
+import com.nhm.distribution.screens.main.dashboard.DashboardVM.RecentChildAdapter
+import com.nhm.distribution.screens.main.dashboard.ItemModel
 //import com.nhm.distribution.screens.main.NBPA.NBPADetail.Companion.change
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
@@ -670,11 +678,74 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
                     }
                 )
             }
+
+
         }
 
 
 
 
+    val viewForm3Adapter = object : GenericAdapter<ItemForm3Binding, String>() {
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            parent: ViewGroup,
+            viewType: Int
+        ) = ItemForm3Binding.inflate(inflater, parent, false)
+
+        override fun onBindHolder(
+            binding: ItemForm3Binding,
+            dataClass: String,
+            position: Int
+        ) {
+            binding.apply {
+                signaturePad.visibility = View.GONE
+                searchLayout.visibility = View.GONE
+            }
+        }
+    }
 
 
+
+    val viewForm4Adapter = object : GenericAdapter<ItemForm4Binding, String>() {
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            parent: ViewGroup,
+            viewType: Int
+        ) = ItemForm4Binding.inflate(inflater, parent, false)
+
+        override fun onBindHolder(
+            binding: ItemForm4Binding,
+            dataClass: String,
+            position: Int
+        ) {
+            binding.apply {
+                signaturePad.visibility = View.GONE
+                searchLayout.visibility = View.GONE
+            }
+        }
+    }
+
+
+
+    val viewForm5Adapter = object : GenericAdapter<ItemForm5Binding, String>() {
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            parent: ViewGroup,
+            viewType: Int
+        ) = ItemForm5Binding.inflate(inflater, parent, false)
+
+        override fun onBindHolder(
+            binding: ItemForm5Binding,
+            dataClass: String,
+            position: Int
+        ) {
+            binding.apply {
+                signatureProjectCoordinatorPad.visibility = View.GONE
+                searchLayoutProjectCoordinator.visibility = View.GONE
+
+                signatureProjectManagerPad.visibility = View.GONE
+                searchLayoutProjectManager.visibility = View.GONE
+            }
+        }
+    }
 }

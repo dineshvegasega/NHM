@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA.editForms
+package com.nhm.distribution.screens.main.NBPA.viewForms
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,13 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.nhm.distribution.databinding.EditForm3Binding
 import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
+import com.nhm.distribution.screens.main.NBPA.editForms.NBPAEdit
 import com.nhm.distribution.utils.glideImagePortraitForImage
 import com.nhm.distribution.utils.imageZoom
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.collections.arrayListOf
 
 @AndroidEntryPoint
-class NBPAEdit_Form3 : Fragment() {
+class NBPAView_Form3 : Fragment() {
     private lateinit var viewModel: NBPAViewModel
     private var _binding: EditForm3Binding? = null
     private val binding get() = _binding!!
@@ -34,6 +36,15 @@ class NBPAEdit_Form3 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
         binding.apply {
+
+
+            recyclerView.setHasFixedSize(true)
+            recyclerView.adapter = viewModel.viewForm3Adapter
+            viewModel.viewForm3Adapter.notifyDataSetChanged()
+            viewModel.viewForm3Adapter.submitList(arrayListOf("0", "1", "2", "3"))
+
+
+
 //            ivMenu.singleClick {
 //                NBPAEdit.callBackListener!!.onCallBack(1001)
 //            }
@@ -59,10 +70,6 @@ class NBPAEdit_Form3 : Fragment() {
 //                }
 //            }
 
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = viewModel.viewForm3Adapter
-            viewModel.viewForm3Adapter.notifyDataSetChanged()
-            viewModel.viewForm3Adapter.submitList(arrayListOf("0", "1", "2", "3"))
         }
     }
 }

@@ -28,7 +28,6 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -40,7 +39,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -65,11 +63,9 @@ import com.nhm.distribution.networking.Start
 import com.nhm.distribution.networking.USER_TYPE
 import com.nhm.distribution.networking.delete_account
 import com.nhm.distribution.networking.mobile_number
-import com.nhm.distribution.networking.page
-import com.nhm.distribution.networking.userId
 import com.nhm.distribution.networking.user_id
 import com.nhm.distribution.networking.user_type
-import com.nhm.distribution.screens.main.NBPA.forms.NBPA
+import com.nhm.distribution.screens.main.NBPA.addForms.NBPA
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.locale
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.userIdForGlobal
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.userType
@@ -89,9 +85,7 @@ import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import okhttp3.MultipartBody
-import org.json.JSONObject
 import java.lang.ref.WeakReference
-import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

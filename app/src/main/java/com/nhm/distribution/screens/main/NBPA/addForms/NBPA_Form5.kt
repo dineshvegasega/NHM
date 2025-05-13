@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA.forms
+package com.nhm.distribution.screens.main.NBPA.addForms
 
 import android.Manifest
 import android.annotation.SuppressLint

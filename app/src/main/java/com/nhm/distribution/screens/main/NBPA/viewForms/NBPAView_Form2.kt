@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA.editForms
+package com.nhm.distribution.screens.main.NBPA.viewForms
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.nhm.distribution.databinding.EditForm2Binding
 import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
+import com.nhm.distribution.screens.main.NBPA.editForms.NBPAEdit
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NBPAEdit_Form2 : Fragment() {
+class NBPAView_Form2 : Fragment() {
     private lateinit var viewModel: NBPAViewModel
     private var _binding: EditForm2Binding? = null
     private val binding get() = _binding!!
@@ -33,6 +34,10 @@ class NBPAEdit_Form2 : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
 
         binding.apply {
+
+//            ivMenu.singleClick {
+//                NBPAEdit.callBackListener!!.onCallBack(1000)
+//            }
 
             var model = viewModel.editData!!
 
@@ -131,23 +136,24 @@ class NBPAEdit_Form2 : Fragment() {
                 }
             }
 
+            btSignIn.visibility = View.GONE
 
-//            nbpaDetail2.apply {
-//                editTextPatientCheckupDate.isEnabled = false
-//                editTextHemoglobinLevelAge.isEnabled = false
-//                editTextHemoglobinCheckupDate.isEnabled = false
-//                editTextMuktiID.isEnabled = false
-//                editTextNakshayID.isEnabled = false
-//                editTextAadhaarNumber.isEnabled = false
-//                editTextBusiness.isEnabled = false
-//                editTextBankAccount.isEnabled = false
-//                editTextBankIFSC.isEnabled = false
-//                editTextTreatmentSupporterName.isEnabled = false
-//                editTextTreatmentSupporterPost.isEnabled = false
-//                editTextTreatmentSupporterMobileNumber.isEnabled = false
-//                editTextTreatmentEndDate.isEnabled = false
-//                editTextTreatmentResult.isEnabled = false
-//            }
+            nbpaDetail2.apply {
+                editTextPatientCheckupDate.isEnabled = false
+                editTextHemoglobinLevelAge.isEnabled = false
+                editTextHemoglobinCheckupDate.isEnabled = false
+                editTextMuktiID.isEnabled = false
+                editTextNakshayID.isEnabled = false
+                editTextAadhaarNumber.isEnabled = false
+                editTextBusiness.isEnabled = false
+                editTextBankAccount.isEnabled = false
+                editTextBankIFSC.isEnabled = false
+                editTextTreatmentSupporterName.isEnabled = false
+                editTextTreatmentSupporterPost.isEnabled = false
+                editTextTreatmentSupporterMobileNumber.isEnabled = false
+                editTextTreatmentEndDate.isEnabled = false
+                editTextTreatmentResult.isEnabled = false
+            }
         }
     }
 }

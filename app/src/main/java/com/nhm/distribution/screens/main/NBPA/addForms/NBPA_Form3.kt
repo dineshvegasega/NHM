@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA.forms
+package com.nhm.distribution.screens.main.NBPA.addForms
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -11,8 +11,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,31 +20,22 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import com.nhm.distribution.R
 import com.nhm.distribution.databinding.Form3Binding
 import com.nhm.distribution.datastore.DataStoreKeys.LOGIN_DATA
 import com.nhm.distribution.datastore.DataStoreUtil.readData
 import com.nhm.distribution.models.Login
-import com.nhm.distribution.networking.*
 import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
-import com.nhm.distribution.screens.mainActivity.MainActivity
-import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.logoutAlert
-import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
-import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.screens.onboarding.register.Register.Companion.imagePath
 import com.nhm.distribution.screens.onboarding.register.Register.Companion.latLong
-import com.nhm.distribution.utils.callNetworkDialog
 import com.nhm.distribution.utils.callPermissionDialog
 import com.nhm.distribution.utils.getAddress
 import com.nhm.distribution.utils.getCameraPath
@@ -61,15 +50,11 @@ import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
-import kotlin.getValue
 
 @AndroidEntryPoint
 class NBPA_Form3 : Fragment() {

@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA.forms
+package com.nhm.distribution.screens.main.NBPA.addForms
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.nhm.distribution.R
 import com.nhm.distribution.databinding.Form2Binding
@@ -16,7 +15,6 @@ import com.nhm.distribution.utils.showDropDownDialog
 import com.nhm.distribution.utils.showSnackBar
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.getValue
 
 @AndroidEntryPoint
 class NBPA_Form2 : Fragment() {

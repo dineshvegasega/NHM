@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA.forms
+package com.nhm.distribution.screens.main.NBPA
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,8 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.nhm.distribution.R
 import com.nhm.distribution.databinding.CheckDetailsBinding
-import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
-import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.navHostFragment
+import com.nhm.distribution.screens.mainActivity.MainActivity
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,11 +35,20 @@ class CheckDetails  : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
-
+        MainActivity.mainActivity.get()?.callFragment(4)
         binding.apply {
             btSignIn.singleClick {
                 findNavController().navigate(R.id.action_checkDetails_to_nbpa)
             }
         }
     }
+
+
+
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        MainActivity.mainActivity.get()?.callFragment(4)
+//        isProductLoad = false
+//        isProductLoadMember = false
+//    }
 }

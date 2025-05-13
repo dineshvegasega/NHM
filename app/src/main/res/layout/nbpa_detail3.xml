@@ -180,7 +180,7 @@
                     android:textSize="@dimen/_12sdp"
                     tools:ignore="MissingConstraints"
                     app:fontFamily="@font/roboto_medium"
-                    android:text="@string/height"
+                    android:text="@string/weight"
                     android:visibility="visible"
                     />
 
@@ -202,7 +202,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     style="@style/PrimaryEditText"
-                    android:hint="@string/height"
+                    android:hint="@string/weight"
                     android:layout_marginTop="0dp"
                     android:text=""
                     android:inputType="numberDecimal"

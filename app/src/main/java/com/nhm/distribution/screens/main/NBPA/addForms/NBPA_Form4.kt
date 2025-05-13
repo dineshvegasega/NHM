@@ -1,4 +1,4 @@
-package com.nhm.distribution.screens.main.NBPA.forms
+package com.nhm.distribution.screens.main.NBPA.addForms
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -19,14 +19,12 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.github.gcacace.signaturepad.views.SignaturePad
-import com.nhm.distribution.R
 import com.nhm.distribution.databinding.Form4Binding
 import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
 import com.nhm.distribution.utils.callPermissionDialog
 import com.nhm.distribution.utils.getImageName
 import com.nhm.distribution.utils.mainThread
 import com.nhm.distribution.utils.showDropDownDialog
-import com.nhm.distribution.utils.showSnackBar
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File

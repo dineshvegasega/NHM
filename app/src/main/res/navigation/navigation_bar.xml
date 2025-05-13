@@ -13,8 +13,8 @@
             android:id="@+id/nbpaList"
             tools:layout="@layout/nbpa_list">
         <action
-                android:id="@+id/action_nbpaList_to_nbpaDetail"
-                app:destination="@id/nbpaDetail"
+                android:id="@+id/action_nbpaList_to_nbpaView"
+                app:destination="@id/nbpaView"
                 app:launchSingleTop="true"
                 />
         <action
@@ -31,6 +31,15 @@
             tools:layout="@layout/nbpa">
 
     </fragment>
+
+    <fragment
+            android:name="com.nhm.distribution.screens.main.NBPA.viewForms.NBPAView"
+            android:label="NBPAView"
+            android:id="@+id/nbpaView"
+            tools:layout="@layout/nbpa">
+
+    </fragment>
+
     <fragment
             android:name="com.nhm.distribution.screens.main.members.MemberList"
             android:label="MemberList"
@@ -52,7 +61,7 @@
 
 
     <fragment
-            android:name="com.nhm.distribution.screens.main.NBPA.forms.NBPA_Form4"
+            android:name="com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form4"
             android:label="NBPA_Form4"
             android:id="@+id/nBPA_Form4"
             tools:layout="@layout/form4">
@@ -625,7 +634,7 @@
     </fragment>
 
     <fragment
-        android:name="com.nhm.distribution.screens.main.NBPA.forms.NBPA"
+        android:name="com.nhm.distribution.screens.main.NBPA.addForms.NBPA"
         android:label="NBPA"
         android:id="@+id/nbpa"
         tools:layout="@layout/create_distribution">
@@ -639,7 +648,7 @@
     </fragment>
 
     <fragment
-            android:name="com.nhm.distribution.screens.main.NBPA.forms.CheckDetails"
+            android:name="com.nhm.distribution.screens.main.NBPA.CheckDetails"
             android:label="CheckDetails"
             android:id="@+id/checkDetails"
             tools:layout="@layout/check_details">
@@ -648,8 +657,6 @@
                 android:id="@+id/action_checkDetails_to_nbpa"
                 app:destination="@id/nbpa"
                 app:launchSingleTop="true"
-                app:popUpTo="@id/checkDetails"
-                app:popUpToInclusive="true"
                 />
     </fragment>
 
@@ -663,7 +670,7 @@
 
 
     <fragment
-        android:name="com.nhm.distribution.screens.main.NBPA.forms.NBPA_Form3"
+        android:name="com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form3"
         android:label="Form3"
         android:id="@+id/form3"
         tools:layout="@layout/form3">
