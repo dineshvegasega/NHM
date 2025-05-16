@@ -19,23 +19,47 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.github.gcacace.signaturepad.views.SignaturePad
+import com.nhm.distribution.R
 import com.nhm.distribution.databinding.Form4Binding
+import com.nhm.distribution.networking.dietChartDate
+import com.nhm.distribution.networking.dietChartEvaluation
+import com.nhm.distribution.networking.dietChartServiceProvider
+import com.nhm.distribution.networking.dietChartSuggestion
+import com.nhm.distribution.networking.homeVisitDate
+import com.nhm.distribution.networking.homeVisitRemark
+import com.nhm.distribution.networking.homeVisitSignature
+import com.nhm.distribution.networking.homeVisitWeight
+import com.nhm.distribution.screens.interfaces.CallBackListener
 import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
+import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form1.Companion.formFill1
+import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form3.Companion.formFill3
+import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
+import com.nhm.distribution.utils.callNetworkDialog
 import com.nhm.distribution.utils.callPermissionDialog
 import com.nhm.distribution.utils.getImageName
 import com.nhm.distribution.utils.mainThread
 import com.nhm.distribution.utils.showDropDownDialog
+import com.nhm.distribution.utils.showSnackBar
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
 @AndroidEntryPoint
-class NBPA_Form4 : Fragment() {
+class NBPA_Form4 : Fragment() , CallBackListener {
     private lateinit var viewModel: NBPAViewModel
     private var _binding: Form4Binding? = null
     private val binding get() = _binding!!
+
+    companion object {
+        var callBackListener: CallBackListener? = null
+        var tabPosition = 0
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,6 +74,7 @@ class NBPA_Form4 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
+        callBackListener = this
         binding.apply {
 
             ivMenu.singleClick {
@@ -121,32 +146,7 @@ class NBPA_Form4 : Fragment() {
 
 
             btSignIn.singleClick {
-//                if (editTextDietDate.text.toString() == "") {
-//                    showSnackBar(getString(R.string.selectDate))
-//                } else if (editTextDietChartEvaluation.text.toString() == "") {
-//                    showSnackBar(getString(R.string.selectDate))
-//                } else if (editTextSuggestion.text.toString() == "") {
-//                    showSnackBar(getString(R.string.selectDate))
-//                } else if (editTextServiceProvider.text.toString() == "") {
-//                    showSnackBar(getString(R.string.selectDate))
-//                } else if (editTextHomeDate.text.toString() == "") {
-//                    showSnackBar(getString(R.string.selectDate))
-//                } else if (editTextHeight.text.toString() == "") {
-//                    showSnackBar(getString(R.string.selectDate))
-//                } else if (editTextSuggestion.text.toString() == "") {
-//                    showSnackBar(getString(R.string.selectDate))
-//                } else if (editTextServiceProvider.text.toString() == "") {
-//                    showSnackBar(getString(R.string.selectDate))
-//                }
-
-
-                viewModel.dietChartEvaluation = editTextDietChartEvaluation.text.toString()
-                viewModel.dietChartSuggestion = editTextSuggestion.text.toString()
-                viewModel.dietChartServiceProvider = editTextServiceProvider.text.toString()
-                viewModel.homeVisitWeight = editTextHeight.text.toString()
-                viewModel.homeVisitRemark = editTextComment.text.toString()
-
-                NBPA.callBackListener!!.onCallBack(1004)
+                getData(true)
             }
         }
     }
@@ -240,4 +240,33 @@ class NBPA_Form4 : Fragment() {
         return bitmap
     }
 
+
+
+    override fun onCallBack(pos: Int) {
+        Log.e("TAG", "onCallBackNo4 "+pos)
+        getData(false)
+    }
+
+
+
+
+    private fun getData(isButton: Boolean) {
+        binding.apply {
+            viewModel.dietChartEvaluation = editTextDietChartEvaluation.text.toString()
+            viewModel.dietChartSuggestion = editTextSuggestion.text.toString()
+            viewModel.dietChartServiceProvider = editTextServiceProvider.text.toString()
+            viewModel.homeVisitWeight = editTextHeight.text.toString()
+            viewModel.homeVisitRemark = editTextComment.text.toString()
+
+            if (isButton) {
+//                if (!formFill3) {
+//                    showSnackBar(getString(R.string.please_fill_required_entries))
+//                } else {
+                    NBPA.callBackListener!!.onCallBack(1004)
+//                }
+            } else {
+
+            }
+        }
+    }
 }

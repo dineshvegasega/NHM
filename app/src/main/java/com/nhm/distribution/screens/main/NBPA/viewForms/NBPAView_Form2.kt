@@ -39,7 +39,7 @@ class NBPAView_Form2 : Fragment() {
 //                NBPAEdit.callBackListener!!.onCallBack(1000)
 //            }
 
-            var model = viewModel.editData!!
+            var model = viewModel.editDataNew!!.data
 
             nbpaDetail2.apply {
                 if (model.typeOfPatient == "1") {

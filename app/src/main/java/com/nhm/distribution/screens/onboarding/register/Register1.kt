@@ -83,7 +83,7 @@ class Register1 : Fragment(), CallBackListener {
                                 requireContext(),
                                 File(requireContext().getMediaFilePathFor(uri))
                             )
-                            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//                            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
                             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                                 Log.e("TAG", "addOnSuccessListenerRegisterAA " + location.toString())
 //                                viewModel.data.passportSizeImage = compressedImageFile.path
@@ -99,7 +99,7 @@ class Register1 : Fragment(), CallBackListener {
                                 requireContext(),
                                 File(requireContext().getMediaFilePathFor(uri))
                             )
-                            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//                            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
                             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                                 Log.e("TAG", "addOnSuccessListenerRegisterBB " + location.toString())
 //                                viewModel.data.identificationImage = compressedImageFile.path
@@ -128,7 +128,7 @@ class Register1 : Fragment(), CallBackListener {
                             requireContext(),
                             File(requireContext().getMediaFilePathFor(uriReal!!))
                         )
-                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
                         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                             Log.e("TAG", "addOnSuccessListenerRegisterAA " + location.toString())
 //                            viewModel.data.passportSizeImage = compressedImageFile.path
@@ -144,7 +144,7 @@ class Register1 : Fragment(), CallBackListener {
                             requireContext(),
                             File(requireContext().getMediaFilePathFor(uriReal!!))
                         )
-                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//                        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
                         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                             Log.e("TAG", "addOnSuccessListenerRegisterBB " + location.toString())
 //                            viewModel.data.identificationImage = compressedImageFile.path

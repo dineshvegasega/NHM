@@ -31,10 +31,11 @@ class NBPAEdit_Form5 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
         binding.apply {
+            var model = viewModel.editDataNew!!.schemeDetail
             recyclerView.setHasFixedSize(true)
             recyclerView.adapter = viewModel.viewForm5Adapter
             viewModel.viewForm5Adapter.notifyDataSetChanged()
-            viewModel.viewForm5Adapter.submitList(arrayListOf("0", "1", "2", "3"))
+            viewModel.viewForm5Adapter.submitList(model)
         }
     }
 }

@@ -764,5 +764,9 @@
     <string name="project_manager_signature">परियोजना प्रबंधक हस्ताक्षर</string>
     <string name="details">विवरण</string>
     <string name="check_detail">विवरण जांचें</string>
+    <string name="enter_valid_aadhaar_number">वैध आधार संख्या दर्ज करें</string>
+    <string name="enter_aadhaar_number_to_verify_the_patient">मरीज़ की पुष्टि के लिए आधार\nनंबर दर्ज करें।</string>
+    <string name="please_fill_required_entries">कृपया आवश्यक* प्रविष्टियाँ भरें!</string>
+    <string name="already_exists_aadhaar">दर्ज किया गया आधार संख्या पहले से मौजूद है।</string>
 
 </resources>

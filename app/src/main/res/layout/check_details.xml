@@ -6,45 +6,92 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             >
-        <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editTextMobileNumber"
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                style="@style/PrimaryEditText"
-                android:hint="@string/aadhaar_number"
-                android:inputType="number"
-                android:maxLength="12"
-                android:text=""
-                android:imeOptions="flagNoExtractUi"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/btSignIn"
-                />
-
-
-
-        <com.google.android.material.button.MaterialButton
-                android:id="@+id/btSignIn"
-                style="@style/PrimaryButtonYellow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:paddingVertical="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:text="@string/check_detail"
-                android:backgroundTint="@color/_E79D46"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:layout_weight="1"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/editTextMobileNumber"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/_2C2C2C"
+                        android:textSize="@dimen/_20sdp"
+                        android:layout_marginHorizontal="@dimen/_20sdp"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:ignore="MissingConstraints"
+                        app:fontFamily="@font/roboto_medium"
+                        android:gravity="center_horizontal"
+                        android:text="@string/enter_aadhaar_number_to_verify_the_patient"
+                        android:visibility="visible"
+                        />
+
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editTextAadhaarNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        style="@style/PrimaryEditText"
+                        android:hint="@string/aadhaar_number"
+                        android:inputType="number"
+                        android:digits="0123456789"
+                        android:maxLength="12"
+                        android:text=""
+                        android:imeOptions="flagNoExtractUi"
+                        app:layout_constraintTop_toBottomOf="@+id/textTxt"
+                        app:layout_constraintBottom_toTopOf="@+id/btSignIn"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        />
+
+
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btSignIn"
+                        style="@style/PrimaryButtonYellow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:paddingVertical="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:text="@string/check_detail"
+                        android:backgroundTint="@color/_E79D46"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/editTextAadhaarNumber"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

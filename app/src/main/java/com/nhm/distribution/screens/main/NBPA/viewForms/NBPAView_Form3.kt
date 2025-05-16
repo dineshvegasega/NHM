@@ -2,11 +2,15 @@ package com.nhm.distribution.screens.main.NBPA.viewForms
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.tabs.TabLayoutMediator
+import com.nhm.distribution.R
 import com.nhm.distribution.databinding.EditForm3Binding
 import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
 import com.nhm.distribution.screens.main.NBPA.editForms.NBPAEdit
@@ -36,12 +40,21 @@ class NBPAView_Form3 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
         binding.apply {
+            Handler(Looper.getMainLooper()).postDelayed({
+                var model = viewModel.editDataNew!!.schemeDetail
+                recyclerView.setHasFixedSize(true)
+                if (model.size != 0){
+                    recyclerView.visibility = View.VISIBLE
+                    recyclerView.adapter = viewModel.viewForm3Adapter
+                    viewModel.viewForm3Adapter.notifyDataSetChanged()
+                    viewModel.viewForm3Adapter.submitList(model)
+                }else{
+                    recyclerView.visibility = View.GONE
+                }
+            }, 100)
 
 
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = viewModel.viewForm3Adapter
-            viewModel.viewForm3Adapter.notifyDataSetChanged()
-            viewModel.viewForm3Adapter.submitList(arrayListOf("0", "1", "2", "3"))
+
 
 
 

@@ -12,9 +12,9 @@ import com.nhm.distribution.models.ItemPanchayat
 import com.nhm.distribution.models.ItemPincode
 import com.nhm.distribution.models.ItemState
 import com.nhm.distribution.models.ItemVending
-import com.nhm.distribution.models.ItemNBPAForm
 import com.nhm.distribution.models.ItemMemberRoot
 import com.nhm.distribution.models.ItemNBPAFormRoot
+import com.nhm.distribution.models.ItemFormListDetail
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -98,6 +98,13 @@ interface ApiInterface {
     ): Response<BaseResponseDC<Any>>
 
 
+    @Headers("Accept: application/json")
+    @POST(ADD_SCHEME_DETAIL)
+    suspend fun registerWithFilesFoodItems(
+        @Body hashMap: RequestBody
+    ): Response<BaseResponseDC<Any>>
+
+
     @POST(PASSWORD_UPDATE)
     suspend fun passwordUpdate2(
         @Body requestBody: RequestBody
@@ -106,6 +113,18 @@ interface ApiInterface {
 
     @GET(Vending)
     suspend fun vending(): Response<BaseResponseDC<List<ItemVending>>>
+
+
+    @GET(SCHEME_DETAIL+ "/{id}")
+    suspend fun formListDetail(
+        @Path("id") id: String
+    ): Response<ItemFormListDetail>
+
+
+    @GET(CHECK_AADHAAR+ "/{id}")
+    suspend fun checkAadhaarNo(
+        @Path("id") id: String
+    ): Response<ItemFormListDetail>
 
 
     @GET(Marketplace)
@@ -346,6 +365,11 @@ interface ApiInterface {
         @Body requestBody: RequestBody
     ): Response<ItemNBPAFormRoot>
 
+
+    @POST(Aadharnumbercheck)
+    suspend fun checkAadhaarNo(
+        @Body requestBody: RequestBody
+    ): Response<ItemNBPAFormRoot>
 
 
     @POST(GLOBALSchemeHistoryList)

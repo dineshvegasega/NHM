@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     style="@style/PrimaryEditText"
-                    android:hint="@string/ageStar"
+                    android:hint="@string/hemoglobin_level"
                     android:text=""
                     android:inputType="number"
                     android:layout_marginTop="@dimen/_5sdp"

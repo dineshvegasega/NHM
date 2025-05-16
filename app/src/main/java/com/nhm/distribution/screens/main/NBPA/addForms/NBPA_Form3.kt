@@ -26,16 +26,27 @@ import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import com.nhm.distribution.R
 import com.nhm.distribution.databinding.Form3Binding
 import com.nhm.distribution.datastore.DataStoreKeys.LOGIN_DATA
 import com.nhm.distribution.datastore.DataStoreUtil.readData
 import com.nhm.distribution.models.Login
+import com.nhm.distribution.networking.foodDate
+import com.nhm.distribution.networking.foodHeight
+import com.nhm.distribution.networking.foodIdentityImage
+import com.nhm.distribution.networking.foodItemImage
+import com.nhm.distribution.networking.foodMonth
+import com.nhm.distribution.networking.foodSignatureImage
+import com.nhm.distribution.screens.interfaces.CallBackListener
 import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
+import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form1.Companion.formFill1
+import com.nhm.distribution.screens.mainActivity.MainActivity.Companion.networkFailed
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
 import com.nhm.distribution.screens.onboarding.register.Register.Companion.imagePath
 import com.nhm.distribution.screens.onboarding.register.Register.Companion.latLong
+import com.nhm.distribution.utils.callNetworkDialog
 import com.nhm.distribution.utils.callPermissionDialog
 import com.nhm.distribution.utils.getAddress
 import com.nhm.distribution.utils.getCameraPath
@@ -49,7 +60,13 @@ import com.nhm.distribution.utils.showSnackBar
 import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -57,11 +74,16 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 @AndroidEntryPoint
-class NBPA_Form3 : Fragment() {
+class NBPA_Form3 : Fragment() , CallBackListener {
     private lateinit var viewModel: NBPAViewModel
     private var _binding: Form3Binding? = null
     private val binding get() = _binding!!
 
+    companion object {
+        var callBackListener: CallBackListener? = null
+        var tabPosition = 0
+        var formFill3 = false
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,7 +99,7 @@ class NBPA_Form3 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
-
+        callBackListener = this
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
@@ -176,185 +198,7 @@ class NBPA_Form3 : Fragment() {
 
             btSignIn.singleClick {
                 isProductLoad = true
-//                isProductLoadMember = true
-//                view.findNavController()
-//                    .navigate(R.id.action_nbpa_to_products)
-                if (editTextMonth.text.toString() == "") {
-                    showSnackBar(getString(R.string.select_month))
-                } else if (editTextDate.text.toString() == "") {
-                    showSnackBar(getString(R.string.select_date))
-                } else if (editTextHeight.text.toString() == "") {
-                    showSnackBar(getString(R.string.enterWeight))
-                } else if (viewModel.foodSignatureImage == "") {
-                    showSnackBar(getString(R.string.add_signature))
-                } else if (viewModel.foodItemImage == "") {
-                    showSnackBar(getString(R.string.food_item_image))
-                } else if (viewModel.foodIdentityImage == "") {
-                    showSnackBar(getString(R.string.identity_imageStar))
-                } else {
-                    viewModel.foodHeight = editTextHeight.text.toString()
-                    NBPA.callBackListener!!.onCallBack(1003)
-//                    readData(LOGIN_DATA) { loginUser ->
-//                        if (loginUser != null) {
-//                            val dataId = Gson().fromJson(loginUser, Login::class.java).id
-//                            val requestBody: MultipartBody.Builder = MultipartBody.Builder()
-//                                .setType(MultipartBody.FORM)
-//                                .addFormDataPart(user_id, ""+dataId)
-//
-//                            if (viewModel.name != null) {
-//                                requestBody.addFormDataPart(formName, ""+viewModel.name)
-//                            }
-//                            if (viewModel.fatherHusbandType != null) {
-//                                requestBody.addFormDataPart(fatherHusbandType, ""+viewModel.fatherHusbandType)
-//                            }
-//                            if (viewModel.fatherHusband != null) {
-//                                requestBody.addFormDataPart(fatherHusband, ""+viewModel.fatherHusband)
-//                            }
-//                            if (viewModel.mother != null) {
-//                                requestBody.addFormDataPart(mother, viewModel.mother)
-//                            }
-//                            if (viewModel.gender != null) {
-//                                requestBody.addFormDataPart(formGender, viewModel.gender)
-//                            }
-//                            if (viewModel.age != null) {
-//                                requestBody.addFormDataPart(age, viewModel.age)
-//                            }
-//                            if (viewModel.height != null) {
-//                                requestBody.addFormDataPart(height, viewModel.height)
-//                            }
-//                            if (viewModel.weight != null) {
-//                                requestBody.addFormDataPart(weight, viewModel.weight)
-//                            }
-//                            if (viewModel.numberOfMembers != null) {
-//                                requestBody.addFormDataPart(numberOfMembers, viewModel.numberOfMembers)
-//                            }
-//                            if (viewModel.numberOfChildren != null) {
-//                                requestBody.addFormDataPart(numberOfChildren, viewModel.numberOfChildren)
-//                            }
-//                            if (viewModel.address != null) {
-//                                requestBody.addFormDataPart(address, viewModel.address)
-//                            }
-//                            if (viewModel.dmcName != null) {
-//                                requestBody.addFormDataPart(dmcName, viewModel.dmcName)
-//                            }
-//                            if (viewModel.block != null) {
-//                                requestBody.addFormDataPart(block, viewModel.block)
-//                            }
-//                            if (viewModel.mobileNumber != null) {
-//                                requestBody.addFormDataPart(mobileNumber, viewModel.mobileNumber)
-//                            }
-//                            if (viewModel.districtState != null) {
-//                                requestBody.addFormDataPart(districtState, viewModel.districtState)
-//                            }
-//                            if (viewModel.cardTypeAPLBPL != null) {
-//                                requestBody.addFormDataPart(cardTypeAPLBPL, ""+viewModel.cardTypeAPLBPL)
-//                            }
-//
-//                            if (viewModel.typeOfPatient != null) {
-//                                requestBody.addFormDataPart(typeOfPatient, ""+viewModel.typeOfPatient)
-//                            }
-//                            if (viewModel.patientCheckupDate != null) {
-//                                requestBody.addFormDataPart(patientCheckupDate, viewModel.patientCheckupDate)
-//                            }
-//                            if (viewModel.hemoglobinLevelAge != null) {
-//                                requestBody.addFormDataPart(hemoglobinLevelAge, viewModel.hemoglobinLevelAge)
-//                            }
-//                            if (viewModel.hemoglobinCheckupDate != null) {
-//                                requestBody.addFormDataPart(hemoglobinCheckupDate, viewModel.hemoglobinCheckupDate)
-//                            }
-//                            if (viewModel.muktiID != null) {
-//                                requestBody.addFormDataPart(muktiID, viewModel.muktiID)
-//                            }
-//                            if (viewModel.nakshayID != null) {
-//                                requestBody.addFormDataPart(nakshayID, viewModel.nakshayID)
-//                            }
-//                            if (viewModel.aadhaarNumber != null) {
-//                                requestBody.addFormDataPart(aadhaarNumber, viewModel.aadhaarNumber)
-//                            }
-//                            if (viewModel.business != null) {
-//                                requestBody.addFormDataPart(business, viewModel.business)
-//                            }
-//                            if (viewModel.bankAccount != null) {
-//                                requestBody.addFormDataPart(bankAccount, viewModel.bankAccount)
-//                            }
-//                            if (viewModel.bankIFSC != null) {
-//                                requestBody.addFormDataPart(bankIFSC, viewModel.bankIFSC)
-//                            }
-//                            if (viewModel.treatmentSupporterName != null) {
-//                                requestBody.addFormDataPart(treatmentSupporterName, viewModel.treatmentSupporterName)
-//                            }
-//                            if (viewModel.treatmentSupporterPost != null) {
-//                                requestBody.addFormDataPart(treatmentSupporterPost, viewModel.treatmentSupporterPost)
-//                            }
-//                            if (viewModel.treatmentSupporterMobileNumber != null) {
-//                                requestBody.addFormDataPart(treatmentSupporterMobileNumber, viewModel.treatmentSupporterMobileNumber)
-//                            }
-//                            if (viewModel.treatmentSupporterEndDate != null) {
-//                                requestBody.addFormDataPart(treatmentSupporterEndDate, viewModel.treatmentSupporterEndDate)
-//                            }
-//                            if (viewModel.treatmentSupporterResult != null) {
-//                                requestBody.addFormDataPart(treatmentSupporterResult, viewModel.treatmentSupporterResult)
-//                            }
-//
-//                            if (viewModel.foodMonth != null) {
-//                                requestBody.addFormDataPart(foodMonth, viewModel.foodMonth)
-//                            }
-//                            if (viewModel.foodDate != null) {
-//                                requestBody.addFormDataPart(foodDate, viewModel.foodDate)
-//                            }
-//                            if (viewModel.foodHeight != null) {
-//                                requestBody.addFormDataPart(foodHeight, viewModel.foodHeight)
-//                            }
-//
-//                            if (viewModel.foodSignatureImage != null) {
-//                                requestBody.addFormDataPart(
-//                                    foodSignatureImage,
-//                                    File(viewModel.foodSignatureImage).name,
-//                                    File(viewModel.foodSignatureImage).asRequestBody("image/*".toMediaTypeOrNull())
-//                                )
-//                            }
-//                            if (viewModel.foodItemImage != null) {
-//                                requestBody.addFormDataPart(
-//                                    foodItemImage,
-//                                    File(viewModel.foodItemImage).name,
-//                                    File(viewModel.foodItemImage).asRequestBody("image/*".toMediaTypeOrNull())
-//                                )
-//                            }
-//                            if (viewModel.foodIdentityImage != null) {
-//                                requestBody.addFormDataPart(
-//                                    foodIdentityImage,
-//                                    File(viewModel.foodIdentityImage).name,
-//                                    File(viewModel.foodIdentityImage).asRequestBody("image/*".toMediaTypeOrNull())
-//                                )
-//                            }
-//
-//                            MaterialAlertDialogBuilder(requireActivity(), R.style.LogoutDialogTheme)
-//                                .setTitle(resources.getString(R.string.app_name))
-//                                .setMessage(resources.getString(R.string.are_your_sure_want_to_submit))
-//                                .setPositiveButton(resources.getString(R.string.submit)) { dialog, _ ->
-//                                    dialog.dismiss()
-//                                    if(networkFailed) {
-//                                        viewModel.registerWithFiles(
-//                                            view = requireView(),
-//                                            requestBody.build()
-//                                        )
-//                                    } else {
-//                                        requireContext().callNetworkDialog()
-//                                    }
-//                                }
-//                                .setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
-//                                    dialog.dismiss()
-//                                    NBPA.callBackListener!!.onCallBack(1000)
-//                                }
-//                                .setCancelable(false)
-//                                .show()
-//
-//                        }
-//                    }
-                }
-
-
-
+                getData(true)
             }
 
         }
@@ -463,9 +307,6 @@ class NBPA_Form3 : Fragment() {
                                 imagePath = compressedImageFile.path
                                 latLong = LatLng(location!!.latitude, location.longitude)
 
-                                imagePath = compressedImageFile.path
-                                latLong = LatLng(location!!.latitude, location.longitude)
-
                                 readData(LOGIN_DATA) { loginUser ->
                                     if (loginUser != null) {
                                         val data = Gson().fromJson(loginUser, Login::class.java)
@@ -474,7 +315,13 @@ class NBPA_Form3 : Fragment() {
                                         val currentDate = sdf.format(Date())
 
                                         binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
-                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                        CoroutineScope(Dispatchers.IO).launch {
+                                            withContext(Dispatchers.Main) {
+                                                binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                                Log.e("TAG", "requireActivity().getAddress(latLong) "+getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong))
+                                            }
+                                        }
+//                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                         binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
                                         binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                         mainThread {
@@ -508,7 +355,13 @@ class NBPA_Form3 : Fragment() {
                                         val currentDate = sdf.format(Date())
 
                                         binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
-                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                        CoroutineScope(Dispatchers.IO).launch {
+                                            withContext(Dispatchers.Main) {
+                                                binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                                Log.e("TAG", "requireActivity().getAddress(latLong)2 "+getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong))
+                                            }
+                                        }
+//                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                         binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
                                         binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                         mainThread {
@@ -554,7 +407,12 @@ class NBPA_Form3 : Fragment() {
                                     val currentDate = sdf.format(Date())
 
                                     binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
-                                    binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        withContext(Dispatchers.Main) {
+                                            binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                        }
+                                    }
+//                                    binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                     binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
                                     binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                     mainThread {
@@ -588,7 +446,12 @@ class NBPA_Form3 : Fragment() {
                                     val currentDate = sdf.format(Date())
 
                                     binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
-                                    binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        withContext(Dispatchers.Main) {
+                                            binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+                                        }
+                                    }
+//                                    binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                     binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
                                     binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                     mainThread {
@@ -698,7 +561,44 @@ class NBPA_Form3 : Fragment() {
     }
 
 
+    override fun onCallBack(pos: Int) {
+        Log.e("TAG", "onCallBackNo3 "+pos)
+        getData(false)
+    }
 
+
+
+
+    private fun getData(isButton: Boolean) {
+        binding.apply {
+            if (editTextMonth.text.toString() == "") {
+                showSnackBar(getString(R.string.select_month))
+                formFill3 = false
+            } else if (editTextDate.text.toString() == "") {
+                showSnackBar(getString(R.string.select_date))
+                formFill3 = false
+            } else if (editTextHeight.text.toString() == "") {
+                showSnackBar(getString(R.string.enterWeight))
+                formFill3 = false
+            } else if (viewModel.foodSignatureImage == "") {
+                showSnackBar(getString(R.string.add_signature))
+                formFill3 = false
+            } else if (viewModel.foodItemImage == "") {
+                showSnackBar(getString(R.string.food_item_image))
+                formFill3 = false
+            } else if (viewModel.foodIdentityImage == "") {
+                showSnackBar(getString(R.string.identity_imageStar))
+                formFill3 = false
+            } else {
+                viewModel.foodHeight = editTextHeight.text.toString()
+                formFill3 = true
+                if (isButton){
+                    NBPA.callBackListener!!.onCallBack(1003)
+                } else {
+                }
+            }
+        }
+    }
 
 //    override fun onStop() {
 //        super.onStop()

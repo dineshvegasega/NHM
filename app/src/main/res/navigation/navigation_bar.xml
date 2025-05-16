@@ -648,7 +648,7 @@
     </fragment>
 
     <fragment
-            android:name="com.nhm.distribution.screens.main.NBPA.CheckDetails"
+            android:name="com.nhm.distribution.screens.main.NBPA.checkDetails.CheckDetails"
             android:label="CheckDetails"
             android:id="@+id/checkDetails"
             tools:layout="@layout/check_details">
@@ -665,7 +665,8 @@
             android:name="com.nhm.distribution.screens.main.NBPA.NBPADetail"
             android:label="NBPADetail"
             android:id="@+id/nbpaDetail"
-            tools:layout="@layout/nbpa_detail">
+            tools:layout="@layout/nbpa_detail"
+            >
     </fragment>
 
 

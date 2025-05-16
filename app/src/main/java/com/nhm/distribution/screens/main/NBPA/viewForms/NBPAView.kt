@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nhm.distribution.R
@@ -18,16 +19,11 @@ import com.nhm.distribution.models.ItemNBPAForm
 import com.nhm.distribution.screens.interfaces.CallBackListener
 import com.nhm.distribution.screens.main.NBPA.NBPAViewModel
 import com.nhm.distribution.screens.main.NBPA.addForms.NBPA
-import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Adapter
-import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form1
-import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form2
-import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form3
-import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form4
-import com.nhm.distribution.screens.main.NBPA.addForms.NBPA_Form5
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
 import com.nhm.distribution.utils.parcelable
+import com.nhm.distribution.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -65,51 +61,65 @@ class NBPAView : Fragment() , CallBackListener {
         binding.apply {
             val model = arguments?.parcelable<ItemNBPAForm>("key")
             Log.e("TAG", "modelmodel "+model.toString())
-            viewModel.editData = model
+//            viewModel.editData = model
+
             adapter = NBPAViewAdapter(requireActivity())
-            adapter.notifyDataSetChanged()
-            introViewPager.isUserInputEnabled = true
-            adapter.addFragment(NBPAView_Form1())
-            adapter.addFragment(NBPAView_Form2())
-            adapter.addFragment(NBPAView_Form3())
-            adapter.addFragment(NBPAView_Form4())
-            adapter.addFragment(NBPAView_Form5())
 
-            Handler(Looper.getMainLooper()).postDelayed({
-                introViewPager.adapter=adapter
-                val array = listOf<String>(
-                    getString(R.string.beneficiary_card),
-                    getString(R.string.checkup),
-                    getString(R.string.food_items),
-                    getString(R.string.diet_chart),
-                    getString(R.string.government_under_scheme),
-                )
-                TabLayoutMediator(tabLayout, introViewPager) { tab, position ->
-                    tab.text = array[position]
-                    tab.view.isEnabled = true
-                }.attach()
-            }, 100)
+            viewModel.formListDetail(
+                view = requireView(),
+                ""+model!!.id
+            ) {
+                viewModel.editDataNew = this
 
-            binding.tabLayout.touchables.forEach { it.isClickable = true }
 
-            introViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                }
+                introViewPager.isUserInputEnabled = true
+                adapter.addFragment(NBPAView_Form1())
+                adapter.addFragment(NBPAView_Form2())
+                adapter.addFragment(NBPAView_Form3())
+                adapter.addFragment(NBPAView_Form4())
+                adapter.addFragment(NBPAView_Form5())
+                introViewPager.offscreenPageLimit = 5
 
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    NBPA.Companion.tabPosition = position
-                }
+                Handler(Looper.getMainLooper()).postDelayed({
+                    introViewPager.adapter=adapter
+                    adapter.notifyDataSetChanged()
+                    val array = listOf<String>(
+                        getString(R.string.beneficiary_card),
+                        getString(R.string.checkup),
+                        getString(R.string.food_items),
+                        getString(R.string.diet_chart),
+                        getString(R.string.government_under_scheme),
+                    )
+                    TabLayoutMediator(tabLayout, introViewPager) { tab, position ->
+                        tab.text = array[position]
+                        tab.view.isEnabled = true
+                    }.attach()
+                }, 100)
 
-                override fun onPageScrollStateChanged(state: Int) {
-                    super.onPageScrollStateChanged(state)
-                }
-            })
+                binding.tabLayout.touchables.forEach { it.isClickable = true }
+
+                introViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int
+                    ) {
+                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    }
+
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        NBPA.Companion.tabPosition = position
+                    }
+
+                    override fun onPageScrollStateChanged(state: Int) {
+                        super.onPageScrollStateChanged(state)
+                    }
+                })
+            }
+
+
+
         }
 
     }

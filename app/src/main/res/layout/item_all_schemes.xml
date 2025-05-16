@@ -192,7 +192,7 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         app:cornerRadius="@dimen/_4sdp"
                         android:textSize="@dimen/_10sdp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

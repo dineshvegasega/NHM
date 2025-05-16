@@ -34,7 +34,7 @@ class NBPAEdit_Form2 : Fragment() {
 
         binding.apply {
 
-            var model = viewModel.editData!!
+            var model = viewModel.editDataNew!!.data
 
             nbpaDetail2.apply {
                 if (model.typeOfPatient == "1") {

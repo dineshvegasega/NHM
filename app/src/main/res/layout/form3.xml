@@ -178,6 +178,7 @@
                     android:padding="@dimen/_7sdp"
                     android:layout_marginHorizontal="0dp"
                     android:tint="@color/black"
+                    android:visibility="gone"
                     />
 
 
@@ -412,9 +413,10 @@
 
             <RelativeLayout
                 android:id="@+id/linearSingnature"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
-                android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintDimensionRatio="H,1:0.6"
                 app:layout_constraintTop_toBottomOf="@+id/textSignatureTxt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

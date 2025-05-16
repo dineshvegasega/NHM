@@ -973,5 +973,8 @@
 
     <string name="selectDate">Select Date</string>
     <string name="check_detail">Check Detail</string>
-
+    <string name="enter_valid_aadhaar_number">Enter Valid Aadhaar Number</string>
+    <string name="enter_aadhaar_number_to_verify_the_patient">Enter Aadhaar number to\nverify the patient.</string>
+    <string name="please_fill_required_entries">Please fill required* entries!</string>
+    <string name="already_exists_aadhaar">The entered Aadhaar number already exists.</string>
 </resources>

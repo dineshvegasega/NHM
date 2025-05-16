@@ -259,9 +259,10 @@
 
             <RelativeLayout
                     android:id="@+id/linearSingnature"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:orientation="horizontal"
+                    app:layout_constraintDimensionRatio="H,1:0.6"
                     app:layout_constraintTop_toBottomOf="@+id/textSignatureTxt"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -282,7 +283,8 @@
                 <ImageView
                         android:id="@+id/ivSignature"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"/>
 
             </RelativeLayout>
 
@@ -532,6 +534,17 @@
 
 
 
+            <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linear1"
+                    android:background="@color/_E2861d"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    >
+            </View>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

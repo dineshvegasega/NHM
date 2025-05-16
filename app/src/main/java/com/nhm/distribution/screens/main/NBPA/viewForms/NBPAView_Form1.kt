@@ -31,7 +31,7 @@ class NBPAView_Form1 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
         binding.apply {
-            var model = viewModel.editData!!
+            var model = viewModel.editDataNew!!.data
 
             nbpaDetail1.apply {
                 editTextName.setText(""+model.name)

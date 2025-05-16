@@ -106,7 +106,9 @@ data class ItemNBPAForm(
     val typeOfPatient: String,
     val weight: String,
     val created_at: String,
-    val updated_at: String
+    val updated_at: String,
+    val user_id: String
+
 ): Parcelable {
     override fun hashCode(): Int {
         var result = name.hashCode()

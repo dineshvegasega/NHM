@@ -25,7 +25,7 @@ const val SIGN_UP = "vendor-signup"
 const val RESEND_OTP = "resend-otp"
 const val PASSWORD_UPDATE = "password-update"
 
-
+const val ADD_SCHEME_DETAIL = "add-scheme-detail"
 const val CREATE_FORM = "add-scheme?"
 const val STATE = "state-list?page=1"
 const val DISTRICT = "district-list"
@@ -39,6 +39,8 @@ const val SchemeHistoryList = "scheme-history-list"
 const val membershipList = "membership-list"
 const val GLOBALSchemeHistoryList = "global-scheme-history-list"
 const val GLOBALSchemeHistoryListMembers = "member-dashboard-details"
+
+const val Aadharnumbercheck = "adharnumbercheck"
 
 const val LiveScheme = "live-scheme"
 const val NoticeLiveList = "notice-live-list"
@@ -201,9 +203,11 @@ const val assistanceMultiVitaminRemark = "multiVitaminRemark"
 const val assistanceOtherHelp = "otherHelp"
 const val assistanceHelpDetails = "helpDetails"
 const val assistanceHelpRemark = "helpRemark"
-const val pararaYojanaSamanvayakSignature = "pararaYojanaSamanvayakSignature"
-const val pararaYojanaPrabindhakSignature = "pararaYojanaPrabindhakSignature"
+const val projectCoordinatorSignature = "projectCoordinatorSignature"
+const val projectManagerSignature = "projectManagerSignature"
 
+const val SCHEME_DETAIL = "scheme-detail"
+const val CHECK_AADHAAR = "scheme-detail"
 
 const val USER_TYPE = "member"
 const val USER_TYPE_ADMIN = "controller"

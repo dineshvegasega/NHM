@@ -72,7 +72,9 @@ import com.nhm.distribution.R
 import com.nhm.distribution.models.ItemReturn
 import com.nhm.distribution.screens.mainActivity.MainActivity
 import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.locale
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
@@ -93,6 +95,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 
 fun View.openKeyboard() = try {
@@ -1909,30 +1913,90 @@ fun requestCameraLocationPermission(context: Context?, requestCode: Int) {
     }
 }
 
-fun Context.getAddress(latLng: LatLng) : String{
-    val geocoder = Geocoder(this, Locale.getDefault())
-    val addresses: List<Address>?
-    val address: Address?
-    var fulladdress = ""
-    addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+//fun Context.getAddress(latLng: LatLng) : String{
+//    if (latLng != null){
+//        val geocoder = Geocoder(this, Locale.getDefault())
+//        val addresses: List<Address>?
+//        val address: Address?
+//        var fulladdress = ""
+//        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+//
+//        if (addresses!!.isNotEmpty()) {
+//            address = addresses[0]
+//            fulladdress = address.getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex
+//            var city = address.getLocality();
+//            var state = address.getAdminArea();
+//            var country = address.getCountryName();
+//            var postalCode = address.getPostalCode();
+//            var knownName = address.getFeatureName(); // Only if available else return NULL
+//            return fulladdress.toString()
+//        } else{
+//            fulladdress = "Location not found"
+//        }
+//    }
+//    return ""
+//}
 
-    if (addresses!!.isNotEmpty()) {
-        address = addresses[0]
-        fulladdress = address.getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex
-        var city = address.getLocality();
-        var state = address.getAdminArea();
-        var country = address.getCountryName();
-        var postalCode = address.getPostalCode();
-        var knownName = address.getFeatureName(); // Only if available else return NULL
-        return fulladdress.toString()
-    } else{
-        fulladdress = "Location not found"
+
+suspend fun Context.getAddress(latLng: LatLng) : String{
+    if (latLng != null){
+        val geocoder = Geocoder(this, Locale.getDefault())
+
+        var address = geocoder.getAddressFrom(latLng.latitude, latLng.longitude)
+
+//        val addresses: List<Address>?
+//        val address: Address?
+        var fulladdress = ""
+//        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+
+        if (address != null) {
+            fulladdress = address.getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex
+//            var city = address.getLocality();
+//            var state = address.getAdminArea();
+//            var country = address.getCountryName();
+//            var postalCode = address.getPostalCode();
+//            var knownName = address.getFeatureName(); // Only if available else return NULL
+            return fulladdress.toString()
+        } else{
+            fulladdress = "Location not found"
+        }
     }
     return ""
 }
 
 
 
+private suspend fun Geocoder.getAddressFrom(
+    latitude: Double,
+    longitude: Double,
+): Address? = withContext (Dispatchers.IO) {
+    try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            suspendCoroutine { cont ->
+                getFromLocation(latitude, longitude, 1) {
+                    cont.resume(it.firstOrNull())
+                }
+            }
+        } else {
+            suspendCoroutine { cont ->
+                @Suppress("DEPRECATION")
+                val address = getFromLocation(latitude, longitude, 1)?.firstOrNull()
+                cont.resume(address)
+            }
+        }
+    } catch (e: Exception) {
+        null
+    }
+}
+
+
+fun String.getNotNullData() : String{
+    return if (this.isNullOrEmpty()) "" else this
+}
+
+fun Int.getNotNullData() : String{
+    return if (this.toString().isNullOrEmpty()) "" else ""+this
+}
 
 fun RecyclerView.isLastItemDisplaying(): Boolean {
     if (this.adapter!!.itemCount != 0) {

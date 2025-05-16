@@ -2,6 +2,8 @@ package com.nhm.distribution.screens.main.NBPA.viewForms
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,10 +33,18 @@ class NBPAView_Form4 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
         binding.apply {
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = viewModel.viewForm4Adapter
-            viewModel.viewForm4Adapter.notifyDataSetChanged()
-            viewModel.viewForm4Adapter.submitList(arrayListOf("0", "1", "2", "3"))
+            Handler(Looper.getMainLooper()).postDelayed({
+                var model = viewModel.editDataNew!!.schemeDetail
+                recyclerView.setHasFixedSize(true)
+                if (model.size != 0){
+                    recyclerView.visibility = View.VISIBLE
+                    recyclerView.adapter = viewModel.viewForm4Adapter
+                    viewModel.viewForm4Adapter.notifyDataSetChanged()
+                    viewModel.viewForm4Adapter.submitList(model)
+                }else{
+                    recyclerView.visibility = View.GONE
+                }
+            }, 100)
         }
     }
 }

@@ -275,7 +275,11 @@ class Register : Fragment(), CallBackListener {
             if (pos == 1001) {
                 Log.e("TAG", "onCallBack: " + pos)
                 binding.ivIcon.setImageURI(Uri.fromFile(File(imagePath)))
-                binding.textAddressTxt.text = requireActivity().getAddress(latLong)
+                CoroutineScope(Dispatchers.IO).launch {
+                    withContext(Dispatchers.Main) {
+                        binding.textAddressTxt.text = requireActivity().getAddress(latLong)
+                    }
+                }
                 val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
                 val current = LocalDateTime.now().format(formatter)
                 binding.textTimeTxt.text = current
@@ -285,7 +289,12 @@ class Register : Fragment(), CallBackListener {
                 }
             } else if (pos == 1002) {
                 binding.ivIcon.setImageURI(Uri.fromFile(File(imagePath)))
-                binding.textAddressTxt.text = requireActivity().getAddress(latLong)
+                CoroutineScope(Dispatchers.IO).launch {
+                    withContext(Dispatchers.Main) {
+                        binding.textAddressTxt.text = requireActivity().getAddress(latLong)
+                    }
+                }
+//                binding.textAddressTxt.text = requireActivity().getAddress(latLong)
                 val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
                 val current = LocalDateTime.now().format(formatter)
                 binding.textTimeTxt.text = current

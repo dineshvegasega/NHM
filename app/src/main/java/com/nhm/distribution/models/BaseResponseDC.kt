@@ -19,6 +19,8 @@ data class BaseResponseDC<T>(
     val success: Boolean? = false,
     @SerializedName("vendor_id")
     val vendor_id: String? = null,
+    @SerializedName("scheme_id")
+    val scheme_id: String? = null,
     @SerializedName("meta")
     val meta: @RawValue Meta? = null,
 ): Parcelable {

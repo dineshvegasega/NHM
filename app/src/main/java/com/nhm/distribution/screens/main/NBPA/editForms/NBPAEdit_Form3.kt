@@ -58,11 +58,11 @@ class NBPAEdit_Form3 : Fragment() {
 //                    arrayListOf(it).imageZoom(ivImageIdentityImage, 2)
 //                }
 //            }
-
+            var model = viewModel.editDataNew!!.schemeDetail
             recyclerView.setHasFixedSize(true)
             recyclerView.adapter = viewModel.viewForm3Adapter
             viewModel.viewForm3Adapter.notifyDataSetChanged()
-            viewModel.viewForm3Adapter.submitList(arrayListOf("0", "1", "2", "3"))
+            viewModel.viewForm3Adapter.submitList(model)
         }
     }
 }

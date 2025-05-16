@@ -4,47 +4,43 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.nhm.distribution.R
-import com.nhm.distribution.databinding.ItemAllSchemesBinding
 import com.nhm.distribution.databinding.ItemForm3Binding
 import com.nhm.distribution.databinding.ItemForm4Binding
 import com.nhm.distribution.databinding.ItemForm5Binding
-import com.nhm.distribution.databinding.ItemRecentActivitiesBinding
 import com.nhm.distribution.databinding.LoaderBinding
 import com.nhm.distribution.genericAdapter.GenericAdapter
 import com.nhm.distribution.models.BaseResponseDC
 import com.nhm.distribution.models.ItemLiveScheme
 import com.nhm.distribution.models.ItemNBPAForm
 import com.nhm.distribution.models.ItemNBPAFormRoot
+import com.nhm.distribution.models.ItemFormListDetail
+import com.nhm.distribution.models.SchemeDetail
 import com.nhm.distribution.networking.ApiInterface
 import com.nhm.distribution.networking.CallHandler
 import com.nhm.distribution.networking.Repository
 import com.nhm.distribution.networking.getJsonRequestBody
-import com.nhm.distribution.screens.main.dashboard.DashboardVM.RecentChildAdapter
-import com.nhm.distribution.screens.main.dashboard.ItemModel
 //import com.nhm.distribution.screens.main.NBPA.NBPADetail.Companion.change
 import com.nhm.distribution.screens.mainActivity.MainActivity
-import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoad
-import com.nhm.distribution.screens.mainActivity.MainActivityVM.Companion.isProductLoadMember
-import com.nhm.distribution.utils.glideImagePortrait
+import com.nhm.distribution.utils.getNotNullData
+import com.nhm.distribution.utils.loadImage
 import com.nhm.distribution.utils.mainThread
 import com.nhm.distribution.utils.showSnackBar
 import com.nhm.distribution.utils.singleClick
+import com.squareup.picasso.Picasso
+import com.stfalcon.imageviewer.StfalconImageViewer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
@@ -55,8 +51,10 @@ import javax.inject.Inject
 @HiltViewModel
 class NBPAViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-
-    var editData : ItemNBPAForm ?= null
+    var start = ""
+    var scheme_id = ""
+//    var editData : ItemNBPAForm ?= null
+    var editDataNew : ItemFormListDetail ?= null
 
     var results: MutableList<ItemLiveScheme> = ArrayList()
 
@@ -132,7 +130,7 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
     fun registerWithFiles(
         view: View,
-        hashMap: RequestBody
+        hashMap: RequestBody,  callBack: BaseResponseDC<Any>.() -> Unit
     ) = viewModelScope.launch {
         repository.callApi(
             callHandler = object : CallHandler<Response<BaseResponseDC<Any>>> {
@@ -141,11 +139,13 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
                 override fun success(response: Response<BaseResponseDC<Any>>) {
                     if (response.isSuccessful) {
-                        isProductLoad = true
-                        isProductLoadMember = true
-                        showSnackBar(view.resources.getString(R.string.forms_added_successfully))
-                        view.findNavController()
-                            .navigate(R.id.action_nbpa_to_nbpaList)
+//                        isProductLoad = true
+//                        isProductLoadMember = true
+//                        showSnackBar(view.resources.getString(R.string.forms_added_successfully))
+                        callBack(response.body()!!)
+
+//                        view.findNavController()
+//                            .navigate(R.id.action_nbpa_to_nbpaList)
                     } else {
                         showSnackBar(response.body()?.message.orEmpty())
                     }
@@ -163,6 +163,80 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
         )
     }
 
+
+
+
+    fun registerWithFilesFoodItems(
+        view: View,
+        hashMap: RequestBody,  callBack: BaseResponseDC<Any>.() -> Unit
+    ) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<BaseResponseDC<Any>>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.registerWithFilesFoodItems(hashMap)
+
+                override fun success(response: Response<BaseResponseDC<Any>>) {
+                    if (response.isSuccessful) {
+//                        isProductLoad = true
+//                        isProductLoadMember = true
+//                        showSnackBar(view.resources.getString(R.string.forms_added_successfully))
+                        callBack(response.body()!!)
+
+//                        view.findNavController()
+//                            .navigate(R.id.action_nbpa_to_nbpaList)
+                    } else {
+                        showSnackBar(response.body()?.message.orEmpty())
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                    showSnackBar(view.resources.getString(R.string.please_fill_required_entries))
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
+
+
+    fun formListDetail(
+        view: View,
+        _id: String,  callBack: ItemFormListDetail.() -> Unit
+    ) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<ItemFormListDetail>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.formListDetail(_id)
+
+                override fun success(response: Response<ItemFormListDetail>) {
+                    if (response.isSuccessful) {
+//                        isProductLoad = true
+//                        isProductLoadMember = true
+//                        showSnackBar(view.resources.getString(R.string.forms_added_successfully))
+                        callBack(response.body()!!)
+
+//                        view.findNavController()
+//                            .navigate(R.id.action_nbpa_to_nbpaList)
+                    } else {
+                        showSnackBar(response.body()?.message.orEmpty())
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                    showSnackBar(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
 
     val itemsCustomerOrders: ArrayList<ItemLiveScheme> = ArrayList()
 
@@ -287,155 +361,155 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
     }
 
 
-    private var itemLiveSchemesResult = MutableLiveData<List<ItemLiveScheme>>()
-    val itemLiveSchemes : LiveData<List<ItemLiveScheme>> get() = itemLiveSchemesResult
-
-//    internal var itemLiveSchemesResult = MutableLiveData<Boolean>(false)
-
-    fun liveScheme(jsonObject: JSONObject) = viewModelScope.launch {
-        repository.callApi(
-            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
-                override suspend fun sendRequest(apiInterface: ApiInterface) =
-                    apiInterface.schemeHistoryList(requestBody = jsonObject.getJsonRequestBody())
-
-                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
-                    if (response.isSuccessful) {
-                        val typeToken = object : TypeToken<List<ItemLiveScheme>>() {}.type
-                        val changeValue =
-                            Gson().fromJson<List<ItemLiveScheme>>(
-                                Gson().toJson(response.body()!!.data),
-                                typeToken
-                            )
-                        itemLiveSchemesResult.value = changeValue
-
-//                        mainThread {
-//                            if (itemsCustomerOrders.size == 0) {
-//                                changeValue.forEach { mapData ->
-//                                    Log.e("TAG", "schemeDataInnerFalseA: " + mapData.id)
-//                                    itemsCustomerOrders.add(mapData)
-//                                }
-//                            } else {
+//    private var itemLiveSchemesResult = MutableLiveData<List<ItemLiveScheme>>()
+//    val itemLiveSchemes : LiveData<List<ItemLiveScheme>> get() = itemLiveSchemesResult
 //
+////    internal var itemLiveSchemesResult = MutableLiveData<Boolean>(false)
 //
+//    fun liveScheme(jsonObject: JSONObject) = viewModelScope.launch {
+//        repository.callApi(
+//            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
+//                override suspend fun sendRequest(apiInterface: ApiInterface) =
+//                    apiInterface.schemeHistoryList(requestBody = jsonObject.getJsonRequestBody())
 //
-//                                changeValue.forEach { mapData ->
-//                                    var aaa = getData(mapData)
-//                                    Log.e( "TAG",  "aaa: " + mapData.id + " :::: "+ aaa)
-//                                    if (aaa == true) {
-//                                        itemsCustomerOrders.add(mapData)
-//                                    }
+//                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
+//                    if (response.isSuccessful) {
+//                        val typeToken = object : TypeToken<List<ItemLiveScheme>>() {}.type
+//                        val changeValue =
+//                            Gson().fromJson<List<ItemLiveScheme>>(
+//                                Gson().toJson(response.body()!!.data),
+//                                typeToken
+//                            )
+//                        itemLiveSchemesResult.value = changeValue
 //
-////                                    getData
-//
-////                                    itemsCustomerOrders.forEach { schemeDataInner ->
-////                                        if (schemeDataInner.id != mapData.id) {
-////                                            Log.e( "TAG",  "schemeDataInnerFalseB: " + mapData.id + " :::: "+ schemeDataInner.id)
-////                                            itemsCustomerOrders.add(mapData)
-////                                        }
-////                                    }
-//
-////                                    itemsCustomerOrders.forEach { schemeDataInner ->
-////                                        if (schemeDataInner.id != mapData.id) {
-////                                            Log.e(
-////                                                "TAG",
-////                                                "schemeDataInnerFalse: " + schemeDataInner.id
-////                                            )
-////                                            itemsCustomerOrders.add(schemeDataInner)
-////                                        }
-////
-////                                        if (schemeDataInner.id == mapData.id) {
-////                                            Log.e(
-////                                                "TAG",
-////                                                "schemeDataInnerTrue: " + schemeDataInner.id
-////                                            )
-////                                        }
-////                                    }
-//                                }
-//                            }
-////                                itemsCustomerOrders.map { mapData ->
-////                                    changeValue.map { schemeDataInner ->
-////                                        if (schemeDataInner.id != mapData.id) {
-////                                            Log.e("TAG", "schemeDataInner: " + schemeDataInner.id)
-////                                            itemsCustomerOrders.add(schemeDataInner)
-////                                        }
-////                                    }
+////                        mainThread {
+////                            if (itemsCustomerOrders.size == 0) {
+////                                changeValue.forEach { mapData ->
+////                                    Log.e("TAG", "schemeDataInnerFalseA: " + mapData.id)
+////                                    itemsCustomerOrders.add(mapData)
 ////                                }
-//////                            }
+////                            } else {
+////
+////
+////
+////                                changeValue.forEach { mapData ->
+////                                    var aaa = getData(mapData)
+////                                    Log.e( "TAG",  "aaa: " + mapData.id + " :::: "+ aaa)
+////                                    if (aaa == true) {
+////                                        itemsCustomerOrders.add(mapData)
+////                                    }
+////
+//////                                    getData
+////
+//////                                    itemsCustomerOrders.forEach { schemeDataInner ->
+//////                                        if (schemeDataInner.id != mapData.id) {
+//////                                            Log.e( "TAG",  "schemeDataInnerFalseB: " + mapData.id + " :::: "+ schemeDataInner.id)
+//////                                            itemsCustomerOrders.add(mapData)
+//////                                        }
+//////                                    }
+////
+//////                                    itemsCustomerOrders.forEach { schemeDataInner ->
+//////                                        if (schemeDataInner.id != mapData.id) {
+//////                                            Log.e(
+//////                                                "TAG",
+//////                                                "schemeDataInnerFalse: " + schemeDataInner.id
+//////                                            )
+//////                                            itemsCustomerOrders.add(schemeDataInner)
+//////                                        }
+//////
+//////                                        if (schemeDataInner.id == mapData.id) {
+//////                                            Log.e(
+//////                                                "TAG",
+//////                                                "schemeDataInnerTrue: " + schemeDataInner.id
+//////                                            )
+//////                                        }
+//////                                    }
+////                                }
+////                            }
+//////                                itemsCustomerOrders.map { mapData ->
+//////                                    changeValue.map { schemeDataInner ->
+//////                                        if (schemeDataInner.id != mapData.id) {
+//////                                            Log.e("TAG", "schemeDataInner: " + schemeDataInner.id)
+//////                                            itemsCustomerOrders.add(schemeDataInner)
+//////                                        }
+//////                                    }
+//////                                }
+////////                            }
+////
+////                            Log.e("TAG", "onViewCreatedXXX: " + itemsCustomerOrders.size)
+////                            itemLiveSchemesResult.value = true
+////                        }
 //
-//                            Log.e("TAG", "onViewCreatedXXX: " + itemsCustomerOrders.size)
-//                            itemLiveSchemesResult.value = true
-//                        }
+//
+//                    }
+//                }
+//
+//                override fun error(message: String) {
+//                    super.error(message)
+////                    showSnackBar(message)
+//                }
+//
+//                override fun loading() {
+//                    super.loading()
+//                }
+//            }
+//        )
+//    }
 
 
-                    }
-                }
+//    private var itemLiveSchemesResultSecond = MutableLiveData<BaseResponseDC<Any>>()
+//    val itemLiveSchemesSecond: LiveData<BaseResponseDC<Any>> get() = itemLiveSchemesResultSecond
+//    fun liveSchemeSecond(jsonObject: JSONObject) = viewModelScope.launch {
+//        repository.callApi(
+//            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
+//                override suspend fun sendRequest(apiInterface: ApiInterface) =
+//                    apiInterface.schemeHistoryList(requestBody = jsonObject.getJsonRequestBody())
+//
+//                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
+//                    if (response.isSuccessful) {
+//                        itemLiveSchemesResultSecond.value = response.body() as BaseResponseDC<Any>
+//                    }
+//                }
+//
+//                override fun error(message: String) {
+//                    super.error(message)
+////                    showSnackBar(message)
+//                }
+//
+//                override fun loading() {
+//                    super.loading()
+//                }
+//            }
+//        )
+//    }
 
-                override fun error(message: String) {
-                    super.error(message)
+
+//    var applyLink = MutableLiveData<Int>(-1)
+//    fun applyLink(jsonObject: JSONObject, position: Int) = viewModelScope.launch {
+//        repository.callApi(
+//            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
+//                override suspend fun sendRequest(apiInterface: ApiInterface) =
+//                    apiInterface.applyLink(requestBody = jsonObject.getJsonRequestBody())
+//
+//                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
+//                    if (response.isSuccessful) {
+//                        applyLink.value = position
+//                    } else {
+//                        applyLink.value = -1
+//                    }
+//                }
+//
+//                override fun error(message: String) {
+//                    super.error(message)
 //                    showSnackBar(message)
-                }
-
-                override fun loading() {
-                    super.loading()
-                }
-            }
-        )
-    }
-
-
-    private var itemLiveSchemesResultSecond = MutableLiveData<BaseResponseDC<Any>>()
-    val itemLiveSchemesSecond: LiveData<BaseResponseDC<Any>> get() = itemLiveSchemesResultSecond
-    fun liveSchemeSecond(jsonObject: JSONObject) = viewModelScope.launch {
-        repository.callApi(
-            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
-                override suspend fun sendRequest(apiInterface: ApiInterface) =
-                    apiInterface.schemeHistoryList(requestBody = jsonObject.getJsonRequestBody())
-
-                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
-                    if (response.isSuccessful) {
-                        itemLiveSchemesResultSecond.value = response.body() as BaseResponseDC<Any>
-                    }
-                }
-
-                override fun error(message: String) {
-                    super.error(message)
-//                    showSnackBar(message)
-                }
-
-                override fun loading() {
-                    super.loading()
-                }
-            }
-        )
-    }
-
-
-    var applyLink = MutableLiveData<Int>(-1)
-    fun applyLink(jsonObject: JSONObject, position: Int) = viewModelScope.launch {
-        repository.callApi(
-            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
-                override suspend fun sendRequest(apiInterface: ApiInterface) =
-                    apiInterface.applyLink(requestBody = jsonObject.getJsonRequestBody())
-
-                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
-                    if (response.isSuccessful) {
-                        applyLink.value = position
-                    } else {
-                        applyLink.value = -1
-                    }
-                }
-
-                override fun error(message: String) {
-                    super.error(message)
-                    showSnackBar(message)
-                }
-
-                override fun loading() {
-                    super.loading()
-                }
-            }
-        )
-    }
+//                }
+//
+//                override fun loading() {
+//                    super.loading()
+//                }
+//            }
+//        )
+//    }
 
 //
 //    fun viewDetail(oldItemLiveScheme: ItemLiveScheme, position: Int, root: View, status : Int) = viewModelScope.launch {
@@ -685,7 +759,7 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
 
 
-    val viewForm3Adapter = object : GenericAdapter<ItemForm3Binding, String>() {
+    val viewForm3Adapter = object : GenericAdapter<ItemForm3Binding, SchemeDetail>() {
         override fun onCreateView(
             inflater: LayoutInflater,
             parent: ViewGroup,
@@ -694,19 +768,81 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
         override fun onBindHolder(
             binding: ItemForm3Binding,
-            dataClass: String,
+            model: SchemeDetail,
             position: Int
         ) {
             binding.apply {
                 signaturePad.visibility = View.GONE
                 searchLayout.visibility = View.GONE
+                editTextHeight.isEnabled = false
+
+                btnImagePassportsize.visibility = View.GONE
+                btnIdentityImage.visibility = View.GONE
+
+                editTextMonth.setText(""+model.foodMonth)
+                editTextDate.setText(""+model.foodDate)
+                editTextHeight.setText(""+model.foodHeight)
+
+                ivSignature.loadImage(type = 1, url = { model.foodSignatureImage.url })
+                ivImagePassportsizeImage.loadImage(type = 1, url = { model.foodItemImage.url })
+                ivImageIdentityImage.loadImage(type = 1, url = { model.foodIdentityImage.url })
+
+                lateinit var viewer: StfalconImageViewer<String>
+
+                ivSignature.singleClick {
+                    Log.e("TAG", "ivSignaturesingleClick")
+                    viewer = StfalconImageViewer.Builder<String>(binding.root.context, arrayListOf(model.foodSignatureImage.url)) { view, image ->
+                        Picasso.get().load(image).into(view)
+                    }.withImageChangeListener {
+                        viewer.updateTransitionImage(ivSignature)
+                    }
+                        .withBackgroundColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color._D9000000
+                            )
+                        )
+                        .show()
+                }
+                ivImagePassportsizeImage.singleClick {
+                    Log.e("TAG", "ivImagePassportsizeImagesingleClick")
+//                        model.foodItemImage.url.let {
+//                            arrayListOf(it).imageZoom(ivImagePassportsizeImage, 2)
+//                        }
+                    viewer = StfalconImageViewer.Builder<String>(binding.root.context, arrayListOf(model.foodItemImage.url)) { view, image ->
+                        Picasso.get().load(image).into(view)
+                    }.withImageChangeListener {
+                        viewer.updateTransitionImage(ivImagePassportsizeImage)
+                    }
+                        .withBackgroundColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color._D9000000
+                            )
+                        )
+                        .show()
+                }
+                ivImageIdentityImage.singleClick {
+                    viewer = StfalconImageViewer.Builder<String>(binding.root.context, arrayListOf(model.foodIdentityImage.url)) { view, image ->
+                        Picasso.get().load(image).into(view)
+                    }.withImageChangeListener {
+                        viewer.updateTransitionImage(ivImageIdentityImage)
+                    }
+                        .withBackgroundColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color._D9000000
+                            )
+                        )
+                        .show()
+                }
             }
         }
     }
 
 
 
-    val viewForm4Adapter = object : GenericAdapter<ItemForm4Binding, String>() {
+    val viewForm4Adapter = object : GenericAdapter<ItemForm4Binding, SchemeDetail>() {
         override fun onCreateView(
             inflater: LayoutInflater,
             parent: ViewGroup,
@@ -715,19 +851,88 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
         override fun onBindHolder(
             binding: ItemForm4Binding,
-            dataClass: String,
+            model: SchemeDetail,
             position: Int
         ) {
             binding.apply {
                 signaturePad.visibility = View.GONE
                 searchLayout.visibility = View.GONE
+
+                editTextDietChartEvaluation.isEnabled = false
+                editTextSuggestion.isEnabled = false
+                editTextServiceProvider.isEnabled = false
+                editTextHeight.isEnabled = false
+                editTextComment.isEnabled = false
+
+
+//                if (model.dietChartDate.isNullOrEmpty()){
+//                    editTextDietDate.setText("")
+//                } else {
+//                    editTextDietDate.setText(""+model.dietChartDate)
+//                }
+//                if (model.dietChartEvaluation.isNullOrEmpty()){
+//                    editTextDietChartEvaluation.setText("")
+//                } else {
+//                    editTextDietChartEvaluation.setText(""+model.dietChartEvaluation)
+//                }
+//                if (model.dietChartSuggestion.isNullOrEmpty()){
+//                    editTextSuggestion.setText("")
+//                } else {
+//                    editTextSuggestion.setText(""+model.dietChartSuggestion)
+//                }
+//                if (model.dietChartServiceProvider.isNullOrEmpty()){
+//                    editTextServiceProvider.setText("")
+//                } else {
+//                    editTextServiceProvider.setText(""+model.dietChartServiceProvider)
+//                }
+//                if (model.homeVisitDate.isNullOrEmpty()){
+//                    editTextHomeDate.setText("")
+//                } else {
+//                    editTextHomeDate.setText(""+model.homeVisitDate)
+//                }
+//                if (model.homeVisitWeight.isNullOrEmpty()){
+//                    editTextHeight.setText("")
+//                } else {
+//                    editTextHeight.setText(""+model.homeVisitWeight)
+//                }
+
+                editTextDietDate.setText(model.dietChartDate.getNotNullData())
+                editTextDietChartEvaluation.setText(model.dietChartEvaluation.getNotNullData())
+                editTextSuggestion.setText(model.dietChartSuggestion.getNotNullData())
+                editTextServiceProvider.setText(model.dietChartServiceProvider.getNotNullData())
+                editTextHomeDate.setText(model.homeVisitDate.getNotNullData())
+                editTextHeight.setText(model.homeVisitWeight.getNotNullData())
+
+                ivSignature.loadImage(type = 1, url = { model.homeVisitSignature.url})
+                lateinit var viewer: StfalconImageViewer<String>
+                ivSignature.singleClick {
+                    Log.e("TAG", "ivSignaturesingleClick")
+                    viewer = StfalconImageViewer.Builder<String>(binding.root.context, arrayListOf(model.homeVisitSignature.url)) { view, image ->
+                        Picasso.get().load(image).into(view)
+                    }.withImageChangeListener {
+                        viewer.updateTransitionImage(ivSignature)
+                    }
+                        .withBackgroundColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color._D9000000
+                            )
+                        )
+                        .show()
+                }
+
+                if (model.homeVisitRemark.isNullOrEmpty()){
+                    editTextComment.setText("")
+                } else {
+                    editTextComment.setText(""+model.homeVisitRemark)
+                }
             }
         }
     }
 
 
 
-    val viewForm5Adapter = object : GenericAdapter<ItemForm5Binding, String>() {
+    val viewForm5Adapter = object : GenericAdapter<ItemForm5Binding, SchemeDetail>() {
         override fun onCreateView(
             inflater: LayoutInflater,
             parent: ViewGroup,
@@ -736,7 +941,7 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
         override fun onBindHolder(
             binding: ItemForm5Binding,
-            dataClass: String,
+            model: SchemeDetail,
             position: Int
         ) {
             binding.apply {
@@ -745,6 +950,144 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
                 signatureProjectManagerPad.visibility = View.GONE
                 searchLayoutProjectManager.visibility = View.GONE
+
+                editTextTotalAmount.isEnabled = false
+                editTextDetailsHealth.isEnabled = false
+                editTextCommentHealth.isEnabled = false
+                editTextAdditionalRationReceivedFromPds.isEnabled = false
+                editTextDetailsPDS.isEnabled = false
+                editTextCommentPDS.isEnabled = false
+                editTextTotalnumberobtained.isEnabled = false
+                editTextDetailsVitamin.isEnabled = false
+                editTextCommentVitamin.isEnabled = false
+                editTextotherReceivedHelp.isEnabled = false
+                editTextDetailsHelp.isEnabled = false
+                editTextCommentHelp.isEnabled = false
+
+//                if (model.dbtDate.isNullOrEmpty()){
+//                    editTextHealthDate.setText("")
+//                } else {
+//                    editTextHealthDate.setText(""+model.dbtDate)
+//                }
+//                if (model.dbtTotalAmount.isNullOrEmpty()){
+//                    editTextTotalAmount.setText("")
+//                } else {
+//                    editTextTotalAmount.setText(""+model.dbtTotalAmount)
+//                }
+//                if (model.dbtDetails.isNullOrEmpty()){
+//                    editTextDetailsHealth.setText("")
+//                } else {
+//                    editTextDetailsHealth.setText(""+model.dbtDetails)
+//                }
+//                if (model.dbtRemark.isNullOrEmpty()){
+//                    editTextCommentHealth.setText("")
+//                } else {
+//                    editTextCommentHealth.setText(""+model.dbtRemark)
+//                }
+//                if (model.extraGroceryPDS.isNullOrEmpty()){
+//                    editTextAdditionalRationReceivedFromPds.setText("")
+//                } else {
+//                    editTextAdditionalRationReceivedFromPds.setText(""+model.extraGroceryPDS)
+//                }
+//                if (model.extraGroceryPDSDetails.isNullOrEmpty()){
+//                    editTextDetailsPDS.setText("")
+//                } else {
+//                    editTextDetailsPDS.setText(""+model.extraGroceryPDSDetails)
+//                }
+//                if (model.extraGroceryPDSRemark.isNullOrEmpty()){
+//                    editTextCommentPDS.setText("")
+//                } else {
+//                    editTextCommentPDS.setText(""+model.extraGroceryPDSRemark)
+//                }
+//                if (model.multiVitaminDate.isNullOrEmpty()){
+//                    editTextmultiVitaminDate.setText("")
+//                } else {
+//                    editTextmultiVitaminDate.setText(""+model.multiVitaminDate)
+//                }
+//                if (model.multiVitaminTotalNumber.toString().isNullOrEmpty()){
+//                    editTextTotalnumberobtained.setText("")
+//                } else {
+//                    editTextTotalnumberobtained.setText(""+model.multiVitaminTotalNumber)
+//                }
+//                if (model.multiVitaminDetails.toString().isNullOrEmpty()){
+//                    editTextDetailsVitamin.setText("")
+//                } else {
+//                    editTextDetailsVitamin.setText(""+model.multiVitaminDetails)
+//                }
+//                if (model.multiVitaminRemark.toString().isNullOrEmpty()){
+//                    editTextCommentVitamin.setText("")
+//                } else {
+//                    editTextCommentVitamin.setText(""+model.multiVitaminRemark)
+//                }
+//                if (model.otherHelp.toString().isNullOrEmpty()){
+//                    editTextotherReceivedHelp.setText("")
+//                } else {
+//                    editTextotherReceivedHelp.setText(""+model.otherHelp)
+//                }
+//                if (model.helpDetails.toString().isNullOrEmpty()){
+//                    editTextDetailsHelp.setText("")
+//                } else {
+//                    editTextDetailsHelp.setText(""+model.helpDetails)
+//                }
+//                if (model.helpRemark.toString().isNullOrEmpty()){
+//                    editTextCommentHelp.setText("")
+//                } else {
+//                    editTextCommentHelp.setText(""+model.helpRemark)
+//                }
+
+
+
+
+
+                editTextHealthDate.setText(model.dbtDate.getNotNullData())
+                editTextTotalAmount.setText(model.dbtTotalAmount.getNotNullData())
+                editTextDetailsHealth.setText(model.dbtDetails.getNotNullData())
+                editTextCommentHealth.setText(model.dbtRemark.getNotNullData())
+                editTextAdditionalRationReceivedFromPds.setText(model.extraGroceryPDS.getNotNullData())
+                editTextDetailsPDS.setText(model.extraGroceryPDSDetails.getNotNullData())
+                editTextCommentPDS.setText(model.extraGroceryPDSRemark.getNotNullData())
+                editTextmultiVitaminDate.setText(model.multiVitaminDate.getNotNullData())
+                editTextTotalnumberobtained.setText(model.multiVitaminTotalNumber.getNotNullData())
+                editTextDetailsVitamin.setText(model.multiVitaminDetails.getNotNullData())
+                editTextCommentVitamin.setText(model.multiVitaminRemark.getNotNullData())
+                editTextotherReceivedHelp.setText(model.otherHelp.getNotNullData())
+                editTextDetailsHelp.setText(model.helpDetails.getNotNullData())
+                editTextCommentHelp.setText(model.helpRemark.getNotNullData())
+
+                lateinit var viewer: StfalconImageViewer<String>
+                ivSignatureProjectCoordinator.loadImage(type = 1, url = { model.projectCoordinatorSignature.url})
+                ivSignatureProjectCoordinator.singleClick {
+                    Log.e("TAG", "ivSignaturesingleClick")
+                    viewer = StfalconImageViewer.Builder<String>(binding.root.context, arrayListOf(model.projectCoordinatorSignature.url)) { view, image ->
+                        Picasso.get().load(image).into(view)
+                    }.withImageChangeListener {
+                        viewer.updateTransitionImage(ivSignatureProjectCoordinator)
+                    }
+                        .withBackgroundColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color._D9000000
+                            )
+                        )
+                        .show()
+                }
+
+                ivSignatureProjectManager.loadImage(type = 1, url = { model.projectManagerSignature.url})
+                ivSignatureProjectManager.singleClick {
+                    Log.e("TAG", "ivSignaturesingleClick")
+                    viewer = StfalconImageViewer.Builder<String>(binding.root.context, arrayListOf(model.projectManagerSignature.url)) { view, image ->
+                        Picasso.get().load(image).into(view)
+                    }.withImageChangeListener {
+                        viewer.updateTransitionImage(ivSignatureProjectManager)
+                    }
+                        .withBackgroundColor(
+                            ContextCompat.getColor(
+                                binding.root.context,
+                                R.color._D9000000
+                            )
+                        )
+                        .show()
+                }
             }
         }
     }
