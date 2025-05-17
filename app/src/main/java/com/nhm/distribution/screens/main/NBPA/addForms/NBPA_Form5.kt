@@ -197,9 +197,13 @@ class NBPA_Form5 : Fragment(), CallBackListener {
 
 
             btSignIn.singleClick {
-                getData(true)
+                Log.e("TAG", "formFill3 "+formFill3)
+                if(formFill3){
+                    getData(true)
+                } else {
+                    showSnackBar(getString(R.string.please_fill_required_entries))
+                }
             }
-
         }
     }
 

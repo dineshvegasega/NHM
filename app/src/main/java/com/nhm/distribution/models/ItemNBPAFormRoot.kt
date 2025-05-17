@@ -81,6 +81,7 @@ data class ItemNBPAForm(
     val fatherHusbandType: Int,
     val foodDate: String,
     val foodHeight: String,
+    val foodIdentityImageTwo: @RawValue List<FoodIdentityImageTwo> = emptyList(),
     val foodIdentityImage: @RawValue FoodIdentityImage,
     val foodItemImage: @RawValue FoodItemImage,
     val foodMonth: String,
@@ -141,6 +142,7 @@ data class ItemNBPAForm(
         if (fatherHusband != other.fatherHusband) return false
         if (foodDate != other.foodDate) return false
         if (foodHeight != other.foodHeight) return false
+        if (foodIdentityImageTwo != other.foodIdentityImageTwo) return false
         if (foodIdentityImage != other.foodIdentityImage) return false
         if (foodItemImage != other.foodItemImage) return false
         if (foodMonth != other.foodMonth) return false
@@ -168,6 +170,36 @@ data class ItemNBPAForm(
         return true
     }
 }
+
+@Parcelize
+data class FoodIdentityImageTwo(
+    val name: String,
+    val url: String
+): Parcelable{
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        if(name.isEmpty()){
+            result = 31 * result + name.hashCode()
+        }
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as FoodIdentityImage
+
+        if (name != other.name) return false
+        if (url != other.url) return false
+
+        return true
+    }
+}
+
+
+
+
 
 @Parcelize
 data class FoodIdentityImage(

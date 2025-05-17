@@ -47,16 +47,88 @@ class NBPA : Fragment(), CallBackListener {
         super.onViewCreated(view, savedInstanceState)
         MainActivity.mainActivity.get()?.callFragment(3)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
+
+        viewModel.start = ""
+        viewModel.scheme_id = ""
+        viewModel.name = ""
+        viewModel.fatherHusbandType = 1 // 1 = Father, 2 = Husband
+        viewModel.fatherHusband = ""
+        viewModel.mother = ""
+        viewModel.gender = ""
+        viewModel.age = ""
+        viewModel.height = ""
+        viewModel.weight = ""
+        viewModel.numberOfMembers = ""
+        viewModel.numberOfChildren = ""
+        viewModel.address = ""
+        viewModel.dmcName = ""
+        viewModel.block = ""
+        viewModel.mobileNumber = ""
+        viewModel.districtState = ""
+        viewModel.cardTypeAPLBPL = 1 // 1 = APL, 2 = BPL
+
+        viewModel.typeOfPatient = 1 // 1 = Pulmonary, 2 = Extra Pulmonary, 3 = Other
+        viewModel.patientCheckupDate = ""
+        viewModel.hemoglobinLevelAge = ""
+        viewModel.hemoglobinCheckupDate = ""
+        viewModel.muktiID = ""
+        viewModel.nakshayID = ""
+        viewModel.aadhaarNumber = ""
+        viewModel.business = ""
+        viewModel.bankAccount = ""
+        viewModel.bankIFSC = ""
+        viewModel.treatmentSupporterName = ""
+        viewModel.treatmentSupporterPost = ""
+        viewModel.treatmentSupporterMobileNumber = ""
+        viewModel.treatmentSupporterEndDate = ""
+        viewModel.treatmentSupporterResult = ""
+
+        viewModel.foodMonth = ""
+        viewModel.foodDate = ""
+        viewModel.foodHeight = ""
+        viewModel.foodSignatureImage = ""
+        viewModel.foodItemImage = ""
+        viewModel.foodIdentityImage = ""
+
+
+        viewModel.dietChartDate = ""
+        viewModel.dietChartEvaluation = ""
+        viewModel.dietChartSuggestion = ""
+        viewModel.dietChartServiceProvider = ""
+        viewModel.homeVisitDate = ""
+        viewModel.homeVisitWeight = ""
+        viewModel.homeVisitSignature = ""
+        viewModel.homeVisitRemark = ""
+
+        viewModel.assistanceDBTDate = ""
+        viewModel.assistanceDBTTotalAmount = ""
+        viewModel.assistanceDBTDetails = ""
+        viewModel.assistanceDBTRemark = ""
+        viewModel.assistanceExtraGroceryPDS = ""
+        viewModel.assistanceExtraGroceryPDSDetails = ""
+        viewModel.assistanceExtraGroceryPDSRemark = ""
+        viewModel.assistanceMultiVitaminDate = ""
+        viewModel.assistanceMultiVitaminTotalNumber = ""
+        viewModel.assistanceMultiVitaminDetails = ""
+        viewModel.assistanceMultiVitaminRemark = ""
+        viewModel.assistanceOtherHelp = ""
+        viewModel.assistanceHelpDetails = ""
+        viewModel.assistanceHelpRemark = ""
+        viewModel.assistanceProjectCoordinatorSignature = ""
+        viewModel.assistanceProjectManagerSignature = ""
+
+
         callBackListener = this
         binding.apply {
             adapter = NBPA_Add_Adapter(requireActivity())
             adapter.notifyDataSetChanged()
-            introViewPager.isUserInputEnabled = true
+
 
 
             var start = "" + arguments?.getString("isExist")
             viewModel.start = start
             if (start == "yes") {
+                introViewPager.isUserInputEnabled = true
                 var _id = "" + arguments?.getString("_id")
                 viewModel.scheme_id = _id
                 viewModel.formListDetail(
@@ -106,6 +178,8 @@ class NBPA : Fragment(), CallBackListener {
                     })
                 }
             } else {
+                introViewPager.isUserInputEnabled = false
+
                 var aadhaarNumber = "" + arguments?.getString("aadhaarNumber")
                 Log.e("TAG", "aadhaarNumber "+aadhaarNumber)
                 viewModel.aadhaarNumber = aadhaarNumber
@@ -127,11 +201,11 @@ class NBPA : Fragment(), CallBackListener {
                     )
                     TabLayoutMediator(tabLayout, introViewPager) { tab, position ->
                         tab.text = array[position]
-                        tab.view.isEnabled = true
+                        tab.view.isEnabled = false
                     }.attach()
                     introViewPager.setCurrentItem(0, false)
                 }, 100)
-                binding.tabLayout.touchables.forEach { it.isClickable = true }
+                binding.tabLayout.touchables.forEach { it.isClickable = false }
                 introViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageScrolled(
                         position: Int,

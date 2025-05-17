@@ -865,43 +865,43 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
                 editTextComment.isEnabled = false
 
 
-//                if (model.dietChartDate.isNullOrEmpty()){
-//                    editTextDietDate.setText("")
-//                } else {
-//                    editTextDietDate.setText(""+model.dietChartDate)
-//                }
-//                if (model.dietChartEvaluation.isNullOrEmpty()){
-//                    editTextDietChartEvaluation.setText("")
-//                } else {
-//                    editTextDietChartEvaluation.setText(""+model.dietChartEvaluation)
-//                }
-//                if (model.dietChartSuggestion.isNullOrEmpty()){
-//                    editTextSuggestion.setText("")
-//                } else {
-//                    editTextSuggestion.setText(""+model.dietChartSuggestion)
-//                }
-//                if (model.dietChartServiceProvider.isNullOrEmpty()){
-//                    editTextServiceProvider.setText("")
-//                } else {
-//                    editTextServiceProvider.setText(""+model.dietChartServiceProvider)
-//                }
-//                if (model.homeVisitDate.isNullOrEmpty()){
-//                    editTextHomeDate.setText("")
-//                } else {
-//                    editTextHomeDate.setText(""+model.homeVisitDate)
-//                }
-//                if (model.homeVisitWeight.isNullOrEmpty()){
-//                    editTextHeight.setText("")
-//                } else {
-//                    editTextHeight.setText(""+model.homeVisitWeight)
-//                }
+                if (model.dietChartDate.isNullOrEmpty()){
+                    editTextDietDate.setText("")
+                } else {
+                    editTextDietDate.setText(""+model.dietChartDate)
+                }
+                if (model.dietChartEvaluation.isNullOrEmpty()){
+                    editTextDietChartEvaluation.setText("")
+                } else {
+                    editTextDietChartEvaluation.setText(""+model.dietChartEvaluation)
+                }
+                if (model.dietChartSuggestion.isNullOrEmpty()){
+                    editTextSuggestion.setText("")
+                } else {
+                    editTextSuggestion.setText(""+model.dietChartSuggestion)
+                }
+                if (model.dietChartServiceProvider.isNullOrEmpty()){
+                    editTextServiceProvider.setText("")
+                } else {
+                    editTextServiceProvider.setText(""+model.dietChartServiceProvider)
+                }
+                if (model.homeVisitDate.isNullOrEmpty()){
+                    editTextHomeDate.setText("")
+                } else {
+                    editTextHomeDate.setText(""+model.homeVisitDate)
+                }
+                if (model.homeVisitWeight.isNullOrEmpty()){
+                    editTextHeight.setText("")
+                } else {
+                    editTextHeight.setText(""+model.homeVisitWeight)
+                }
 
-                editTextDietDate.setText(model.dietChartDate.getNotNullData())
-                editTextDietChartEvaluation.setText(model.dietChartEvaluation.getNotNullData())
-                editTextSuggestion.setText(model.dietChartSuggestion.getNotNullData())
-                editTextServiceProvider.setText(model.dietChartServiceProvider.getNotNullData())
-                editTextHomeDate.setText(model.homeVisitDate.getNotNullData())
-                editTextHeight.setText(model.homeVisitWeight.getNotNullData())
+//                editTextDietDate.setText(model.dietChartDate.getNotNullData())
+//                editTextDietChartEvaluation.setText(model.dietChartEvaluation.getNotNullData())
+//                editTextSuggestion.setText(model.dietChartSuggestion.getNotNullData())
+//                editTextServiceProvider.setText(model.dietChartServiceProvider.getNotNullData())
+//                editTextHomeDate.setText(model.homeVisitDate.getNotNullData())
+//                editTextHeight.setText(model.homeVisitWeight.getNotNullData())
 
                 ivSignature.loadImage(type = 1, url = { model.homeVisitSignature.url})
                 lateinit var viewer: StfalconImageViewer<String>
@@ -964,95 +964,95 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
                 editTextDetailsHelp.isEnabled = false
                 editTextCommentHelp.isEnabled = false
 
-//                if (model.dbtDate.isNullOrEmpty()){
-//                    editTextHealthDate.setText("")
-//                } else {
-//                    editTextHealthDate.setText(""+model.dbtDate)
-//                }
-//                if (model.dbtTotalAmount.isNullOrEmpty()){
-//                    editTextTotalAmount.setText("")
-//                } else {
-//                    editTextTotalAmount.setText(""+model.dbtTotalAmount)
-//                }
-//                if (model.dbtDetails.isNullOrEmpty()){
-//                    editTextDetailsHealth.setText("")
-//                } else {
-//                    editTextDetailsHealth.setText(""+model.dbtDetails)
-//                }
-//                if (model.dbtRemark.isNullOrEmpty()){
-//                    editTextCommentHealth.setText("")
-//                } else {
-//                    editTextCommentHealth.setText(""+model.dbtRemark)
-//                }
-//                if (model.extraGroceryPDS.isNullOrEmpty()){
-//                    editTextAdditionalRationReceivedFromPds.setText("")
-//                } else {
-//                    editTextAdditionalRationReceivedFromPds.setText(""+model.extraGroceryPDS)
-//                }
-//                if (model.extraGroceryPDSDetails.isNullOrEmpty()){
-//                    editTextDetailsPDS.setText("")
-//                } else {
-//                    editTextDetailsPDS.setText(""+model.extraGroceryPDSDetails)
-//                }
-//                if (model.extraGroceryPDSRemark.isNullOrEmpty()){
-//                    editTextCommentPDS.setText("")
-//                } else {
-//                    editTextCommentPDS.setText(""+model.extraGroceryPDSRemark)
-//                }
-//                if (model.multiVitaminDate.isNullOrEmpty()){
-//                    editTextmultiVitaminDate.setText("")
-//                } else {
-//                    editTextmultiVitaminDate.setText(""+model.multiVitaminDate)
-//                }
-//                if (model.multiVitaminTotalNumber.toString().isNullOrEmpty()){
-//                    editTextTotalnumberobtained.setText("")
-//                } else {
-//                    editTextTotalnumberobtained.setText(""+model.multiVitaminTotalNumber)
-//                }
-//                if (model.multiVitaminDetails.toString().isNullOrEmpty()){
-//                    editTextDetailsVitamin.setText("")
-//                } else {
-//                    editTextDetailsVitamin.setText(""+model.multiVitaminDetails)
-//                }
-//                if (model.multiVitaminRemark.toString().isNullOrEmpty()){
-//                    editTextCommentVitamin.setText("")
-//                } else {
-//                    editTextCommentVitamin.setText(""+model.multiVitaminRemark)
-//                }
-//                if (model.otherHelp.toString().isNullOrEmpty()){
-//                    editTextotherReceivedHelp.setText("")
-//                } else {
-//                    editTextotherReceivedHelp.setText(""+model.otherHelp)
-//                }
-//                if (model.helpDetails.toString().isNullOrEmpty()){
-//                    editTextDetailsHelp.setText("")
-//                } else {
-//                    editTextDetailsHelp.setText(""+model.helpDetails)
-//                }
-//                if (model.helpRemark.toString().isNullOrEmpty()){
-//                    editTextCommentHelp.setText("")
-//                } else {
-//                    editTextCommentHelp.setText(""+model.helpRemark)
-//                }
+                if (model.dbtDate.isNullOrEmpty()){
+                    editTextHealthDate.setText("")
+                } else {
+                    editTextHealthDate.setText(""+model.dbtDate)
+                }
+                if (model.dbtTotalAmount.isNullOrEmpty()){
+                    editTextTotalAmount.setText("")
+                } else {
+                    editTextTotalAmount.setText(""+model.dbtTotalAmount)
+                }
+                if (model.dbtDetails.isNullOrEmpty()){
+                    editTextDetailsHealth.setText("")
+                } else {
+                    editTextDetailsHealth.setText(""+model.dbtDetails)
+                }
+                if (model.dbtRemark.isNullOrEmpty()){
+                    editTextCommentHealth.setText("")
+                } else {
+                    editTextCommentHealth.setText(""+model.dbtRemark)
+                }
+                if (model.extraGroceryPDS.isNullOrEmpty()){
+                    editTextAdditionalRationReceivedFromPds.setText("")
+                } else {
+                    editTextAdditionalRationReceivedFromPds.setText(""+model.extraGroceryPDS)
+                }
+                if (model.extraGroceryPDSDetails.isNullOrEmpty()){
+                    editTextDetailsPDS.setText("")
+                } else {
+                    editTextDetailsPDS.setText(""+model.extraGroceryPDSDetails)
+                }
+                if (model.extraGroceryPDSRemark.isNullOrEmpty()){
+                    editTextCommentPDS.setText("")
+                } else {
+                    editTextCommentPDS.setText(""+model.extraGroceryPDSRemark)
+                }
+                if (model.multiVitaminDate.isNullOrEmpty()){
+                    editTextmultiVitaminDate.setText("")
+                } else {
+                    editTextmultiVitaminDate.setText(""+model.multiVitaminDate)
+                }
+                if (model.multiVitaminTotalNumber.toString().isNullOrEmpty()){
+                    editTextTotalnumberobtained.setText("")
+                } else {
+                    editTextTotalnumberobtained.setText(""+model.multiVitaminTotalNumber)
+                }
+                if (model.multiVitaminDetails.toString().isNullOrEmpty()){
+                    editTextDetailsVitamin.setText("")
+                } else {
+                    editTextDetailsVitamin.setText(""+model.multiVitaminDetails)
+                }
+                if (model.multiVitaminRemark.toString().isNullOrEmpty()){
+                    editTextCommentVitamin.setText("")
+                } else {
+                    editTextCommentVitamin.setText(""+model.multiVitaminRemark)
+                }
+                if (model.otherHelp.toString().isNullOrEmpty()){
+                    editTextotherReceivedHelp.setText("")
+                } else {
+                    editTextotherReceivedHelp.setText(""+model.otherHelp)
+                }
+                if (model.helpDetails.toString().isNullOrEmpty()){
+                    editTextDetailsHelp.setText("")
+                } else {
+                    editTextDetailsHelp.setText(""+model.helpDetails)
+                }
+                if (model.helpRemark.toString().isNullOrEmpty()){
+                    editTextCommentHelp.setText("")
+                } else {
+                    editTextCommentHelp.setText(""+model.helpRemark)
+                }
 
 
 
 
 
-                editTextHealthDate.setText(model.dbtDate.getNotNullData())
-                editTextTotalAmount.setText(model.dbtTotalAmount.getNotNullData())
-                editTextDetailsHealth.setText(model.dbtDetails.getNotNullData())
-                editTextCommentHealth.setText(model.dbtRemark.getNotNullData())
-                editTextAdditionalRationReceivedFromPds.setText(model.extraGroceryPDS.getNotNullData())
-                editTextDetailsPDS.setText(model.extraGroceryPDSDetails.getNotNullData())
-                editTextCommentPDS.setText(model.extraGroceryPDSRemark.getNotNullData())
-                editTextmultiVitaminDate.setText(model.multiVitaminDate.getNotNullData())
-                editTextTotalnumberobtained.setText(model.multiVitaminTotalNumber.getNotNullData())
-                editTextDetailsVitamin.setText(model.multiVitaminDetails.getNotNullData())
-                editTextCommentVitamin.setText(model.multiVitaminRemark.getNotNullData())
-                editTextotherReceivedHelp.setText(model.otherHelp.getNotNullData())
-                editTextDetailsHelp.setText(model.helpDetails.getNotNullData())
-                editTextCommentHelp.setText(model.helpRemark.getNotNullData())
+//                editTextHealthDate.setText(model.dbtDate.getNotNullData())
+//                editTextTotalAmount.setText(model.dbtTotalAmount.getNotNullData())
+//                editTextDetailsHealth.setText(model.dbtDetails.getNotNullData())
+//                editTextCommentHealth.setText(model.dbtRemark.getNotNullData())
+//                editTextAdditionalRationReceivedFromPds.setText(model.extraGroceryPDS.getNotNullData())
+//                editTextDetailsPDS.setText(model.extraGroceryPDSDetails.getNotNullData())
+//                editTextCommentPDS.setText(model.extraGroceryPDSRemark.getNotNullData())
+//                editTextmultiVitaminDate.setText(model.multiVitaminDate.getNotNullData())
+//                editTextTotalnumberobtained.setText(model.multiVitaminTotalNumber.getNotNullData())
+//                editTextDetailsVitamin.setText(model.multiVitaminDetails.getNotNullData())
+//                editTextCommentVitamin.setText(model.multiVitaminRemark.getNotNullData())
+//                editTextotherReceivedHelp.setText(model.otherHelp.getNotNullData())
+//                editTextDetailsHelp.setText(model.helpDetails.getNotNullData())
+//                editTextCommentHelp.setText(model.helpRemark.getNotNullData())
 
                 lateinit var viewer: StfalconImageViewer<String>
                 ivSignatureProjectCoordinator.loadImage(type = 1, url = { model.projectCoordinatorSignature.url})

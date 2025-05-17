@@ -134,11 +134,19 @@ class Dashboard : Fragment() {
                textNumberOfNBPA.text = ""+it.meta!!.total_items
            })
 
+            viewModel.itemLiveSchemesCountTotal.observe(viewLifecycleOwner, Observer {
+                textTotalNumberOfNBPA.text = ""+it.meta!!.total_items
+            })
+
            viewModel.itemLiveSchemesMembersCount.observe(viewLifecycleOwner, Observer {
                var jsonObject = JSONObject(it.data!!.toString())
                textNumberOfDistributers.text = ""+jsonObject.getString("total_user")
-//               textNumberOfDistributers.text = ""+it.meta!!.total_items
            })
+
+            viewModel.itemLiveSchemesMembersCountTotal.observe(viewLifecycleOwner, Observer {
+                var jsonObject = JSONObject(it.data!!.toString())
+                textNumberOfDistributersTotal.text = ""+jsonObject.getString("total_user")
+            })
 
 //            viewModel.adsList(view)
 //            val adapter = BannerViewPagerAdapter(requireContext())
@@ -163,8 +171,8 @@ class Dashboard : Fragment() {
                 when (user.status) {
                     "approved" -> {
                         if (user.user_role == USER_TYPE) {
-                            binding.linearMember.visibility = View.GONE
-                            binding.linearNBPA.visibility = View.VISIBLE
+                            binding.linearDistributors.visibility = View.GONE
+                            binding.linearForms.visibility = View.VISIBLE
 
                             val calendarStart = Calendar.getInstance()
                             val dateStart = getAbbreviatedFromDateTime(calendarStart, "yyyy-MM-dd")
@@ -178,9 +186,18 @@ class Dashboard : Fragment() {
                                 put(filterByEndDate, dateStart+" 23:59:59")
                             }
                             viewModel.liveSchemeCount(obj)
+
+
+                            val objTotal: JSONObject = JSONObject().apply {
+                                put(page, "1")
+                                put(user_id, user.id)
+                            }
+                            viewModel.liveSchemeCountTotal(objTotal)
+
                         } else if (user.user_role == USER_TYPE_ADMIN) {
-                            binding.linearMember.visibility = View.VISIBLE
-                            binding.linearNBPA.visibility = View.VISIBLE
+                            binding.linearDistributors.visibility = View.VISIBLE
+                            binding.linearForms.visibility = View.VISIBLE
+
 
                             val calendarStart = Calendar.getInstance()
                             val dateStart = getAbbreviatedFromDateTime(calendarStart, "yyyy-MM-dd")
@@ -194,6 +211,12 @@ class Dashboard : Fragment() {
                             }
                             viewModel.liveSchemeCount(obj)
 
+                            val objTotal: JSONObject = JSONObject().apply {
+                                put(page, "1")
+                            }
+                            viewModel.liveSchemeCountTotal(objTotal)
+
+
                             val objMember: JSONObject = JSONObject().apply {
                                 put(page, "1")
                                 put(from_date, dateEnd)
@@ -201,6 +224,14 @@ class Dashboard : Fragment() {
                                 put(user_role, USER_TYPE_ADMIN)
                             }
                             viewModel.liveSchemeMembersCount(objMember)
+
+                            val objMemberTotal: JSONObject = JSONObject().apply {
+                                put(page, "1")
+                                put(user_role, USER_TYPE_ADMIN)
+                                put(from_date, "2025-01-01")
+                                put(to_date, dateStart)
+                            }
+                            viewModel.liveSchemeMembersCountTotal(objMemberTotal)
                         }
                     }
                     "unverified" -> {

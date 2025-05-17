@@ -148,11 +148,13 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                 btComplete.visibility = View.VISIBLE
                 btClear.visibility = View.VISIBLE
                 viewModel.foodSignatureImage = ""
+                formFill3 = false
             }
 
             btClear.singleClick {
                 signaturePad.clear()
                 viewModel.foodSignatureImage = ""
+                formFill3 = false
             }
 
             editTextMonth.singleClick {
@@ -305,7 +307,7 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                                 Log.e("TAG", "addOnSuccessListenerRegisterAA " + location.toString())
                                 imagePath = compressedImageFile.path
-                                latLong = LatLng(location!!.latitude, location.longitude)
+                                var latLong = LatLng(location!!.latitude, location.longitude)
 
                                 readData(LOGIN_DATA) { loginUser ->
                                     if (loginUser != null) {
@@ -315,16 +317,16 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                                         val currentDate = sdf.format(Date())
 
                                         binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
-                                        CoroutineScope(Dispatchers.IO).launch {
-                                            withContext(Dispatchers.Main) {
-                                                binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
-                                                Log.e("TAG", "requireActivity().getAddress(latLong) "+getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong))
-                                            }
-                                        }
-//                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+//                                        CoroutineScope(Dispatchers.IO).launch {
+//                                            withContext(Dispatchers.Main) {
+//                                                binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+//                                                Log.e("TAG", "requireActivity().getAddress(latLong) "+getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong))
+//                                            }
+//                                        }
                                         binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
                                         binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                         mainThread {
+                                            binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                             dispatchTakePictureIntent(binding.layoutMainCapture) {
                                                 viewModel.foodItemImage = this
                                                 Log.e("TAG", "viewModel.foodItemImage " + this)
@@ -345,7 +347,7 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                                 Log.e("TAG", "addOnSuccessListenerRegisterBB " + location.toString())
                                 imagePath = compressedImageFile.path
-                                latLong = LatLng(location!!.latitude, location.longitude)
+                                var latLong = LatLng(location!!.latitude, location.longitude)
 
                                 readData(LOGIN_DATA) { loginUser ->
                                     if (loginUser != null) {
@@ -355,16 +357,17 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                                         val currentDate = sdf.format(Date())
 
                                         binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
-                                        CoroutineScope(Dispatchers.IO).launch {
-                                            withContext(Dispatchers.Main) {
-                                                binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
-                                                Log.e("TAG", "requireActivity().getAddress(latLong)2 "+getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong))
-                                            }
-                                        }
+//                                        CoroutineScope(Dispatchers.IO).launch {
+//                                            withContext(Dispatchers.Main) {
+//                                                binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+//                                                Log.e("TAG", "requireActivity().getAddress(latLong)2 "+getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong))
+//                                            }
+//                                        }
 //                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                         binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
                                         binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                         mainThread {
+                                            binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                             dispatchTakePictureIntent(binding.layoutMainCapture) {
                                                 viewModel.foodIdentityImage = this
                                                 Log.e("TAG", "viewModel.foodItemImage " + this)
@@ -397,7 +400,7 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                             Log.e("TAG", "addOnSuccessListenerRegisterAA " + location.toString())
                             imagePath = compressedImageFile.path
-                            latLong = LatLng(location!!.latitude, location.longitude)
+                            var latLong = LatLng(location!!.latitude, location.longitude)
 
                             readData(LOGIN_DATA) { loginUser ->
                                 if (loginUser != null) {
@@ -407,15 +410,16 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                                     val currentDate = sdf.format(Date())
 
                                     binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
-                                    CoroutineScope(Dispatchers.IO).launch {
-                                        withContext(Dispatchers.Main) {
-                                            binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
-                                        }
-                                    }
+//                                    CoroutineScope(Dispatchers.IO).launch {
+//                                        withContext(Dispatchers.Main) {
+//                                            binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+//                                        }
+//                                    }
 //                                    binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                     binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
                                     binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                     mainThread {
+                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                         dispatchTakePictureIntent(binding.layoutMainCapture) {
                                             viewModel.foodItemImage = this
                                             Log.e("TAG", "viewModel.foodItemImage " + this)
@@ -436,7 +440,7 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                             Log.e("TAG", "addOnSuccessListenerRegisterBB " + location.toString())
                             imagePath = compressedImageFile.path
-                            latLong = LatLng(location!!.latitude, location.longitude)
+                            var latLong = LatLng(location!!.latitude, location.longitude)
 
                             readData(LOGIN_DATA) { loginUser ->
                                 if (loginUser != null) {
@@ -446,15 +450,16 @@ class NBPA_Form3 : Fragment() , CallBackListener {
                                     val currentDate = sdf.format(Date())
 
                                     binding.textClickByTxt.text = getString(R.string.geoClickby) + " "+ data.vendor_first_name +" "+data.vendor_last_name
-                                    CoroutineScope(Dispatchers.IO).launch {
-                                        withContext(Dispatchers.Main) {
-                                            binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
-                                        }
-                                    }
+//                                    CoroutineScope(Dispatchers.IO).launch {
+//                                        withContext(Dispatchers.Main) {
+//                                            binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
+//                                        }
+//                                    }
 //                                    binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                     binding.textTimeTxt.text = getString(R.string.geoDateTime) + " "+ currentDate
                                     binding.textLatLongTxt.text = getString(R.string.geoLatLng) + " "+ latLong.latitude+","+latLong.longitude
                                     mainThread {
+                                        binding.textAddressTxt.text = getString(R.string.geAddress) + " "+ requireActivity().getAddress(latLong)
                                         dispatchTakePictureIntent(binding.layoutMainCapture) {
                                             viewModel.foodIdentityImage = this
                                             Log.e("TAG", "viewModel.foodItemImage " + this)

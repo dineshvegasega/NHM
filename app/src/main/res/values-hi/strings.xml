@@ -657,7 +657,7 @@
     <string name="TreatmentResult">उपचार परिणाम</string>
 
     <string name="description_of_food_items">खाद्य पदार्थों का विवरण</string>
-    <string name="signature">हस्ताक्षर*</string>
+    <string name="signature">हस्ताक्षर (सेवा प्रदाता)*</string>
     <string name="dateSingle">तारीख*</string>
     <string name="HomeVisitFollowUp">होम फ़ॉलो अप </string>
 
@@ -729,6 +729,8 @@
     <string name="start_date_filter">आरंभ तिथि</string>
     <string name="end_date_filter">समाप्ति तिथि</string>
 
+    <string name="total_distributors_added">कुल वितरक जोड़े गए</string>
+    <string name="nbpa_forms_added">कुल जोड़े गए NBPA फॉर्म्स</string>
     <string name="nbpa_forms_added_in_last_7_days">पिछले 7 दिनों में जोड़े गए NBPA फ़ॉर्म</string>
     <string name="distributors_added_in_last_7_days">पिछले 7 दिनों में जोड़े गए वितरक</string>
     <string name="EndDateshouldbegreaterthanStartDate">समाप्ति तिथि, आरंभ तिथि से अधिक होनी चाहिए</string>
@@ -750,7 +752,7 @@
     <string name="suggestion">सुझाव</string>
     <string name="service_provider">सेवाप्रदाता</string>
     <string name="home_visit_follow_up">होम पवजजट फॉलोअप</string>
-    <string name="signatureWithoutStar">हस्ताक्षर</string>
+    <string name="signatureWithoutStar">हस्ताक्षर (मरीज)</string>
     <string name="comment">टिप्पणी</string>
     <string name="assistance_received_under_government_scheme">शासकीय योजनान्तर्गत प्राप्त सहायता</string>
     <string name="name_of_help">Name of help</string>
@@ -767,6 +769,6 @@
     <string name="enter_valid_aadhaar_number">वैध आधार संख्या दर्ज करें</string>
     <string name="enter_aadhaar_number_to_verify_the_patient">मरीज़ की पुष्टि के लिए आधार\nनंबर दर्ज करें।</string>
     <string name="please_fill_required_entries">कृपया आवश्यक* प्रविष्टियाँ भरें!</string>
-    <string name="already_exists_aadhaar">दर्ज किया गया आधार संख्या पहले से मौजूद है।</string>
+    <string name="already_exists_aadhaar">दर्ज किया गया आधार संख्या किसी अन्य वितरक के साथ पहले से मौजूद है।</string>
 
 </resources>

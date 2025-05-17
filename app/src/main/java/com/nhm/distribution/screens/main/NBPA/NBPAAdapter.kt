@@ -103,7 +103,7 @@ class NBPAAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             itemRowBinding.apply {
 //                model.foodIdentityImage?.url?.glideImagePortrait(root.context, ivIcon)
-                ivIcon.loadImage(type = 1, url = { model.foodIdentityImage.url })
+                ivIcon.loadImage(type = 1, url = { if (model.foodIdentityImageTwo.size > 0) model.foodIdentityImageTwo[0].url else "" })
                 textTitle.setText(model.name)
                 textDesc.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.address_)+"</b> "+model.address.replace("\n"," "), HtmlCompat.FROM_HTML_MODE_LEGACY))
                 textMobile.setText(HtmlCompat.fromHtml("<b>"+root.context.resources.getString(R.string.mobile_no_per)+"</b> "+model.mobileNumber, HtmlCompat.FROM_HTML_MODE_LEGACY))

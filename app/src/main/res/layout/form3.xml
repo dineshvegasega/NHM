@@ -178,7 +178,7 @@
                     android:padding="@dimen/_7sdp"
                     android:layout_marginHorizontal="0dp"
                     android:tint="@color/black"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     />
 
 

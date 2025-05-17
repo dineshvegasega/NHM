@@ -146,7 +146,11 @@ class NBPA_Form4 : Fragment() , CallBackListener {
 
 
             btSignIn.singleClick {
-                getData(true)
+                if(formFill3){
+                    getData(true)
+                } else {
+                    showSnackBar(getString(R.string.please_fill_required_entries))
+                }
             }
         }
     }

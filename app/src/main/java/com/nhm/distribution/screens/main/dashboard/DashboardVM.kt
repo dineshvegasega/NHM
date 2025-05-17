@@ -367,6 +367,32 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
     }
 
 
+    private var itemLiveSchemesCountResultTotal = MutableLiveData<BaseResponseDC<JsonElement>>()
+    val itemLiveSchemesCountTotal : LiveData<BaseResponseDC<JsonElement>> get() = itemLiveSchemesCountResultTotal
+
+    fun liveSchemeCountTotal(jsonObject: JSONObject) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.getPopularMoviesListCount(requestBody = jsonObject.getJsonRequestBody())
+
+                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
+                    if (response.isSuccessful) {
+                        itemLiveSchemesCountResultTotal.value = response.body()
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
 
     private var itemLiveSchemesMembersCountResult = MutableLiveData<BaseResponseDC<JsonElement>>()
     val itemLiveSchemesMembersCount : LiveData<BaseResponseDC<JsonElement>> get() = itemLiveSchemesMembersCountResult
@@ -393,6 +419,31 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
         )
     }
 
+
+    private var itemLiveSchemesMembersCountResultTotal = MutableLiveData<BaseResponseDC<JsonElement>>()
+    val itemLiveSchemesMembersCountTotal : LiveData<BaseResponseDC<JsonElement>> get() = itemLiveSchemesMembersCountResultTotal
+    fun liveSchemeMembersCountTotal(jsonObject: JSONObject) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.getPopularMoviesListMembersCount(requestBody = jsonObject.getJsonRequestBody())
+
+                override fun success(response: Response<BaseResponseDC<JsonElement>>) {
+                    if (response.isSuccessful) {
+                        itemLiveSchemesMembersCountResultTotal.value = response.body()
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
 
 
 

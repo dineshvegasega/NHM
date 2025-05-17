@@ -805,7 +805,7 @@
 
     <string name="controller">Controller</string>
     <string name="distributor">Distributor</string>
-    <string name="aadhaar_number">Aadhaar Number</string>
+    <string name="aadhaar_number">Aadhaar Number*</string>
     <string name="address">Address*</string>
 
     <string name="form1">Form1</string>
@@ -857,7 +857,7 @@
     <string name="TreatmentResult">Treatment Result</string>
 
     <string name="description_of_food_items">Description of Food Items</string>
-    <string name="signature">Signature*</string>
+    <string name="signature">Signature (Service Provider)*</string>
     <string name="dateSingle">Date*</string>
     <string name="HomeVisitFollowUp">Home Visit Follow Up</string>
 
@@ -935,7 +935,9 @@
     <string name="start_date_filter">Start Date</string>
     <string name="end_date_filter">End Date</string>
 
-    <string name="nbpa_forms_added_in_last_7_days">NBPA Forms added in Last 7 days</string>
+    <string name="total_distributors_added">Total Distributors added</string>
+    <string name="nbpa_forms_added">Total NBPA forms added</string>
+    <string name="nbpa_forms_added_in_last_7_days">NBPA forms added in Last 7 days</string>
     <string name="distributors_added_in_last_7_days">Distributors added in Last 7 days</string>
     <string name="EndDateshouldbegreaterthanStartDate">End Date should be greater than Start Date</string>
     <string name="SelectValidStartDateandEndDate">Select Valid Start Date and End Date</string>
@@ -957,7 +959,7 @@
     <string name="suggestion">Suggestion</string>
     <string name="service_provider">Service provider</string>
     <string name="home_visit_follow_up">Home Visit Follow Up</string>
-    <string name="signatureWithoutStar">Signature</string>
+    <string name="signatureWithoutStar">Signature (Patient)</string>
     <string name="comment">Remark</string>
     <string name="assistance_received_under_government_scheme">Assistance received under government scheme</string>
     <string name="name_of_help">Name of help</string>
@@ -976,5 +978,5 @@
     <string name="enter_valid_aadhaar_number">Enter Valid Aadhaar Number</string>
     <string name="enter_aadhaar_number_to_verify_the_patient">Enter Aadhaar number to\nverify the patient.</string>
     <string name="please_fill_required_entries">Please fill required* entries!</string>
-    <string name="already_exists_aadhaar">The entered Aadhaar number already exists.</string>
+    <string name="already_exists_aadhaar">The entered Aadhaar number already exists with another distributor.</string>
 </resources>

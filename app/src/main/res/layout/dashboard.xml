@@ -32,7 +32,7 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/textHeaderadfdsfTxt"
         android:layout_marginTop="@dimen/_10sdp"
-        tools:itemCount="6"
+        tools:itemCount="4"
         android:paddingHorizontal="@dimen/_5sdp"
         app:spanCount="2"
         android:scrollbars="vertical"
@@ -43,7 +43,124 @@
         />
 
 
-<androidx.appcompat.widget.LinearLayoutCompat
+
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearDistributors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            android:layout_marginTop="@dimen/_20sdp"
+            >
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearMember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:gravity="center"
+                android:visibility="visible"
+                android:layout_weight="1"
+                >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="@string/distributors_added_in_last_7_days"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:lines="2"
+                    tools:ignore="HardcodedText" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textNumberOfDistributers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_20sdp"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    tools:ignore="HardcodedText" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearMemberTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:visibility="visible"
+                >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="@string/total_distributors_added"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:lines="2"
+                    tools:ignore="HardcodedText" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textNumberOfDistributersTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_20sdp"
+                    app:fontFamily="@font/roboto_bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    tools:ignore="HardcodedText" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearForms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_15sdp"
@@ -51,55 +168,9 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        android:layout_marginTop="@dimen/_50sdp"
+        app:layout_constraintTop_toBottomOf="@+id/linearDistributors"
+            android:layout_marginTop="@dimen/_20sdp"
         >
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearMember"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            android:background="@color/white"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:visibility="gone"
-            >
-
-        <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:gravity="center"
-                android:text="@string/distributors_added_in_last_7_days"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp"
-                app:fontFamily="@font/roboto_bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:lines="2"
-                tools:ignore="HardcodedText" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textNumberOfDistributers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20sdp"
-                app:fontFamily="@font/roboto_bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="@dimen/_10sdp"
-                tools:ignore="HardcodedText" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -114,7 +185,7 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerView"
             android:gravity="center"
             android:layout_weight="1"
-            android:visibility="gone"
+            android:visibility="visible"
             >
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -148,7 +219,57 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearNBPATotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:visibility="visible"
+            >
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:gravity="center"
+                android:text="@string/nbpa_forms_added"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                app:fontFamily="@font/roboto_bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:lines="2"
+                tools:ignore="HardcodedText" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textTotalNumberOfNBPA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"
+                app:fontFamily="@font/roboto_bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                tools:ignore="HardcodedText" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutBanner"

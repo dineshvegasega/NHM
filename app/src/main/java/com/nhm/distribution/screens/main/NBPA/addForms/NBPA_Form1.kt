@@ -96,12 +96,12 @@ class NBPA_Form1 : Fragment() , CallBackListener {
                 }
 
                 editTextFatherHusband.setText("" + model.fatherHusband)
-//                if (model.mother.isNullOrEmpty()) {
-//                    editTextMother.setText("")
-//                } else {
-//                    editTextMother.setText("" + model.mother)
-//                }
-                editTextMother.setText(model.mother.getNotNullData())
+                if (model.mother.isNullOrEmpty()) {
+                    editTextMother.setText("")
+                } else {
+                    editTextMother.setText("" + model.mother)
+                }
+//                editTextMother.setText(model.mother.getNotNullData())
                 editTextGender.setText("" + model.gender)
                 editTextAge.setText("" + model.age)
                 editTextHeight.setText("" + model.height)
