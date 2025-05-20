@@ -2021,7 +2021,36 @@ fun getAbbreviatedFromDateTime(dateTime: Calendar, field: String): String? {
     return null
 }
 
-
+fun String.getMonthFromHindi() : String{
+    if (this == "जन"){
+        return "Jan"
+    } else if (this == "फ़र"){
+        return "Feb"
+    } else if (this == "मार्च"){
+        return "Mar"
+    } else if (this == "अप्रै"){
+        return "Apr"
+    } else if (this == "मई"){
+        return "May"
+    } else if (this == "जून"){
+        return "Jun"
+    } else if (this == "जुला"){
+        return "Jul"
+    } else if (this == "अग"){
+        return "Aug"
+    } else if (this == "सितं"){
+        return "Sep"
+    } else if (this == "अक्टू"){
+        return "Oct"
+    } else if (this == "नवं"){
+        return "Nov"
+    } else if (this == "दिसं"){
+        return "Dec"
+    } else {
+        return this
+    }
+    return ""
+}
 
 
 

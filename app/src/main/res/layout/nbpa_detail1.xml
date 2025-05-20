@@ -528,8 +528,15 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:textSize="@dimen/_10sdp"
-
                     android:text="@string/bpl"/>
+            <RadioButton
+                    android:id="@+id/radioButtonOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone"
+                    android:text="@string/other"/>
         </RadioGroup>
 
 

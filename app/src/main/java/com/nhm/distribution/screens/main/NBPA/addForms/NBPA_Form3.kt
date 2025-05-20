@@ -52,6 +52,7 @@ import com.nhm.distribution.utils.getAddress
 import com.nhm.distribution.utils.getCameraPath
 import com.nhm.distribution.utils.getImageName
 import com.nhm.distribution.utils.getMediaFilePathFor
+import com.nhm.distribution.utils.getMonthFromHindi
 import com.nhm.distribution.utils.loadImage
 import com.nhm.distribution.utils.mainThread
 import com.nhm.distribution.utils.showDropDownDialog
@@ -159,8 +160,9 @@ class NBPA_Form3 : Fragment() , CallBackListener {
 
             editTextMonth.singleClick {
                 requireActivity().showDropDownDialog(type = 21){
-                    editTextMonth.setText(title)
-                    viewModel.foodMonth = title
+                    Log.e("TAG", "getMonthFromHindi "+title)
+                    editTextMonth.setText(title.getMonthFromHindi())
+                    viewModel.foodMonth = title.getMonthFromHindi()
                 }
             }
 

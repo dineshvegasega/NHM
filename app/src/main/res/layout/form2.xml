@@ -78,14 +78,14 @@
                     android:id="@+id/radioButtonExtraPulmonary"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:textSize="@dimen/_10sdp"
                     android:text="@string/extra_Pulmonary"/>
                 <RadioButton
                     android:id="@+id/radioButtonOther"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:textSize="@dimen/_10sdp"
                     android:text="@string/other"/>
             </RadioGroup>

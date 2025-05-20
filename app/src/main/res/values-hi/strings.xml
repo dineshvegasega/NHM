@@ -605,8 +605,8 @@
 
     <string name="controller">नियंत्रक</string>
     <string name="distributor">वितरक</string>
-    <string name="aadhaar_number">आधार संख्या</string>
-    <string name="address">पता</string>
+    <string name="aadhaar_number">आधार संख्या*</string>
+    <string name="address">पता*</string>
 
     <string name="form1">फॉर्म 1</string>
     <string name="form2">फॉर्म 2</string>
@@ -615,7 +615,7 @@
     <string name="form5">फॉर्म 5</string>
     <string name="form6">फॉर्म 6</string>
     <string name="form7">फॉर्म 7</string>
-    <string name="father_name_husband_nameStar">पिता का नाम/पति का नाम</string>
+    <string name="father_name_husband_nameStar">पिता का नाम/पति का नाम*</string>
     <string name="father">पिता </string>
     <string name="husband">पति</string>
     <string name="mother_nameStar">माँ का नाम</string>
@@ -624,9 +624,9 @@
     <string name="heightStar">ऊंचाई(CM)*</string>
     <string name="weightStar">वज़न(KG)*</string>
     <string name="weight">वज़न(KG)</string>
-    <string name="number_of_membersStar">कुल परिवार के सदस्य</string>
-    <string name="number_of_childrensStar">बच्चों की संख्या (0-6 वर्ष)</string>
-    <string name="DMCNameStar">डीएमसी नाम</string>
+    <string name="number_of_membersStar">कुल परिवार के सदस्य*</string>
+    <string name="number_of_childrensStar">बच्चों की संख्या (0-6 वर्ष)*</string>
+    <string name="DMCNameStar">डीएमसी नाम*</string>
     <string name="district_StateStar">जिला/राज्य*</string>
     <string name="card">कार्ड*</string>
     <string name="apl">एपीएल</string>
@@ -664,13 +664,14 @@
     <string name="beneficiary_card">लाभार्थी कार्ड</string>
     <string name="checkup">चेकअप</string>
     <string name="food_items">खाद्य पदार्थ</string>
-    <string name="government_under_scheme">Government Scheme</string>
+    <string name="government_under_scheme">सरकारी योजना</string>
     <string name="diet_chart">डाइट चार्ट</string>
     <string name="clear">साफ़ करें</string>
     <string name="complete">पूरा करें</string>
     <string name="tryAgain">पुनः प्रयास करें</string>
 
     <string name="food_item_image">खाद्य पदार्थ छवि*</string>
+    <string name="aadhar_image">आधार छवि*</string>
     <string name="nbpa">एनबीपीए</string>">
     <string name="Nikshay_Beneficiary_Program_Activities_Form">Nikshay लाभार्थी कार्यक्रम गतिविधियाँ फॉर्म</string>
 
@@ -765,6 +766,8 @@
     <string name="project_coordinator_signature">परियोजना समन्वयक हस्ताक्षर</string>
     <string name="project_manager_signature">परियोजना प्रबंधक हस्ताक्षर</string>
     <string name="details">विवरण</string>
+
+    <string name="selectDate">तारीख़ चुनें</string>
     <string name="check_detail">विवरण जांचें</string>
     <string name="enter_valid_aadhaar_number">वैध आधार संख्या दर्ज करें</string>
     <string name="enter_aadhaar_number_to_verify_the_patient">मरीज़ की पुष्टि के लिए आधार\nनंबर दर्ज करें।</string>

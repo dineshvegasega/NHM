@@ -33,7 +33,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 @AndroidEntryPoint
-class NBPA_Form2 : Fragment() , CallBackListener {
+class NBPA_Form2 : Fragment(), CallBackListener {
     private lateinit var viewModel: NBPAViewModel
     private var _binding: Form2Binding? = null
     private val binding get() = _binding!!
@@ -57,14 +57,15 @@ class NBPA_Form2 : Fragment() , CallBackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(NBPAViewModel::class.java)
-       callBackListener = this
+        callBackListener = this
         binding.apply {
-            radioGroupPulmonaryRadioGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
+            radioGroupPulmonaryRadioGroup.setOnCheckedChangeListener(object :
+                RadioGroup.OnCheckedChangeListener {
                 override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
                     when (checkedId) {
-                        radioButtonPulmonary.id ->  viewModel.typeOfPatient = 1
-                        radioButtonExtraPulmonary.id ->  viewModel.typeOfPatient = 2
-                        radioButtonOther.id ->  viewModel.typeOfPatient = 3
+                        radioButtonPulmonary.id -> viewModel.typeOfPatient = 1
+                        radioButtonExtraPulmonary.id -> viewModel.typeOfPatient = 2
+                        radioButtonOther.id -> viewModel.typeOfPatient = 3
                     }
                 }
             })
@@ -74,19 +75,19 @@ class NBPA_Form2 : Fragment() , CallBackListener {
             }
 
             editTextPatientCheckupDate.singleClick {
-                requireActivity().showDropDownDialog(type = 20){
+                requireActivity().showDropDownDialog(type = 20) {
                     editTextPatientCheckupDate.setText(title)
                     viewModel.patientCheckupDate = title
                 }
             }
             editTextHemoglobinCheckupDate.singleClick {
-                requireActivity().showDropDownDialog(type = 20){
+                requireActivity().showDropDownDialog(type = 20) {
                     editTextHemoglobinCheckupDate.setText(title)
                     viewModel.hemoglobinCheckupDate = title
                 }
             }
             editTextTreatmentEndDate.singleClick {
-                requireActivity().showDropDownDialog(type = 20){
+                requireActivity().showDropDownDialog(type = 20) {
                     editTextTreatmentEndDate.setText(title)
                     viewModel.treatmentSupporterEndDate = title
                 }
@@ -95,49 +96,49 @@ class NBPA_Form2 : Fragment() , CallBackListener {
 
             if (viewModel.start == "no") {
                 btSignIn.visibility = View.VISIBLE
-                editTextAadhaarNumber.setText(""+viewModel.aadhaarNumber)
+                editTextAadhaarNumber.setText("" + viewModel.aadhaarNumber)
                 editTextAadhaarNumber.isEnabled = false
             } else {
                 var model = viewModel.editDataNew!!.data
 
-                    if (model.typeOfPatient == "1") {
-                        radioButtonPulmonary.isChecked = true
-                    } else if (model.typeOfPatient == "2") {
-                        radioButtonExtraPulmonary.isChecked = true
-                    } else {
-                        radioButtonOther.isChecked = true
-                    }
-                    for (i in 0..<radioGroupPulmonaryRadioGroup.getChildCount()) {
-                        radioGroupPulmonaryRadioGroup.getChildAt(i).setEnabled(false)
-                    }
+                if (model.typeOfPatient == "1") {
+                    radioButtonPulmonary.isChecked = true
+                } else if (model.typeOfPatient == "2") {
+                    radioButtonExtraPulmonary.isChecked = true
+                } else {
+                    radioButtonOther.isChecked = true
+                }
+                for (i in 0..<radioGroupPulmonaryRadioGroup.getChildCount()) {
+                    radioGroupPulmonaryRadioGroup.getChildAt(i).setEnabled(false)
+                }
 
-                    editTextPatientCheckupDate.setText(""+model.patientCheckupDate)
+                editTextPatientCheckupDate.setText("" + model.patientCheckupDate)
 //                editTextHemoglobinLevelAge.setText(""+model.hemoglobinLevelAge)
 //                editTextHemoglobinCheckupDate.setText(""+model.hemoglobinCheckupDate)
-                    if (model.hemoglobinLevelAge.isNullOrEmpty()){
-                        editTextHemoglobinLevelAge.setText("")
-                    }else{
-                        editTextHemoglobinLevelAge.setText(""+model.hemoglobinLevelAge)
-                    }
+                if (model.hemoglobinLevelAge.isNullOrEmpty()) {
+                    editTextHemoglobinLevelAge.setText("")
+                } else {
+                    editTextHemoglobinLevelAge.setText("" + model.hemoglobinLevelAge)
+                }
 
-                    if (model.hemoglobinCheckupDate.isNullOrEmpty()){
-                        editTextHemoglobinCheckupDate.setText("")
-                    }else{
-                        editTextHemoglobinCheckupDate.setText(""+model.hemoglobinCheckupDate)
-                    }
+                if (model.hemoglobinCheckupDate.isNullOrEmpty()) {
+                    editTextHemoglobinCheckupDate.setText("")
+                } else {
+                    editTextHemoglobinCheckupDate.setText("" + model.hemoglobinCheckupDate)
+                }
 
-                    if (model.muktiID.isNullOrEmpty()){
-                        editTextMuktiID.setText("")
-                    }else{
-                        editTextMuktiID.setText(""+model.muktiID)
-                    }
+                if (model.muktiID.isNullOrEmpty()) {
+                    editTextMuktiID.setText("")
+                } else {
+                    editTextMuktiID.setText("" + model.muktiID)
+                }
 
 
-                    if (model.aadhaarNumber.isNullOrEmpty()){
-                        editTextAadhaarNumber.setText("")
-                    }else{
-                        editTextAadhaarNumber.setText(""+model.aadhaarNumber)
-                    }
+                if (model.aadhaarNumber.isNullOrEmpty()) {
+                    editTextAadhaarNumber.setText("")
+                } else {
+                    editTextAadhaarNumber.setText("" + model.aadhaarNumber)
+                }
 
 
 //                editTextHemoglobinLevelAge.setText(model.hemoglobinLevelAge.getNotNullData())
@@ -146,9 +147,9 @@ class NBPA_Form2 : Fragment() , CallBackListener {
 
 
 //                editTextMuktiID.setText(""+model.muktiID)
-                    editTextNakshayID.setText(""+model.nakshayID)
+                editTextNakshayID.setText("" + model.nakshayID)
 //                editTextAadhaarNumber.setText(""+model.aadhaarNumber)
-                    editTextBusiness.setText(""+model.business)
+                editTextBusiness.setText("" + model.business)
 //                editTextBankAccount.setText(""+model.bankAccount)
 //                editTextBankIFSC.setText(""+model.bankIFSC)
 //                editTextTreatmentSupporterName.setText(""+model.treatmentSupporterName)
@@ -158,47 +159,47 @@ class NBPA_Form2 : Fragment() , CallBackListener {
 //                editTextTreatmentResult.setText(""+model.treatmentSupporterResult)
 
 
-                    if (model.bankAccount.isNullOrEmpty()){
-                        editTextBankAccount.setText("")
-                    }else{
-                        editTextBankAccount.setText(""+model.bankAccount)
-                    }
+                if (model.bankAccount.isNullOrEmpty()) {
+                    editTextBankAccount.setText("")
+                } else {
+                    editTextBankAccount.setText("" + model.bankAccount)
+                }
 
-                    if (model.bankIFSC.isNullOrEmpty()){
-                        editTextBankIFSC.setText("")
-                    }else{
-                        editTextBankIFSC.setText(""+model.bankIFSC)
-                    }
+                if (model.bankIFSC.isNullOrEmpty()) {
+                    editTextBankIFSC.setText("")
+                } else {
+                    editTextBankIFSC.setText("" + model.bankIFSC)
+                }
 
-                    if (model.treatmentSupporterName.isNullOrEmpty()){
-                        editTextTreatmentSupporterName.setText("")
-                    }else{
-                        editTextTreatmentSupporterName.setText(""+model.treatmentSupporterName)
-                    }
+                if (model.treatmentSupporterName.isNullOrEmpty()) {
+                    editTextTreatmentSupporterName.setText("")
+                } else {
+                    editTextTreatmentSupporterName.setText("" + model.treatmentSupporterName)
+                }
 
-                    if (model.treatmentSupporterPost.isNullOrEmpty()){
-                        editTextTreatmentSupporterPost.setText("")
-                    }else{
-                        editTextTreatmentSupporterPost.setText(""+model.treatmentSupporterPost)
-                    }
+                if (model.treatmentSupporterPost.isNullOrEmpty()) {
+                    editTextTreatmentSupporterPost.setText("")
+                } else {
+                    editTextTreatmentSupporterPost.setText("" + model.treatmentSupporterPost)
+                }
 
-                    if (model.treatmentSupporterMobileNumber.isNullOrEmpty()){
-                        editTextTreatmentSupporterMobileNumber.setText("")
-                    }else{
-                        editTextTreatmentSupporterMobileNumber.setText(""+model.treatmentSupporterMobileNumber)
-                    }
+                if (model.treatmentSupporterMobileNumber.isNullOrEmpty()) {
+                    editTextTreatmentSupporterMobileNumber.setText("")
+                } else {
+                    editTextTreatmentSupporterMobileNumber.setText("" + model.treatmentSupporterMobileNumber)
+                }
 
-                    if (model.treatmentSupporterEndDate.isNullOrEmpty()){
-                        editTextTreatmentEndDate.setText("")
-                    }else{
-                        editTextTreatmentEndDate.setText(""+model.treatmentSupporterEndDate)
-                    }
+                if (model.treatmentSupporterEndDate.isNullOrEmpty()) {
+                    editTextTreatmentEndDate.setText("")
+                } else {
+                    editTextTreatmentEndDate.setText("" + model.treatmentSupporterEndDate)
+                }
 
-                    if (model.treatmentSupporterResult.isNullOrEmpty()){
-                        editTextTreatmentResult.setText("")
-                    }else{
-                        editTextTreatmentResult.setText(""+model.treatmentSupporterResult)
-                    }
+                if (model.treatmentSupporterResult.isNullOrEmpty()) {
+                    editTextTreatmentResult.setText("")
+                } else {
+                    editTextTreatmentResult.setText("" + model.treatmentSupporterResult)
+                }
 
 //                editTextBankAccount.setText(getNotNullData(model.bankAccount))
 //                editTextBankIFSC.setText(getNotNullData(model.bankIFSC))
@@ -230,13 +231,13 @@ class NBPA_Form2 : Fragment() , CallBackListener {
 
             btSignIn.singleClick {
 
-                Log.e("TAG", "formFill1: "+formFill1)
+                Log.e("TAG", "formFill1: " + formFill1)
 
 //                if (!formFill1) {
 //                    showSnackBar(getString(R.string.please_fill_required_entries))
 //                } else
 
-                    if (editTextPatientCheckupDate.text.toString() == "") {
+                if (editTextPatientCheckupDate.text.toString() == "") {
                     showSnackBar(getString(R.string.selectCheckupDate))
 //                } else if (editTextHemoglobinLevelAge.text.toString() == "") {
 //                    showSnackBar(getString(R.string.hemoglobin_level))
@@ -272,9 +273,12 @@ class NBPA_Form2 : Fragment() , CallBackListener {
                     viewModel.business = editTextBusiness.text.toString()
                     viewModel.bankAccount = editTextBankAccount.text.toString()
                     viewModel.bankIFSC = editTextBankIFSC.text.toString()
-                    viewModel.treatmentSupporterName = editTextTreatmentSupporterName.text.toString()
-                    viewModel.treatmentSupporterPost = editTextTreatmentSupporterPost.text.toString()
-                    viewModel.treatmentSupporterMobileNumber = editTextTreatmentSupporterMobileNumber.text.toString()
+                    viewModel.treatmentSupporterName =
+                        editTextTreatmentSupporterName.text.toString()
+                    viewModel.treatmentSupporterPost =
+                        editTextTreatmentSupporterPost.text.toString()
+                    viewModel.treatmentSupporterMobileNumber =
+                        editTextTreatmentSupporterMobileNumber.text.toString()
                     viewModel.treatmentSupporterResult = editTextTreatmentResult.text.toString()
 //                    NBPA.callBackListener!!.onCallBack(1002)
 
@@ -284,16 +288,22 @@ class NBPA_Form2 : Fragment() , CallBackListener {
                             val dataId = Gson().fromJson(loginUser, Login::class.java).id
                             val requestBody: MultipartBody.Builder = MultipartBody.Builder()
                                 .setType(MultipartBody.FORM)
-                                .addFormDataPart(user_id, ""+dataId)
+                                .addFormDataPart(user_id, "" + dataId)
 
                             if (viewModel.name != null) {
-                                requestBody.addFormDataPart(formName, ""+viewModel.name)
+                                requestBody.addFormDataPart(formName, "" + viewModel.name)
                             }
                             if (viewModel.fatherHusbandType != null) {
-                                requestBody.addFormDataPart(fatherHusbandType, ""+viewModel.fatherHusbandType)
+                                requestBody.addFormDataPart(
+                                    fatherHusbandType,
+                                    "" + viewModel.fatherHusbandType
+                                )
                             }
                             if (viewModel.fatherHusband != null) {
-                                requestBody.addFormDataPart(fatherHusband, ""+viewModel.fatherHusband)
+                                requestBody.addFormDataPart(
+                                    fatherHusband,
+                                    "" + viewModel.fatherHusband
+                                )
                             }
                             if (viewModel.mother != null) {
                                 requestBody.addFormDataPart(mother, viewModel.mother)
@@ -311,10 +321,16 @@ class NBPA_Form2 : Fragment() , CallBackListener {
                                 requestBody.addFormDataPart(weight, viewModel.weight)
                             }
                             if (viewModel.numberOfMembers != null) {
-                                requestBody.addFormDataPart(numberOfMembers, viewModel.numberOfMembers)
+                                requestBody.addFormDataPart(
+                                    numberOfMembers,
+                                    viewModel.numberOfMembers
+                                )
                             }
                             if (viewModel.numberOfChildren != null) {
-                                requestBody.addFormDataPart(numberOfChildren, viewModel.numberOfChildren)
+                                requestBody.addFormDataPart(
+                                    numberOfChildren,
+                                    viewModel.numberOfChildren
+                                )
                             }
                             if (viewModel.address != null) {
                                 requestBody.addFormDataPart(address, viewModel.address)
@@ -332,20 +348,35 @@ class NBPA_Form2 : Fragment() , CallBackListener {
                                 requestBody.addFormDataPart(districtState, viewModel.districtState)
                             }
                             if (viewModel.cardTypeAPLBPL != null) {
-                                requestBody.addFormDataPart(cardTypeAPLBPL, ""+viewModel.cardTypeAPLBPL)
+                                requestBody.addFormDataPart(
+                                    cardTypeAPLBPL,
+                                    "" + viewModel.cardTypeAPLBPL
+                                )
                             }
 
                             if (viewModel.typeOfPatient != null) {
-                                requestBody.addFormDataPart(typeOfPatient, ""+viewModel.typeOfPatient)
+                                requestBody.addFormDataPart(
+                                    typeOfPatient,
+                                    "" + viewModel.typeOfPatient
+                                )
                             }
                             if (viewModel.patientCheckupDate != null) {
-                                requestBody.addFormDataPart(patientCheckupDate, viewModel.patientCheckupDate)
+                                requestBody.addFormDataPart(
+                                    patientCheckupDate,
+                                    viewModel.patientCheckupDate
+                                )
                             }
                             if (viewModel.hemoglobinLevelAge != null) {
-                                requestBody.addFormDataPart(hemoglobinLevelAge, viewModel.hemoglobinLevelAge)
+                                requestBody.addFormDataPart(
+                                    hemoglobinLevelAge,
+                                    viewModel.hemoglobinLevelAge
+                                )
                             }
                             if (viewModel.hemoglobinCheckupDate != null) {
-                                requestBody.addFormDataPart(hemoglobinCheckupDate, viewModel.hemoglobinCheckupDate)
+                                requestBody.addFormDataPart(
+                                    hemoglobinCheckupDate,
+                                    viewModel.hemoglobinCheckupDate
+                                )
                             }
                             if (viewModel.muktiID != null) {
                                 requestBody.addFormDataPart(muktiID, viewModel.muktiID)
@@ -366,22 +397,35 @@ class NBPA_Form2 : Fragment() , CallBackListener {
                                 requestBody.addFormDataPart(bankIFSC, viewModel.bankIFSC)
                             }
                             if (viewModel.treatmentSupporterName != null) {
-                                requestBody.addFormDataPart(treatmentSupporterName, viewModel.treatmentSupporterName)
+                                requestBody.addFormDataPart(
+                                    treatmentSupporterName,
+                                    viewModel.treatmentSupporterName
+                                )
                             }
                             if (viewModel.treatmentSupporterPost != null) {
-                                requestBody.addFormDataPart(treatmentSupporterPost, viewModel.treatmentSupporterPost)
+                                requestBody.addFormDataPart(
+                                    treatmentSupporterPost,
+                                    viewModel.treatmentSupporterPost
+                                )
                             }
                             if (viewModel.treatmentSupporterMobileNumber != null) {
-                                requestBody.addFormDataPart(treatmentSupporterMobileNumber, viewModel.treatmentSupporterMobileNumber)
+                                requestBody.addFormDataPart(
+                                    treatmentSupporterMobileNumber,
+                                    viewModel.treatmentSupporterMobileNumber
+                                )
                             }
                             if (viewModel.treatmentSupporterEndDate != null) {
-                                requestBody.addFormDataPart(treatmentSupporterEndDate, viewModel.treatmentSupporterEndDate)
+                                requestBody.addFormDataPart(
+                                    treatmentSupporterEndDate,
+                                    viewModel.treatmentSupporterEndDate
+                                )
                             }
                             if (viewModel.treatmentSupporterResult != null) {
-                                requestBody.addFormDataPart(treatmentSupporterResult, viewModel.treatmentSupporterResult)
+                                requestBody.addFormDataPart(
+                                    treatmentSupporterResult,
+                                    viewModel.treatmentSupporterResult
+                                )
                             }
-
-
 
 
 //                            MaterialAlertDialogBuilder(requireActivity(), R.style.LogoutDialogTheme)
@@ -389,19 +433,28 @@ class NBPA_Form2 : Fragment() , CallBackListener {
 //                                .setMessage(resources.getString(R.string.are_your_sure_want_to_submit))
 //                                .setPositiveButton(resources.getString(R.string.submit)) { dialog, _ ->
 //                                    dialog.dismiss()
-                                    if(networkFailed) {
-                                        viewModel.registerWithFiles(
-                                            view = requireView(),
-                                            requestBody.build()
-                                        ){
-                                            Log.e("TAG", "this.scheme_id.toString()" +this.scheme_id.toString())
-                                            viewModel.scheme_id = this.scheme_id.toString()
-                                            NBPA.callBackListener!!.onCallBack(1002)
-                                        }
-                                    } else {
-                                        requireContext().callNetworkDialog()
+
+                            if (viewModel.scheme_id.isEmpty()) {
+                                if (networkFailed) {
+                                    viewModel.registerWithFiles(
+                                        view = requireView(),
+                                        requestBody.build()
+                                    ) {
+                                        Log.e(
+                                            "TAG",
+                                            "this.scheme_id.toString()" + this.scheme_id.toString()
+                                        )
+                                        viewModel.scheme_id = this.scheme_id.toString()
+                                        NBPA.callBackListener!!.onCallBack(1002)
                                     }
+                                } else {
+                                    requireContext().callNetworkDialog()
                                 }
+                            } else {
+                                NBPA.callBackListener!!.onCallBack(1002)
+                            }
+
+                        }
 //                                .setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
 //                                    dialog.dismiss()
 //                                    NBPA.callBackListener!!.onCallBack(1000)
@@ -418,9 +471,8 @@ class NBPA_Form2 : Fragment() , CallBackListener {
     }
 
 
-
     override fun onCallBack(pos: Int) {
-        Log.e("TAG", "onCallBackNo2 "+pos)
+        Log.e("TAG", "onCallBackNo2 " + pos)
 //        NBPA.callBackListener!!.onCallBack(1000)
     }
 }

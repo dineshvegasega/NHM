@@ -146,6 +146,7 @@ class NBPA_Form4 : Fragment() , CallBackListener {
 
 
             btSignIn.singleClick {
+                Log.e("TAG", "formFill3 "+formFill3)
                 if(formFill3){
                     getData(true)
                 } else {

@@ -198,9 +198,11 @@ class NBPA_Form5 : Fragment(), CallBackListener {
 
             btSignIn.singleClick {
                 Log.e("TAG", "formFill3 "+formFill3)
-                if(formFill3){
+                if(formFill3 == true){
+                    Log.e("TAG", "formFillAAAAA "+formFill3)
                     getData(true)
                 } else {
+                    Log.e("TAG", "formFillBBBBB "+formFill3)
                     showSnackBar(getString(R.string.please_fill_required_entries))
                 }
             }
@@ -395,7 +397,6 @@ class NBPA_Form5 : Fragment(), CallBackListener {
             if (viewModel.scheme_id != "") {
                 requestBody.addFormDataPart("schemeId", viewModel.scheme_id)
             }
-
             if (viewModel.foodMonth != null) {
                 requestBody.addFormDataPart(foodMonth, viewModel.foodMonth)
             }

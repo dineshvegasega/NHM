@@ -191,7 +191,7 @@ class NBPAViewModel @Inject constructor(private val repository: Repository) : Vi
 
                 override fun error(message: String) {
                     super.error(message)
-                    showSnackBar(view.resources.getString(R.string.please_fill_required_entries))
+                    showSnackBar(view.resources.getString(R.string.something_went_wrong))
                 }
 
                 override fun loading() {

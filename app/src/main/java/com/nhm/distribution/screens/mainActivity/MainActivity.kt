@@ -85,7 +85,12 @@ import com.nhm.distribution.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import okhttp3.MultipartBody
+import org.jetbrains.annotations.NotNull
 import java.lang.ref.WeakReference
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -295,6 +300,9 @@ class MainActivity : AppCompatActivity() {
                 userType = ""+user.user_role
             }
         }
+
+
+
 
 
 //        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
@@ -1436,6 +1444,8 @@ class MainActivity : AppCompatActivity() {
 //        canvas.drawText(text, x * scale, y * scale, pText)
 
         binding.ivLogoAA.setImageBitmap(newBitmap)
+
+
     }
 
 

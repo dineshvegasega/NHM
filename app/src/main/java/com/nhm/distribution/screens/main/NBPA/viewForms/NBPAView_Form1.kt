@@ -63,8 +63,10 @@ class NBPAView_Form1 : Fragment() {
                 editTextDistrictState.setText(""+model.districtState)
                 if (model.cardTypeAPLBPL == 1) {
                     radioButtonAPL.isChecked = true
-                } else {
+                } else if (model.cardTypeAPLBPL == 2) {
                     radioButtonBPL.isChecked = true
+                } else if (model.cardTypeAPLBPL == 3) {
+                    radioButtonOther.isChecked = true
                 }
                 for (i in 0..<radioGroupCardAPLBPLGroup.getChildCount()) {
                     radioGroupCardAPLBPLGroup.getChildAt(i).setEnabled(false)

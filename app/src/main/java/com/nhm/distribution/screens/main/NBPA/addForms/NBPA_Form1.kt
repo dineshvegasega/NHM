@@ -64,6 +64,7 @@ class NBPA_Form1 : Fragment() , CallBackListener {
                     when (checkedId) {
                         radioButtonAPL.id -> viewModel.cardTypeAPLBPL = 1
                         radioButtonBPL.id -> viewModel.cardTypeAPLBPL = 2
+                        radioButtonOther.id -> viewModel.cardTypeAPLBPL = 3
                     }
                 }
             })
