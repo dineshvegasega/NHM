@@ -4,14 +4,14 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.nhm.distribution",
+  "applicationId": "com.nhm.distributor",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 4,
+      "versionCode": 1,
       "versionName": "1.0.3",
       "outputFile": "app-release.apk"
     }
